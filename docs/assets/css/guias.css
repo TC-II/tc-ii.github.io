@@ -1,0 +1,56 @@
+.guides-alt {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.gcard {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  align-items: stretch;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.gcard.flip {
+  direction: rtl;           /* Truco rápido para invertir columnas */
+}
+.gcard.flip > * { direction: ltr; }
+
+.gthumb, .gthumb img, .gthumb-placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gthumb-placeholder {
+  display:flex; align-items:center; justify-content:center;
+  background:#f3f4f6;
+}
+
+.gbody { padding: 14px; }
+.gtitle { margin: 4px 0 8px; font-size: 1.05rem; }
+.gdesc { margin: 0 0 10px; color:#374151; }
+
+.small { font-size: .85rem; }
+.text-dim { color:#6b7280; }
+
+.pill {
+  display:inline-block; padding:.15rem .45rem; border-radius:999px;
+  background:#eef2ff; color:#30336b; /* suave, sin morado chillón */
+}
+
+.actions { display:flex; gap:.5rem; }
+.btn {
+  display:inline-block; padding:.4rem .7rem; border-radius:10px;
+  border:1px solid #e5e7eb; text-decoration:none; color:#111827;
+  background:#fafafa;
+}
+.btn.ghost { background:transparent; }
+
+@media (max-width: 900px) {
+  .guides-alt { grid-template-columns: 1fr; }
+  .gcard { grid-template-columns: 1fr; }
+}
