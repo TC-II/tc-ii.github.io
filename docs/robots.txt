@@ -1,1 +1,1 @@
-Sitemap: https://teoria-de-circuitos-ii.github.io/Pagina_material/sitemap.xml
+Sitemap: /sitemap.xml
