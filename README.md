@@ -1,25 +1,62 @@
-# TC2 Jekyll Site
+# 📚 Teoría de Circuitos II – ITBA
 
-## Uso rápido
-1. Copiar el contenido de este zip en tu carpeta del proyecto (raíz Jekyll).
-2. Instalar dependencias:
+Repositorio del sitio web de la materia **Teoría de Circuitos II (ITBA)**, creado con [Jekyll](https://jekyllrb.com/) para centralizar material de estudio: guías, exámenes, material de clases, recursos y playlists.
+
+---
+
+## 🚀 Uso rápido
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/Teoria-de-Circuitos-II/Pagina_material.git
+   cd Pagina_material
+   ```
+
+2. **Instalar dependencias**
    ```bash
    bundle install
    ```
-3. Levantar en local:
+
+3. **Levantar el servidor local**
    ```bash
    bundle exec jekyll serve
    ```
-4. Abrir http://localhost:4000
 
-## Estructura
-- `_layouts`, `_includes`: layouts e includes personalizados.
-- `assets/css/main.css`: estilo moderno con glass/gradientes y dark mode (prefiere el modo del SO).
-- Colecciones: `guias`, `examenes`, `clases`, `recursos`, `playlists`.
+4. **Abrir en el navegador**
+   ```
+   http://localhost:4000
+   ```
+
+---
+
+## 📂 Estructura del proyecto
+
+- `_layouts`, `_includes` → layouts e includes personalizados.
+- `assets/css/main.css` → estilo moderno inspirado en Apple (glassmorphism, gradientes, dark mode automático).
+- Colecciones personalizadas:
+  - `guias/`
+  - `examenes/`
+  - `clases/`
+  - `recursos/`
+  - `playlists/`
 - Páginas índice para cada colección.
 - Ejemplos de ítems en cada colección.
 
-## Notas
-- Colocá tus PDFs en `assets/guias`, `assets/examenes`, `assets/clases` y ajustá `archivo:` en el front matter.
-- El diseño evita dependencias externas (sin Tailwind) para simplicidad.
-- Si usás GitHub Pages clásico, estos plugins pueden requerir build vía Actions.
+---
+
+## 📄 Notas para colaborar
+
+- Colocar PDFs en:
+  - `assets/guias`
+  - `assets/examenes`
+  - `assets/clases`
+- Ajustar el campo `archivo:` en el **front matter** del Markdown correspondiente.
+- El diseño evita dependencias externas (sin Tailwind) para simplicidad y compatibilidad con GitHub Pages.
+- Si se usan **plugins no soportados por GitHub Pages**, es posible que se requiera compilar vía **GitHub Actions** y publicar el contenido generado en `/docs`.
+
+---
+
+## 📬 Contacto
+
+**Cátedra TC II – ITBA**  
+📧 contacto@itba.edu.ar
