@@ -1,0 +1,6 @@
+url: "https://teoria-de-circuitos-ii.github.io"
+baseurl: "/Pagina_material"
+
+kramdown:
+  input: GFM
+  math_engine: katex
