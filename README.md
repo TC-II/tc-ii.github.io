@@ -1,4 +1,4 @@
-# TC2 Jekyll Site (Apple-inspired)
+# TC2 Jekyll Site
 
 ## Uso rápido
 1. Copiar el contenido de este zip en tu carpeta del proyecto (raíz Jekyll).
