@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<article class="item card">
+  <h1 class="title-lg">{{ page.title }}</h1>
+  {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+
+  <div class="meta small text-dim">
+    {% if page.tipo %}<span class="pill">{{ page.tipo }}</span>{% endif %}
+    {% if page.unidad %} • Unidad: {{ page.unidad }}{% endif %}
+    {% if page.tema %} • Tema: {{ page.tema }}{% endif %}
+    {% if page.anio %} • Año: {{ page.anio }}{% endif %}
+    {% if page.turno %} • Turno: {{ page.turno }}{% endif %}
+    {% if page.fecha %} • Fecha: {{ page.fecha | date: "%d/%m/%Y" }}{% endif %}
+  </div>
+
+  {% include toc.html %}
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <div class="actions">
+    {% if page.archivo %}
+      <a class="btn" href="{{ page.archivo | relative_url }}">Descargar PDF</a>
+    {% endif %}
+    {% if page.repo_url %}
+      <a class="btn ghost" href="{{ page.repo_url }}" target="_blank" rel="noopener">Repositorio</a>
+    {% endif %}
+    {% if page.demo_url %}
+      <a class="btn ghost" href="{{ page.demo_url }}" target="_blank" rel="noopener">Demo</a>
+    {% endif %}
+    {% if page.playlist_url %}
+      <a class="btn ghost" href="{{ page.playlist_url }}" target="_blank" rel="noopener">Ver Playlist</a>
+    {% endif %}
+  </div>
+</article>

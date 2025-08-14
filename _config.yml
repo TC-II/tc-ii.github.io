@@ -1,0 +1,98 @@
+title: Teoría de Circuitos II - ITBA
+email: contacto@itba.edu.ar
+description: >-
+  Material de la materia Teoría de Circuitos II (ITBA): guías, exámenes, clases, recursos y playlists.
+url: ""            # cambiar por dominio real si aplica
+baseurl: ""        # dejar vacío si va en la raíz
+lang: es
+timezone: America/Argentina/Buenos_Aires
+
+# Sin theme: usamos nuestros propios layouts/estilos
+# theme: minima
+
+collections:
+  guias:
+    output: true
+    permalink: /guias/:slug/
+  examenes:
+    output: true
+    permalink: /examenes/:slug/
+  clases:
+    output: true
+    permalink: /clases/:slug/
+  recursos:
+    output: true
+    permalink: /recursos/:slug/
+  playlists:
+    output: true
+    permalink: /playlists/:slug/
+  posts:
+    output: true
+    permalink: /blog/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+      toc: true
+  - scope:
+      path: ""
+      type: "guias"
+    values:
+      layout: item
+      tipo: "Guía"
+  - scope:
+      path: ""
+      type: "examenes"
+    values:
+      layout: item
+      tipo: "Examen"
+  - scope:
+      path: ""
+      type: "clases"
+    values:
+      layout: item
+      tipo: "Clase"
+  - scope:
+      path: ""
+      type: "recursos"
+    values:
+      layout: item
+      tipo: "Recurso"
+  - scope:
+      path: ""
+      type: "playlists"
+    values:
+      layout: item
+      tipo: "Playlist"
+
+permalink: pretty
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-archives
+  - jekyll-include-cache
+
+kramdown:
+  input: GFM
+  math_engine: katex
+
+author:
+  name: Cátedra TC II - ITBA
+  url: ""
+  email: contacto@itba.edu.ar
+
+toc:
+  min_level: 2
+  max_level: 4
+
+exclude:
+  - "node_modules"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "README.md"
+

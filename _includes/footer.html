@@ -1,0 +1,10 @@
+<div class="footer-links">
+  <ul>
+    {% for item in site.data.navigation.footer %}
+      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<p class="copyright text-dim small">
+  © {{ "now" | date: "%Y" }} {{ site.title }}. Generado con Jekyll.
+</p>

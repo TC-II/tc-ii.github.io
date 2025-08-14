@@ -1,0 +1,25 @@
+main:
+  - title: "Inicio"
+    url: "/"
+  - title: "Guías"
+    url: "/guias/"
+  - title: "Exámenes"
+    url: "/examenes/"
+  - title: "Clases"
+    url: "/clases/"
+  - title: "Recursos"
+    url: "/recursos/"
+  - title: "Playlists"
+    url: "/playlists/"
+  - title: "Blog"
+    url: "/blog/"
+  - title: "Sobre la cátedra"
+    url: "/sobre/"
+
+footer:
+  - title: "ITBA"
+    url: "https://www.itba.edu.ar/"
+  - title: "Repositorio"
+    url: "https://github.com/"   # cambiar
+  - title: "Contacto"
+    url: "mailto:contacto@itba.edu.ar"

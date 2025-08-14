@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<article class="post">
+  <h1 class="title-xl">{{ page.title }}</h1>
+  <p class="meta">
+    Publicado el {{ page.date | date: "%d/%m/%Y" }}
+    {% if page.author %} por {{ page.author }}{% endif %}
+  </p>
+  {% include toc.html %}
+  {{ content }}
+  {% if page.tags %}
+    <p class="tags"><strong>Tags:</strong> {{ page.tags | join: ", " }}</p>
+  {% endif %}
+</article>
