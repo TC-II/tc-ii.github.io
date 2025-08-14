@@ -1,10 +1,39 @@
-<div class="footer-links">
-  <ul>
-    {% for item in site.data.navigation.footer %}
-      <li><a href="{{ item.url }}">{{ item.title }}</a></li>
-    {% endfor %}
-  </ul>
-</div>
-<p class="copyright text-dim small">
-  © {{ "now" | date: "%Y" }} {{ site.title }}. Generado con Jekyll.
-</p>
+<footer class="site-footer">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <h4>Teoría de Circuitos II</h4>
+        <p>Material académico: guías, exámenes, clases y recursos.</p>
+      </div>
+      <div>
+        <h4>Secciones</h4>
+        <ul>
+          <li><a href="{{ '/' | relative_url }}">Inicio</a></li>
+          <li><a href="{{ '/guias/' | relative_url }}">Guías</a></li>
+          <li><a href="{{ '/examenes/' | relative_url }}">Exámenes</a></li>
+          <li><a href="{{ '/clases/' | relative_url }}">Clases</a></li>
+          <li><a href="{{ '/recursos/' | relative_url }}">Recursos</a></li>
+          <li><a href="{{ '/playlists/' | relative_url }}">Playlists</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Recursos</h4>
+        <ul>
+          <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+          <li><a href="{{ '/sobre/' | relative_url }}">Sobre la cátedra</a></li>
+          <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+          <li><a href="https://github.com/Teoria-de-Circuitos-II/Pagina_material" target="_blank" rel="noopener">Repositorio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Créditos</h4>
+        <p>Contenido y diseño mantenidos por la cátedra. Sitio generado con Jekyll.</p>
+      </div>
+    </div>
+
+    <div class="legal">
+      <span>© {{ 'now' | date: '%Y' }} Teoría de Circuitos II – ITBA</span>
+      <span>Hecho con ♥ · Estilo minimal inspirado en Apple</span>
+    </div>
+  </div>
+</footer>

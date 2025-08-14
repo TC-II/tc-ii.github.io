@@ -1,31 +1,15 @@
 <!doctype html>
-<html lang="{{ site.lang | default: 'es' }}">
+<html lang="es">
   <head>
     {% include head.html %}
+    <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
   </head>
   <body>
-    <header class="site-header glass">
-      <div class="container navwrap">
-        <a class="site-title" href="{{ '/' | relative_url }}">
-          <img src="{{ '/assets/img/logo.svg' | relative_url }}" alt="TC2" class="logo">
-          <span>{{ site.title }}</span>
-        </a>
-        {% include navbar.html %}
-        <button class="nav-toggle" aria-label="Abrir menú" onclick="toggleNav()">☰</button>
-      </div>
-    </header>
+    {% include navbar.html %}
 
-    <main class="container content">
-      {{ content }}
-    </main>
+    <!-- Contenido de cada página -->
+    {{ content }}
 
-    <footer class="site-footer">
-      <div class="container">
-        {% include footer.html %}
-      </div>
-    </footer>
-
-    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+    {% include footer.html %}
   </body>
 </html>

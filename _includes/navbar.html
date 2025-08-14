@@ -1,7 +1,27 @@
-<nav class="nav">
-  <ul id="nav-list">
-    {% for item in site.data.navigation.main %}
-      <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
-    {% endfor %}
-  </ul>
-</nav>
+<header class="site-header">
+  <div class="container navwrap">
+    <a class="site-title" href="{{ '/' | relative_url }}">
+      <img class="logo" alt="" aria-hidden="true"
+           src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><rect rx='8' ry='8' width='28' height='28' fill='%230a84ff'/><circle cx='9.5' cy='12' r='5' fill='%23eef3f9'/><rect x='15' y='7' width='9' height='18' rx='6' fill='%23eef3f9'/><rect x='15' y='12' width='9' height='4' fill='%230a84ff'/></svg>">
+      Teoría de Circuitos II - ITBA
+    </a>
+
+    <nav class="nav" id="mainNav" aria-label="Navegación principal">
+      <button class="nav-toggle" aria-label="Abrir menú" onclick="
+        var n=document.getElementById('mainNav');
+        n.classList.toggle('open'); this.setAttribute('aria-expanded', n.classList.contains('open'));
+      ">☰</button>
+
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">Inicio</a></li>
+        <li><a href="{{ '/guias/' | relative_url }}">Guías</a></li>
+        <li><a href="{{ '/examenes/' | relative_url }}">Exámenes</a></li>
+        <li><a href="{{ '/clases/' | relative_url }}">Clases</a></li>
+        <li><a href="{{ '/recursos/' | relative_url }}">Recursos</a></li>
+        <li><a href="{{ '/playlists/' | relative_url }}">Playlists</a></li>
+        <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+        <li><a href="{{ '/sobre/' | relative_url }}">Sobre la cátedra</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

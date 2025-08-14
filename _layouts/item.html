@@ -1,36 +1,58 @@
 ---
 layout: default
 ---
-<article class="item card">
-  <h1 class="title-lg">{{ page.title }}</h1>
-  {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
 
-  <div class="meta small text-dim">
-    {% if page.tipo %}<span class="pill">{{ page.tipo }}</span>{% endif %}
-    {% if page.unidad %} • Unidad: {{ page.unidad }}{% endif %}
-    {% if page.tema %} • Tema: {{ page.tema }}{% endif %}
-    {% if page.anio %} • Año: {{ page.anio }}{% endif %}
-    {% if page.turno %} • Turno: {{ page.turno }}{% endif %}
-    {% if page.fecha %} • Fecha: {{ page.fecha | date: "%d/%m/%Y" }}{% endif %}
-  </div>
+<main class="container after-header">
+  <article class="item card">
+    <!-- Título -->
+    <h1 class="title-lg">{{ page.title }}</h1>
 
-  {% include toc.html %}
-  <div class="prose">
-    {{ content }}
-  </div>
+    <!-- Meta/chips -->
+    <div class="meta small text-dim" style="margin-top:.25rem">
+      {% if page.tipo %}<span class="pill">{{ page.tipo }}</span>{% endif %}
+      {% if page.unidad %} · Unidad: {{ page.unidad }}{% endif %}
+      {% if page.tema %} · Tema: {{ page.tema }}{% endif %}
+      {% if page.fecha %} · {{ page.fecha | date: "%d/%m/%Y" }}{% endif %}
+    </div>
 
-  <div class="actions">
+    <!-- Sección “Contenido” -->
+    <div class="card soft" style="margin-top:1rem">
+      <strong>Contenido</strong>
+    </div>
+
+    {% if page.descripcion %}
+      <p class="lead" style="margin-top:1rem">{{ page.descripcion }}</p>
+    {% endif %}
+
+    <!-- Markdown del documento (opcional) -->
+    <div class="prose">
+      {{ content }}
+    </div>
+
     {% if page.archivo %}
-      <a class="btn" href="{{ page.archivo | relative_url }}">Descargar PDF</a>
+      <!-- Acciones -->
+      <div class="actions" style="gap:.5rem; margin:.75rem 0 1rem 0">
+        <a class="btn" href="{{ page.archivo | relative_url }}" download>Descargar PDF</a>
+        <a class="btn ghost" href="{{ page.archivo | relative_url }}" target="_blank" rel="noopener">Abrir en pestaña</a>
+      </div>
+
+      <!-- Visor PDF adaptado al alto de la pantalla -->
+      <div class="pdf-fit card">
+        <object
+          data="{{ page.archivo | relative_url }}#zoom=page-width&view=FitH&pagemode=none"
+          type="application/pdf"
+          aria-label="Visor PDF"
+        >
+          <iframe
+            src="{{ page.archivo | relative_url }}#zoom=page-width&view=FitH&pagemode=none"
+            title="Visor PDF"
+          ></iframe>
+        </object>
+      </div>
+
+      <p class="small text-dim" style="margin-top:1rem">
+        Si el visor no carga, usá “Abrir en pestaña” o “Descargar PDF”.
+      </p>
     {% endif %}
-    {% if page.repo_url %}
-      <a class="btn ghost" href="{{ page.repo_url }}" target="_blank" rel="noopener">Repositorio</a>
-    {% endif %}
-    {% if page.demo_url %}
-      <a class="btn ghost" href="{{ page.demo_url }}" target="_blank" rel="noopener">Demo</a>
-    {% endif %}
-    {% if page.playlist_url %}
-      <a class="btn ghost" href="{{ page.playlist_url }}" target="_blank" rel="noopener">Ver Playlist</a>
-    {% endif %}
-  </div>
-</article>
+  </article>
+</main>
