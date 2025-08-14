@@ -57,6 +57,41 @@ Los PDFs y otros archivos deben colocarse en la carpeta `assets/` dentro de su s
 
 El sitio se recargará automáticamente al guardar cambios.
 
+🛠 Cómo modificar el sitio y publicar cambios
+
+Este repositorio usa Jekyll en local y publica en GitHub Pages desde la carpeta /docs.
+Por eso, todo cambio que quieras ver online debe compilarse a HTML y quedar dentro de /docs antes de subirlo a main.
+
+Pasos para modificar y publicar
+
+Instalar dependencias (solo la primera vez o si hay cambios en Gemfile):
+
+bundle install
+
+
+Levantar en local para ver cambios en vivo:
+
+bundle exec jekyll serve
+
+
+Abrir en http://localhost:4000
+
+Generar el sitio para publicar:
+
+bundle exec jekyll build --destination docs
+
+
+Esto sobrescribe el contenido de /docs con el HTML actualizado.
+
+Subir cambios a GitHub:
+
+git add .
+git commit -m "Actualización del sitio"
+git push
+
+
+En pocos minutos, GitHub Pages actualizará el sitio con lo que haya en /docs.
+
 ## 🌐 Publicación
 
 Este repositorio está configurado para publicarse automáticamente en **GitHub Pages** desde la carpeta `/docs`.  
