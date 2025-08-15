@@ -183,3 +183,58 @@
 /* 6) Links del nav con el mismo look */
 .nav a{ color: var(--fg); opacity:.88; }
 .nav a:hover{ background: var(--card); opacity:1; border-radius:10px; }
+
+
+/* ==== Ajustes mobile: sin recuadro y hamburguesa totalmente a la derecha ==== */
+
+/* Empuja todo el <nav> al extremo derecho del header */
+.nav { margin-left: auto; }
+
+/* Botón hamburguesa pegado a la derecha (y buen área táctil) */
+.nav-toggle{
+  margin-left: auto;            /* evita que quede centrado */
+  padding: 0;
+}
+
+/* Panel móvil: sin caja, sin borde, sin sombra — solo texto */
+@media (max-width: 820px){
+  #mobileMenu{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  /* Ítems “solo letras”: sin fondos ni pastillas */
+  #mobileMenu > li { list-style: none; }
+  #mobileMenu > li > a{
+    display: block;
+    color: var(--fg);
+    padding: 10px 0;
+    border-radius: 0;
+    background: transparent !important;
+    opacity: .95;
+  }
+  #mobileMenu > li > a:hover{
+    background: transparent !important;
+    text-decoration: none;   /* sin subrayado */
+    opacity: 1;
+  }
+}
+
+/* Desktop sin cambios visuales */
+@media (min-width: 821px){
+  #mobileMenu{
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+/* (Opcional) Aire a la derecha del botón */
+@media (max-width: 820px){
+  .container.navwrap { padding-right: 16px; }
+}
