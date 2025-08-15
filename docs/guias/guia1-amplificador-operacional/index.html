@@ -69,6 +69,7 @@
     <!-- Contenido de cada página -->
     <main class="container after-header">
   <article class="item card">
+
     <!-- Título -->
     <h1 class="title-lg">Guía 1 - Amplificador operacional: circuitos elementales</h1>
 
@@ -102,26 +103,85 @@
         <a class="btn ghost" href="/Pagina_material/assets/Guias/25_14___TC2___Guia_1_2025.pdf" target="_blank" rel="noopener">Abrir en pestaña</a>
       </div>
 
-      <!-- Visor PDF adaptado al alto de la pantalla -->
-      <div class="pdf-fit card">
-        <object
-          data="/Pagina_material/assets/Guias/25_14___TC2___Guia_1_2025.pdf#zoom=page-width&view=FitH&pagemode=none"
-          type="application/pdf"
-          aria-label="Visor PDF"
-        >
-          <iframe
-            src="/Pagina_material/assets/Guias/25_14___TC2___Guia_1_2025.pdf#zoom=page-width&view=FitH&pagemode=none"
-            title="Visor PDF"
-          ></iframe>
-        </object>
+      <!-- Visor PDF con fallback móvil -->
+      <div id="pdfWrapper" class="pdf-fit card">
+        <iframe
+          id="pdfFrame"
+          title="Visor PDF"
+          data-pdf="/Pagina_material/assets/Guias/25_14___TC2___Guia_1_2025.pdf">
+        </iframe>
       </div>
 
       <p class="small text-dim" style="margin-top:1rem">
         Si el visor no carga, usá “Abrir en pestaña” o “Descargar PDF”.
       </p>
     
+
   </article>
-</main>
+</main><script>
+(function initPdfViewer(){
+  const frame = document.getElementById('pdfFrame');
+  if(!frame) return;
+
+  const pdfUrl = frame.getAttribute('data-pdf');
+  if(!pdfUrl) return;
+
+  // Detección simple
+  const ua = navigator.userAgent || '';
+  const isIOS =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+
+  // URLs
+  const nativeUrl = pdfUrl + '#view=FitH';
+  const absolute  = new URL(pdfUrl, window.location.origin).href; // compat total
+  const gdocsUrl  = 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(absolute);
+
+  // iOS/Safari: ir directo a Google Viewer
+  if (isIOS || isSafari) {
+    frame.src = gdocsUrl;
+    frame.dataset.external = 'gdocs';
+    return;
+  }
+
+  // Intento nativo primero
+  frame.src = nativeUrl;
+
+  // Fallback si no carga a tiempo (content-type, etc.)
+  let loaded = false;
+  const fallbackTimer = setTimeout(() => {
+    if (!loaded) {
+      frame.src = gdocsUrl;
+      frame.dataset.external = 'gdocs';
+    }
+  }, 1500);
+
+  frame.addEventListener('load', () => {
+    loaded = true;
+    clearTimeout(fallbackTimer);
+  }, { once: true });
+})();
+
+// Controles de zoom / fullscreen (si los llamás desde botones)
+function setPdfZoom(z) {
+  const f = document.getElementById('pdfFrame');
+  if (!f) return;
+  if (f.dataset.external === 'gdocs') return; // en Google Viewer el hash no aplica
+  const base = f.src.split('#')[0];
+  f.src = base + '#zoom=' + encodeURIComponent(z) + '&view=FitH';
+}
+
+function toggleFull() {
+  const wrap = document.getElementById('pdfWrapper');
+  if (!wrap) return;
+  if (!document.fullscreenElement) {
+    if (wrap.requestFullscreen) wrap.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen();
+  }
+}
+</script>
 
 
     <footer class="site-footer">

@@ -1,40 +1,70 @@
-<script>
-(function initPdfViewer(){
-  const frame = document.getElementById('pdfFrame');
-  if(!frame) return;
+// assets/js/pdf.js
 
-  const pdfUrl = frame.getAttribute('data-pdf');
-  if(!pdfUrl) return;
+(function initPdfViewer() {
+  var frame = document.getElementById('pdfFrame');
+  if (!frame) return;
 
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  var pdfUrl = frame.getAttribute('data-pdf');
+  if (!pdfUrl) return;
 
-  // Construye URLs
-  const nativeUrl  = pdfUrl + '#view=FitH'; // tu modo actual con hash
-  // Para Google Viewer usamos URL absoluta si tenés site.url, si no, el relative_url también suele andar.
-  const absolute = (window.location.origin + pdfUrl).replace(/(?<!:)\/{2,}/g, '/').replace(':/','://');
-  const gdocsUrl  = 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(absolute);
+  var ua = navigator.userAgent || '';
+  var isIOS =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isSafari = /^((?!chrome|android).)*safari/i.test(ua);
 
-  // iOS/Safari: ir directo a Google Viewer. En el resto: probar nativo y hacer fallback si falla.
+  // URLs
+  var nativeUrl = pdfUrl + '#view=FitH';
+  // Construye absoluta sin regex lookbehind (compatible)
+  var absolute = new URL(pdfUrl, window.location.origin).href;
+  var gdocsUrl =
+    'https://docs.google.com/viewer?embedded=true&url=' +
+    encodeURIComponent(absolute);
+
+  // iOS/Safari: ir directo a Google Viewer
   if (isIOS || isSafari) {
     frame.src = gdocsUrl;
     frame.dataset.external = 'gdocs';
     return;
   }
 
-  // Modo nativo primero
+  // Intento nativo primero
   frame.src = nativeUrl;
 
-  // Fallback defensivo si no carga (p. ej., servidor sin Content-Type application/pdf)
-  let loaded = false;
-  const fallbackTimer = setTimeout(() => {
+  // Fallback si no carga (content-type/otros)
+  var loaded = false;
+  var fallbackTimer = setTimeout(function () {
     if (!loaded) {
       frame.src = gdocsUrl;
       frame.dataset.external = 'gdocs';
     }
   }, 1500);
 
-  frame.addEventListener('load', () => { loaded = true; clearTimeout(fallbackTimer); }, { once: true });
+  frame.addEventListener(
+    'load',
+    function () {
+      loaded = true;
+      clearTimeout(fallbackTimer);
+    },
+    { once: true }
+  );
 })();
-</script>
+
+// APIs que ya usabas (expuestas en window para que HTML las llame)
+window.setPdfZoom = function setPdfZoom(z) {
+  var f = document.getElementById('pdfFrame');
+  if (!f) return;
+  if (f.dataset.external === 'gdocs') return; // en Google Viewer el hash no aplica
+  var base = f.src.split('#')[0];
+  f.src = base + '#zoom=' + encodeURIComponent(z) + '&view=FitH';
+};
+
+window.toggleFull = function toggleFull() {
+  var wrap = document.getElementById('pdfWrapper');
+  if (!wrap) return;
+  if (!document.fullscreenElement) {
+    if (wrap.requestFullscreen) wrap.requestFullscreen();
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen();
+  }
+};
