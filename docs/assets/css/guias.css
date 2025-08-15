@@ -1,56 +1,220 @@
-.guides-alt {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+/* ====== Guías (cards con thumbnail y alternadas) ====== */
+.guides-alt{
+  display: flex;
+  flex-direction: column;
   gap: 1.25rem;
+  margin-top: .75rem;
 }
 
-.gcard {
+/* Card base */
+.gcard{
   display: grid;
-  grid-template-columns: 40% 1fr;
-  align-items: stretch;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
+  grid-template-columns: 340px 1fr;   /* imagen | texto */
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: var(--surface, #161618);
+  border: 1px solid var(--border, #2a2a2e);
+  border-radius: var(--radius, 12px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.20);
+  min-height: 180px;
+}
+
+/* Alternar (imagen a la derecha) */
+.gcard.flip .gthumb { order: 2; }
+.gcard.flip .gbody  { order: 1; }
+
+/* Thumbnail (A4 aprox 3:4) */
+.gthumb{
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  aspect-ratio: 3 / 4;
+  border-radius: calc(var(--radius, 12px) - 2px);
   overflow: hidden;
+  border: 1px solid var(--border, #2a2a2e);
+  background: #0b0b0c;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+.gthumb img{
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+}
+
+/* Si no hay preview: placeholder */
+.gthumb-placeholder{
+  width: 100%; height: 100%;
+  display: grid; place-items: center;
+  color: var(--fg-dim, #aaa);
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+}
+.badge{
+  display:inline-block;
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent, #007aff) 40%, var(--border, #2a2a2e));
+  color: var(--accent, #007aff);
+  font-size: .8rem;
+}
+
+/* Texto */
+.gbody { align-self: stretch; display: flex; flex-direction: column; }
+.gtitle{
+  font-size: clamp(1.25rem, 1.1vw + 1rem, 1.9rem);
+  line-height: 1.2; margin: .35rem 0 .35rem;
+}
+.gdesc{ color: var(--fg-dim, #aaa); max-width: 70ch; margin: 0 0 .25rem 0; }
+
+/* Sin morado (enlaces de título) */
+.gcard a, .gcard a:visited { color: var(--fg, #fff); text-decoration: none; }
+.gtitle a:hover { color: var(--accent, #007aff); }
+
+/* Responsive */
+@media (max-width: 980px){
+  .gcard { grid-template-columns: 280px 1fr; }
+}
+@media (max-width: 760px){
+  .gcard { grid-template-columns: 1fr; }
+  .gcard.flip .gthumb, .gcard.flip .gbody { order: initial; }
+  .gthumb { max-width: 100%; }
+}
+
+
+/* ===== Guías: layout y tarjetas alargadas ===== */
+.guides-list{
+  display: grid;
+  grid-template-columns: 1fr;         /* 1 por fila para protagonismo */
+  gap: 1rem;
+  margin-top: .75rem;
+}
+
+@media (min-width: 980px){
+  .guides-list{ grid-template-columns: 1fr; } /* seguimos 1 por fila en desktop */
+}
+
+.guide-card{
+  display: grid;
+  grid-template-columns: 1fr auto;    /* texto a la izquierda, acciones a la derecha */
+  gap: 1rem 1.25rem;
+  align-items: start;
+  padding: 1.25rem 1.5rem;
+  background: var(--surface, #161618);
+  border: 1px solid var(--border, #2a2a2e);
+  border-radius: var(--radius, 12px);
+  box-shadow: 0 6px 20px rgba(0,0,0,.20);
+  min-height: 150px;                  /* altura cómoda */
+}
+
+.guide-title{
+  font-size: clamp(1.25rem, 1.2vw + 1rem, 1.8rem);
+  line-height: 1.2;
+  margin: .35rem 0 .35rem;
+}
+
+.guide-desc{
+  color: var(--fg-dim, #aaa);
+  max-width: 75ch;
+  margin: 0 0 .25rem 0;
+}
+
+.guide-meta{
+  margin-bottom: .25rem;
+}
+
+.guide-card .actions{
+  align-self: end;                     /* botones alineados abajo a la derecha */
+  justify-self: end;
+}
+
+/* Chip “Guía” */
+.pill{
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--accent, #007aff) 38%, var(--border, #2a2a2e));
+  color: var(--accent, #007aff);
+  padding: .2rem .55rem;
+  border-radius: 999px;
+  font-size: .78rem;
+}
+
+/* Título de la página /guias más protagónico */
+.page-title, .guides-list-heading, main.container h1{
+  font-size: clamp(1.6rem, 2.4vw + 1rem, 2.2rem) !important;
+  margin-bottom: .25rem;
+}
+
+/* ====== Visor PDF “que entra en pantalla” ======
+   - ocupa el 100% del ancho de la card
+   - altura dinámica: 78vh (con límites)
+*/
+.pdf-fit {
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius, 12px);
+  border: 1px solid var(--border, #333);
   background: #fff;
 }
 
-.gcard.flip {
-  direction: rtl;           /* Truco rápido para invertir columnas */
-}
-.gcard.flip > * { direction: ltr; }
-
-.gthumb, .gthumb img, .gthumb-placeholder {
+.pdf-fit object,
+.pdf-fit iframe {
+  width: 100%;
+  height: 78vh;          /* ~pantalla completa sin tapar header/footer */
+  max-height: 1000px;    /* evita que sea excesivo en monitores enormes */
+  min-height: 520px;     /* evita que quede enano en laptops */
+  border: 0;
   display: block;
+}
+
+@media (max-width: 640px) {
+  .pdf-fit object,
+  .pdf-fit iframe {
+    height: 72vh;
+    min-height: 420px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .pdf-fit {
+    background: #111;
+  }
+}
+
+/* ===== Hotfix guías: imagen a la derecha pegada al borde ===== */
+
+/* Solo 1 por fila */
+.guides-alt {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+/* imagen izquierda (default) */
+.gcard {
+  grid-template-columns: 340px 1fr; /* ancho imagen + texto */
+  align-items: stretch;
+  overflow: hidden;
+}
+
+/* imagen derecha */
+.gcard.flip {
+  grid-template-columns: 1fr 340px; /* texto + imagen */
+}
+
+/* La miniatura ocupa todo y sin borde raro */
+.gthumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.gthumb-placeholder {
-  display:flex; align-items:center; justify-content:center;
-  background:#f3f4f6;
+
+/* Para que la imagen a la derecha quede pegada */
+.gcard.flip .gthumb {
+  justify-self: end;
 }
 
-.gbody { padding: 14px; }
-.gtitle { margin: 4px 0 8px; font-size: 1.05rem; }
-.gdesc { margin: 0 0 10px; color:#374151; }
-
-.small { font-size: .85rem; }
-.text-dim { color:#6b7280; }
-
-.pill {
-  display:inline-block; padding:.15rem .45rem; border-radius:999px;
-  background:#eef2ff; color:#30336b; /* suave, sin morado chillón */
-}
-
-.actions { display:flex; gap:.5rem; }
-.btn {
-  display:inline-block; padding:.4rem .7rem; border-radius:10px;
-  border:1px solid #e5e7eb; text-decoration:none; color:#111827;
-  background:#fafafa;
-}
-.btn.ghost { background:transparent; }
-
-@media (max-width: 900px) {
-  .guides-alt { grid-template-columns: 1fr; }
-  .gcard { grid-template-columns: 1fr; }
+/* Responsive: en móviles 1 columna normal */
+@media (max-width: 760px) {
+  .gcard,
+  .gcard.flip {
+    grid-template-columns: 1fr;
+  }
 }
