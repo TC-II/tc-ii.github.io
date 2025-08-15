@@ -39,18 +39,14 @@
     <header class="site-header">
   <div class="container navwrap">
     <a class="site-title" href="/Pagina_material/">
-      <img class="logo" alt="" aria-hidden="true"
-           src="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><rect rx='8' ry='8' width='28' height='28' fill='%230a84ff'/><circle cx='9.5' cy='12' r='5' fill='%23eef3f9'/><rect x='15' y='7' width='9' height='18' rx='6' fill='%23eef3f9'/><rect x='15' y='12' width='9' height='4' fill='%230a84ff'/></svg>">
+      <img class="logo" alt="Escudo de la cátedra Teoría de Circuitos II"
+           src="/Pagina_material/assets/img/escudo_claro.svg">
       Teoría de Circuitos II - ITBA
     </a>
 
     <nav class="nav" id="mainNav" aria-label="Navegación principal">
-      <button class="nav-toggle" aria-label="Abrir menú" onclick="
-        var n=document.getElementById('mainNav');
-        n.classList.toggle('open'); this.setAttribute('aria-expanded', n.classList.contains('open'));
-      ">☰</button>
-
-      <ul>
+      <button id="navToggle" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <ul id="mobileMenu" hidden>
         <li><a href="/Pagina_material/">Inicio</a></li>
         <li><a href="/Pagina_material/guias/">Guías</a></li>
         <li><a href="/Pagina_material/examenes/">Exámenes</a></li>
@@ -128,10 +124,20 @@
     <footer class="site-footer">
   <div class="container">
     <div class="grid">
+      <!-- Columna 1: escudo + texto -->
       <div>
-        <h4>Teoría de Circuitos II</h4>
-        <p>Material académico: guías, exámenes, clases y recursos.</p>
+        <div class="footer-brand">
+          <img src="/Pagina_material/assets/img/escudo_claro.svg"
+               alt="Escudo de la cátedra Teoría de Circuitos II"
+               loading="lazy" decoding="async">
+          <div>
+            <h4>Teoría de Circuitos II</h4>
+            <p>Material académico: guías, exámenes, clases y recursos.</p>
+          </div>
+        </div>
       </div>
+
+      <!-- Columna 2 -->
       <div>
         <h4>Secciones</h4>
         <ul>
@@ -143,6 +149,8 @@
           <li><a href="/Pagina_material/playlists/">Playlists</a></li>
         </ul>
       </div>
+
+      <!-- Columna 3 -->
       <div>
         <h4>Recursos</h4>
         <ul>
@@ -152,6 +160,8 @@
           <li><a href="https://github.com/Teoria-de-Circuitos-II/Pagina_material" target="_blank" rel="noopener">Repositorio</a></li>
         </ul>
       </div>
+
+      <!-- Columna 4 -->
       <div>
         <h4>Créditos</h4>
         <p>Contenido y diseño mantenidos por la cátedra.</p>
@@ -160,7 +170,7 @@
 
     <div class="legal">
       <span>© 2025 Teoría de Circuitos II – ITBA</span>
-      <span>Hecho con ♥ </span>
+      <span>Hecho con ♥</span>
     </div>
   </div>
 </footer>

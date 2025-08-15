@@ -1,13 +1,13 @@
-:root{
+:root {
   --header-bg: #ffffff;
   --header-fg: #111111;
   --border: #eaeaea;
-  --shadow: 0 8px 16px rgba(0,0,0,.08);
+  --shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
   --tap: 44px;
 }
 
 /* ===== Header base ===== */
-.site-header{
+.site-header {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -17,33 +17,33 @@
   box-shadow: none; /* sin transparencia ni blur */
 }
 
-/* Barra superior (usa tu contenedor existente) */
-.container.navwrap{
+/* Barra superior */
+.container.navwrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 56px;     /* un poco más alto */
+  min-height: 56px; /* un poco más alto */
   gap: 12px;
   padding: 8px 16px;
 }
 
-/* Brand (tu <a class="site-title">…) */
-.site-title{
+/* Brand (título/logo) */
+.site-title {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
   color: inherit;
   font-weight: 600;
-  letter-spacing: .2px;
+  letter-spacing: 0.2px;
 }
-.site-title .logo{
+.site-title .logo {
   width: 28px;
   height: 28px;
 }
 
 /* ===== Botón hamburguesa (mobile) ===== */
-.nav-toggle{
+.nav-toggle {
   appearance: none;
   border: 1px solid var(--border);
   background: #fff;
@@ -57,38 +57,39 @@
   line-height: 1;
 }
 
-/* ===== Panel móvil animado (el UL) ===== */
-/* El UL tiene id="mobileMenu" y atributo hidden al inicio */
-#mobileMenu{
+/* ===== Lista de navegación (UL) animada ===== */
+#mobileMenu {
   overflow: hidden;
-  height: 0; /* se anima via JS */
+  height: 0; /* se anima vía JS */
   list-style: none;
   padding: 0;
   margin: 0;
   background: var(--header-bg);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
-  transition: height .28s cubic-bezier(.22,.61,.36,1);
+  transition: height 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-@media (prefers-reduced-motion: reduce){
-  #mobileMenu{ transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  #mobileMenu {
+    transition: none;
+  }
 }
 
-#mobileMenu > li > a{
+/* Items de navegación */
+#mobileMenu > li > a {
   display: block;
   text-decoration: none;
   color: inherit;
   padding: 12px 16px;
   border-radius: 12px;
 }
-#mobileMenu > li > a:hover{
+#mobileMenu > li > a:hover {
   background: #f7f7f7;
 }
 
 /* ===== Desktop ===== */
-@media (min-width: 900px){
-  /* En desktop el UL se muestra normal, sin animación */
-  #mobileMenu{
+@media (min-width: 900px) {
+  #mobileMenu {
     display: flex !important;
     gap: 20px;
     height: auto !important;
@@ -96,13 +97,28 @@
     box-shadow: none;
     border-bottom: 0;
   }
-  #mobileMenu > li{ list-style: none; }
-  #mobileMenu > li > a{
+  #mobileMenu > li {
+    list-style: none;
+  }
+  #mobileMenu > li > a {
     padding: 8px 6px;
     border-radius: 8px;
   }
-  #mobileMenu > li > a:hover{
+  #mobileMenu > li > a:hover {
     background: #f7f7f7;
   }
-  .nav-toggle{ display: none; }
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* ===== Anti-conflictos con temas ===== */
+.nav #mobileMenu {
+  display: block;
+  width: 100%;
+}
+@media (min-width: 900px) {
+  .nav #mobileMenu {
+    display: flex !important;
+  }
 }
