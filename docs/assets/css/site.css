@@ -14,7 +14,6 @@
   background: var(--header-bg);
   color: var(--header-fg);
   border-bottom: 1px solid var(--border);
-  box-shadow: none; /* sin transparencia ni blur */
 }
 
 /* Barra superior */
@@ -22,12 +21,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 56px; /* un poco más alto */
+  min-height: 56px;
   gap: 12px;
   padding: 8px 16px;
 }
 
-/* Brand (título/logo) */
+/* Brand */
 .site-title {
   display: inline-flex;
   align-items: center;
@@ -35,12 +34,9 @@
   text-decoration: none;
   color: inherit;
   font-weight: 600;
-  letter-spacing: 0.2px;
+  letter-spacing: .2px;
 }
-.site-title .logo {
-  width: 28px;
-  height: 28px;
-}
+.site-title .logo { width: 28px; height: 28px; }
 
 /* ===== Botón hamburguesa (mobile) ===== */
 .nav-toggle {
@@ -53,29 +49,31 @@
   display: inline-grid;
   place-items: center;
   cursor: pointer;
-  font-size: 20px; /* para el “☰” */
+  font-size: 20px;
   line-height: 1;
+  position: relative;
+  z-index: 60; /* por si algo solapa */
 }
 
-/* ===== Lista de navegación (UL) animada ===== */
+/* ===== Menú móvil: animación por altura ===== */
 #mobileMenu {
   overflow: hidden;
-  height: 0; /* se anima vía JS */
+  height: 0;                /* el JS anima esta propiedad */
   list-style: none;
   padding: 0;
   margin: 0;
   background: var(--header-bg);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow);
-  transition: height 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
-}
-@media (prefers-reduced-motion: reduce) {
-  #mobileMenu {
-    transition: none;
-  }
+  transition: height .28s cubic-bezier(.22,.61,.36,1);
 }
 
-/* Items de navegación */
+@media (prefers-reduced-motion: reduce){
+  #mobileMenu { transition: none; }
+}
+
+/* Ítems */
+#mobileMenu > li { list-style: none; }
 #mobileMenu > li > a {
   display: block;
   text-decoration: none;
@@ -83,12 +81,11 @@
   padding: 12px 16px;
   border-radius: 12px;
 }
-#mobileMenu > li > a:hover {
-  background: #f7f7f7;
-}
+#mobileMenu > li > a:hover { background: #f7f7f7; }
 
 /* ===== Desktop ===== */
 @media (min-width: 900px) {
+  .nav-toggle { display: none; }
   #mobileMenu {
     display: flex !important;
     gap: 20px;
@@ -97,39 +94,15 @@
     box-shadow: none;
     border-bottom: 0;
   }
-  #mobileMenu > li {
-    list-style: none;
-  }
   #mobileMenu > li > a {
     padding: 8px 6px;
     border-radius: 8px;
   }
-  #mobileMenu > li > a:hover {
-    background: #f7f7f7;
-  }
-  .nav-toggle {
-    display: none;
-  }
+  #mobileMenu > li > a:hover { background: #f7f7f7; }
 }
 
-/* ===== Anti-conflictos con temas ===== */
-.nav #mobileMenu {
-  display: block;
-  width: 100%;
-}
-@media (min-width: 900px) {
-  .nav #mobileMenu {
-    display: flex !important;
-  }
-}
-
-/* Asegura que el UL exista en flujo en mobile */
+/* ===== “Anti-conflictos” con temas que ocultan ULs ===== */
 .nav #mobileMenu { display: block; width: 100%; }
-
-/* En desktop: horizontal */
-@media (min-width: 900px){
+@media (min-width: 900px) {
   .nav #mobileMenu { display: flex !important; }
 }
-
-/* Evita que algo tape el botón en mobile */
-.nav-toggle { position: relative; z-index: 60; }

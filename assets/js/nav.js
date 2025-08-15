@@ -3,12 +3,10 @@
   const menu = document.getElementById('mobileMenu');
   if (!btn || !menu) { console.error('[nav] faltan #navToggle o #mobileMenu'); return; }
 
-  // Si por error quedó el atributo hidden en el HTML, lo desactivamos
-  if (menu.hasAttribute('hidden')) menu.removeAttribute('hidden');
-
+  // Estado
+  let open = false;
+  let animating = false;
   const mq = window.matchMedia('(min-width: 900px)');
-  let open = false, animating = false;
-
   const isDesktop = () => mq.matches;
 
   const setDesktop = () => {
@@ -20,7 +18,7 @@
 
   const setMobileClosed = () => {
     menu.style.overflow = 'hidden';
-    menu.style.height = '0px';
+    menu.style.height  = '0px';
     btn.setAttribute('aria-expanded', 'false');
     open = false; animating = false;
   };
@@ -30,16 +28,17 @@
     animating = true;
     // punto de partida
     menu.style.height = '0px';
-    // Forzar reflow (Safari)
+    // reflow (para Safari/iOS)
     // eslint-disable-next-line no-unused-expressions
     menu.offsetHeight;
+    // siguiente frame: expandir
     requestAnimationFrame(() => {
       menu.style.height = menu.scrollHeight + 'px';
       btn.setAttribute('aria-expanded', 'true');
     });
     const end = (e) => {
       if (e.propertyName !== 'height') return;
-      menu.style.height = 'auto';
+      menu.style.height = 'auto';     // permite crecimiento dinámico
       menu.removeEventListener('transitionend', end);
       open = true; animating = false;
     };
@@ -66,24 +65,26 @@
     menu.addEventListener('transitionend', end);
   };
 
+  // Toggle
   btn.addEventListener('click', () => (open ? closeMenu() : openMenu()));
 
+  // Cierra al clickear un link (en mobile)
   menu.addEventListener('click', (e) => {
     const a = e.target.closest('a');
     if (a && open && !isDesktop()) closeMenu();
   });
 
+  // Cierra con Escape (en mobile)
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && open && !isDesktop()) closeMenu();
   });
 
-  mq.addEventListener('change', () => {
-    if (isDesktop()) setDesktop(); else setMobileClosed();
-  });
+  // Reaccionar al cambio de viewport
+  mq.addEventListener('change', () => { isDesktop() ? setDesktop() : setMobileClosed(); });
 
   // Estado inicial
-  if (isDesktop()) setDesktop(); else setMobileClosed();
+  isDesktop() ? setDesktop() : setMobileClosed();
 
-  // DEBUG opcional:
+  // Baliza de depuración: descomentar si necesitás
   // console.log('[nav] listo');
 })();

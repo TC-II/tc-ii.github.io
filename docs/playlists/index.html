@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Playlists — Teoría de Circuitos II - ITBA</title>
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Playlists | Teoría de Circuitos II - ITBA</title>
@@ -25,9 +24,10 @@
 
 
 <link rel="stylesheet" href="/Pagina_material/assets/css/main.css">
+<link rel="stylesheet" href="/Pagina_material/assets/css/site.css">
 <link rel="stylesheet" href="/Pagina_material/assets/css/guias.css">
 
-<!-- KaTeX (fórmulas) -->
+<!-- KaTeX -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
@@ -36,16 +36,19 @@
     <title>Playlists · Teoría de Circuitos II - ITBA</title>
   </head>
   <body>
-    <header class="site-header">
+    <header class="site-header" role="banner">
   <div class="container navwrap">
     <a class="site-title" href="/Pagina_material/">
       <img class="logo" alt="Escudo de la cátedra Teoría de Circuitos II"
-           src="/Pagina_material/assets/img/escudo_claro.svg">
+           src="/Pagina_material/assets/img/escudo_claro.svg" width="28" height="28">
       Teoría de Circuitos II - ITBA
     </a>
 
     <nav class="nav" id="mainNav" aria-label="Navegación principal">
-      <button id="navToggle" class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <button id="navToggle" class="nav-toggle"
+              aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">☰</button>
+
+      <!-- Importante: sin 'hidden' -->
       <ul id="mobileMenu">
         <li><a href="/Pagina_material/">Inicio</a></li>
         <li><a href="/Pagina_material/guias/">Guías</a></li>
@@ -130,6 +133,6 @@
 
 
     <!-- Script del menú móvil -->
-  <script src="/Pagina_material/assets/js/nav.js?v=1755230018" defer></script>
+  <script src="/Pagina_material/assets/js/nav.js?v=1755230369" defer></script>
   </body>
 </html>
