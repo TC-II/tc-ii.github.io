@@ -122,3 +122,14 @@
     display: flex !important;
   }
 }
+
+/* Asegura que el UL exista en flujo en mobile */
+.nav #mobileMenu { display: block; width: 100%; }
+
+/* En desktop: horizontal */
+@media (min-width: 900px){
+  .nav #mobileMenu { display: flex !important; }
+}
+
+/* Evita que algo tape el botón en mobile */
+.nav-toggle { position: relative; z-index: 60; }

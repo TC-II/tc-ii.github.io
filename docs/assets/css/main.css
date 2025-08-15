@@ -47,12 +47,15 @@ body {
 }
 
 .navwrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
+
+/* Logo del header (más grande y en blanco) */
 .logo {
   width: 40px;
   height: 40px;
   vertical-align: middle;
   margin-right: 8px;
-  filter: brightness(0) invert(1);
+  display: inline-block;
+  filter: brightness(0) invert(1); /* fuerza blanco al SVG celeste */
 }
 
 .site-title { display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--fg); font-weight:700; font-size: 18px; }
@@ -205,13 +208,13 @@ body {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
-  align-items: stretch; /* hace que todas las tarjetas de la fila tengan la misma altura */
+  align-items: stretch; /* todas igual altura */
 }
 @media (max-width: 1100px){ .home-grid{ grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px){ .home-grid{ grid-template-columns: 1fr; } }
 
 .card.link{
-  display: flex; /* importante para centrar contenido vertical */
+  display: flex;
   flex-direction: column;
   justify-content: center;
   text-decoration: none;
@@ -222,7 +225,7 @@ body {
   padding: 1.25rem 1.25rem 1.35rem;
   box-shadow: 0 6px 20px rgba(0,0,0,.20);
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  height: 200px; /* altura fija para todas las cajas */
+  height: 200px;
 }
 .card.link h2{ font-size: clamp(1.2rem, .6vw + 1rem, 1.6rem); margin-bottom: .5rem; }
 .card.link p{ color: var(--fg-dim, #aaa); line-height: 1.45; }
@@ -266,19 +269,19 @@ body {
 @media (max-width: 900px) { .site-footer .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .site-footer .grid { grid-template-columns: 1fr; } }
 
-.footer-brand img {
-  height: 48px;
-  width: auto;
-  filter: brightness(0) invert(1);
-}
-
+/* Escudo + texto en la primera columna del footer */
 .footer-brand {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-start;   /* tope alineado con el título */
   gap: 0.75rem;
 }
-
 .footer-brand img {
   height: 48px;
   width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1); /* blanco en el footer también */
+}
+
+@media (max-width: 560px) {
+  .footer-brand img { height: 40px; }
 }
