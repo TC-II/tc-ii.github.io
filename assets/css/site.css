@@ -1,8 +1,8 @@
 :root {
-  --header-bg: #ffffff;
-  --header-fg: #111111;
-  --border: #eaeaea;
-  --shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  --header-bg: #121214;   /* Fondo header oscuro */
+  --header-fg: #f5f5f7;   /* Texto claro */
+  --border: #1f1f22;      /* Línea/borde oscuro */
+  --shadow: none;         /* Sin sombra clara */
   --tap: 44px;
 }
 
@@ -42,7 +42,8 @@
 .nav-toggle {
   appearance: none;
   border: 1px solid var(--border);
-  background: #fff;
+  background: transparent;       /* transparente para fondo oscuro */
+  color: var(--header-fg);
   border-radius: 10px;
   width: var(--tap);
   height: var(--tap);
@@ -77,11 +78,13 @@
 #mobileMenu > li > a {
   display: block;
   text-decoration: none;
-  color: inherit;
+  color: var(--header-fg);
   padding: 12px 16px;
   border-radius: 12px;
 }
-#mobileMenu > li > a:hover { background: #f7f7f7; }
+#mobileMenu > li > a:hover {
+  background: rgba(255,255,255,0.06); /* hover claro sobre oscuro */
+}
 
 /* ===== Desktop ===== */
 @media (min-width: 900px) {
@@ -98,7 +101,9 @@
     padding: 8px 6px;
     border-radius: 8px;
   }
-  #mobileMenu > li > a:hover { background: #f7f7f7; }
+  #mobileMenu > li > a:hover {
+    background: rgba(255,255,255,0.06);
+  }
 }
 
 /* ===== “Anti-conflictos” con temas que ocultan ULs ===== */
