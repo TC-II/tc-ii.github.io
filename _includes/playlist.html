@@ -1,0 +1,17 @@
+<article class="pl-card">
+  <a class="unstyled-link" href="{{ include.url | relative_url }}" aria-label="{{ include.title }}">
+    <div class="pl-ratio" style="margin:0 0 .65rem 0">
+      {% if include.cover_id %}
+        <img class="pl-fill" alt="Cover {{ include.title }}"
+             src="https://i.ytimg.com/vi/{{ include.cover_id }}/hqdefault.jpg" loading="lazy" width="480" height="270">
+      {% else %}
+        <div class="pl-fill" style="display:flex;align-items:center;justify-content:center;font-weight:600;opacity:.75">
+          Ver playlist →
+        </div>
+      {% endif %}
+    </div>
+  </a>
+
+  <h2 class="pl-title"><a class="unstyled-link" href="{{ include.url | relative_url }}">{{ include.title }}</a></h2>
+  {% if include.desc %}<p class="pl-desc">{{ include.desc }}</p>{% endif %}
+</article>

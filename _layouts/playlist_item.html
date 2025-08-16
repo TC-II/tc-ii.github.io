@@ -1,0 +1,70 @@
+---
+layout: default
+---
+<article class="container after-header playlists">
+  <h1 class="title-lg">{{ page.title }}</h1>
+  {% if page.desc %}<p class="pl-desc">{{ page.desc }}</p>{% endif %}
+
+  {% comment %}
+  Video inicial:
+  - page.start_video_id (si existe)
+  - sino page.cover_id
+  - sino el primero de page.videos
+  - sino embebemos la playlist completa
+  {% endcomment %}
+  {% assign initial = page.start_video_id | default: page.cover_id %}
+  {% if initial == nil and page.videos and page.videos.size > 0 %}
+    {% assign initial = page.videos[0].id %}
+  {% endif %}
+
+  <div class="pl-layout" style="margin-top:1rem">
+    <section class="pl-player">
+      <div class="pl-ratio">
+        {% if initial %}
+          <iframe
+            class="pl-fill"
+            data-list="{{ page.yt_list_id | escape }}"
+            src="https://www.youtube.com/embed/{{ initial | escape }}?list={{ page.yt_list_id | escape }}"
+            title="{{ page.title }}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            loading="lazy"></iframe>
+        {% else %}
+          <iframe
+            class="pl-fill"
+            data-list="{{ page.yt_list_id | escape }}"
+            src="https://www.youtube.com/embed/videoseries?list={{ page.yt_list_id | escape }}"
+            title="{{ page.title }}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            loading="lazy"></iframe>
+        {% endif %}
+      </div>
+      <p class="text-dim small" style="margin:.5rem 0 0">
+        <a class="unstyled-link" href="https://www.youtube.com/playlist?list={{ page.yt_list_id | escape }}" target="_blank" rel="noopener">Ver en YouTube ↗</a>
+      </p>
+    </section>
+
+    {% if page.videos and page.videos != empty %}
+    <aside class="pl-list pl-list--chips" aria-label="Lista de videos">
+      {% for v in page.videos %}
+        <button type="button" class="pl-chip" data-video="{{ v.id }}">
+          <span class="pl-badge">{{ forloop.index }}</span>
+          <span class="pl-chip-text">
+            <span class="pl-chip-title">{{ v.title }}</span>
+            {% if v.desc %}<span class="pl-chip-desc">{{ v.desc }}</span>{% endif %}
+          </span>
+        </button>
+      {% endfor %}
+    </aside>
+    {% endif %}
+  </div>
+
+  {% comment %}
+  Cargar CSS/JS específicos (si alguien abrió la página sin pasar por el índice)
+  {% endcomment %}
+  {% assign _ = page.extra_css | default: nil %}
+  {% assign _ = page.extra_js | default: nil %}
+</article>

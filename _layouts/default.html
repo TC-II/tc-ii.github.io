@@ -3,16 +3,27 @@
   <head>
     {% include head.html %}
     <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+
+    {% comment %} CSS adicional por página {% endcomment %}
+    {% if page.extra_css %}
+      {% for href in page.extra_css %}
+        <link rel="stylesheet" href="{{ href | relative_url }}">
+      {% endfor %}
+    {% endif %}
+
+    {% comment %} JS adicional por página {% endcomment %}
+    {% if page.extra_js %}
+      {% for src in page.extra_js %}
+        <script src="{{ src | relative_url }}" defer></script>
+      {% endfor %}
+    {% endif %}
   </head>
   <body>
     {% include navbar.html %}
-
-    <!-- Contenido de cada página -->
     {{ content }}
-
     {% include footer.html %}
 
     <!-- Script del menú móvil -->
-  <script src="{{ '/assets/js/nav.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+    <script src="{{ '/assets/js/nav.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
   </body>
 </html>
