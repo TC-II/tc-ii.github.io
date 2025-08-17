@@ -11,8 +11,6 @@ main:
     url: "/recursos/"
   - title: "Playlists"
     url: "/playlists/"
-  - title: "Blog"
-    url: "/blog/"
   - title: "Sobre la cátedra"
     url: "/sobre/"
 
@@ -20,6 +18,6 @@ footer:
   - title: "ITBA"
     url: "https://www.itba.edu.ar/"
   - title: "Repositorio"
-    url: "https://github.com/"   # cambiar
+    url: "https://github.com/Teoria-de-Circuitos-II"
   - title: "Contacto"
-    url: "mailto:contacto@itba.edu.ar"
+    url: "mailto:jpetrucc@itba.edu.ar"
