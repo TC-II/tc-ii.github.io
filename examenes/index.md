@@ -32,8 +32,13 @@ permalink: /examenes/
 
   <div id="viewer" class="viewer" hidden>
     <div class="viewer-header">
-      <span id="v-title"></span>
-      <span id="v-meta"></span>
+      <div class="viewer-left">
+        <span id="v-title"></span>
+        <span id="v-meta"></span>
+      </div>
+      <div class="viewer-right">
+        <a id="v-open" class="btn-open" href="#" target="_blank" rel="noopener">Abrir en nueva pestaña</a>
+      </div>
     </div>
     <iframe id="v-iframe" allow="autoplay; fullscreen"></iframe>
   </div>
@@ -61,27 +66,44 @@ permalink: /examenes/
 .exams-page .exams-actions{
   display:flex; gap:.75rem; align-items:center; justify-content:flex-end;
   margin-top:.5rem; margin-bottom:.25rem;
-}
-.exams-page .btn-drive{
-  display:inline-flex; align-items:center; gap:.5rem;
-  padding:.55rem .9rem; border-radius:999px; text-decoration:none;
-  border:1px solid var(--border,#2a2a2e);
-  background: color-mix(in srgb, var(--accent,#0a84ff) 25%, var(--bg,#0b0b0c));
-  color:#fff; font-weight:600;
-}
-.exams-page .btn-drive:hover{
-  background: color-mix(in srgb, var(--accent,#0a84ff) 50%, var(--bg,#0b0b0c));
+  flex-wrap: wrap; /* permite bajar en mobile */
 }
 .exams-page .search{
-  flex:1; max-width:520px;
+  flex:1; min-width:200px; max-width:520px;
   border:1px solid var(--border,#2a2a2e);
-  border-radius:12px;
+  border-radius:10px; /* menos circular */
   padding:.6rem .8rem;
   font-size:.95rem;
   background:var(--bg,#0b0b0c);
   color:#fff; /* texto blanco */
 }
 .exams-page .search::placeholder{ color:#bbb; }
+
+.exams-page .btn-drive{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:.6rem 1rem;
+  border-radius:10px; /* menos circular */
+  text-decoration:none;
+  border:1px solid var(--border,#2a2a2e);
+  background: color-mix(in srgb, var(--accent,#0a84ff) 25%, var(--bg,#0b0b0c));
+  color:#fff; font-weight:600;
+  white-space:nowrap;
+  transition: background .2s ease, transform .08s ease;
+}
+.exams-page .btn-drive:hover{
+  background: color-mix(in srgb, var(--accent,#0a84ff) 50%, var(--bg,#0b0b0c));
+}
+.exams-page .btn-drive:active{ transform: translateY(1px); }
+
+/* ===== Ajustes mobile ===== */
+@media (max-width: 600px){
+  .exams-page .exams-actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .exams-page .search{ width:100%; }
+  .exams-page .btn-drive{ width:100%; }
+}
 
 /* ===== Chips con scroll (solo 3 visibles) ===== */
 .exams-page .chip-list{
@@ -96,17 +118,18 @@ permalink: /examenes/
 .exams-page .chip-list::-webkit-scrollbar{ width: 10px; }
 .exams-page .chip-list::-webkit-scrollbar-track{ background: transparent; }
 .exams-page .chip-list::-webkit-scrollbar-thumb{
-  background: var(--border,#2a2a2e); border-radius: 999px;
+  background: var(--border,#2a2a2e); border-radius: 8px; /* más cuadrado */
   border: 2px solid transparent; background-clip: padding-box;
 }
 .exams-page .chip-list::-webkit-scrollbar-thumb:hover{
   background: color-mix(in srgb, var(--accent,#0a84ff) 55%, var(--border,#2a2a2e));
 }
 
+/* ===== Chips ===== */
 .exams-page .chip{
   width:100%; min-height:44px;
   padding:.6rem .8rem;
-  border-radius:999px;
+  border-radius:10px; /* menos circular */
   border:1px solid color-mix(in srgb, var(--fg,#fff) 12%, var(--border,#2a2a2e));
   background: color-mix(in srgb, var(--bg,#fff) 86%, transparent);
   color: var(--fg,#f5f5f7);
@@ -143,13 +166,36 @@ permalink: /examenes/
   padding:.6rem .9rem;
   font-weight:600;
   border-bottom:1px solid var(--border,#2a2a2e);
-  display:flex; justify-content:space-between; gap:1rem;
+  display:flex; justify-content:space-between; gap:.75rem; align-items:center;
   background: color-mix(in srgb, var(--bg,#fff) 85%, transparent);
+}
+.exams-page .viewer-left{
+  display:flex; flex-direction:column; gap:.25rem; min-width:0;
 }
 .exams-page #v-title{
   max-width:70%;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
+.exams-page #v-meta{
+  opacity:.75; font-size:.9rem;
+}
+.exams-page .viewer-right{
+  display:flex; align-items:center; gap:.5rem;
+}
+.exams-page .btn-open{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.45rem .8rem;
+  border-radius:10px; /* menos circular */
+  border:1px solid var(--border,#2a2a2e);
+  background: color-mix(in srgb, var(--bg,#fff) 88%, transparent);
+  color: var(--fg,#fff); text-decoration:none; font-weight:600; font-size:.9rem;
+  transition: background .2s ease, transform .08s ease;
+}
+.exams-page .btn-open:hover{
+  background: color-mix(in srgb, var(--accent,#0a84ff) 18%, var(--bg,#fff));
+}
+.exams-page .btn-open:active{ transform: translateY(1px); }
+
 .exams-page .viewer iframe{ width:100%; height:80vh; border:0; }
 </style>
 
@@ -163,6 +209,7 @@ const $ = (q)=>document.querySelector(q);
 const $$= (q)=>document.querySelectorAll(q);
 const fmt = (d)=>{ const x=new Date(d); return isNaN(x)?'' : x.toLocaleDateString('es-AR',{year:'numeric',month:'short'}); };
 const previewURL = (id)=>`https://drive.google.com/file/d/${id}/preview`;
+const viewURL    = (id)=>`https://drive.google.com/file/d/${id}/view`;
 
 /* Detectar tipo por nombre */
 function detectType(name=""){
@@ -175,7 +222,6 @@ function detectType(name=""){
 
 /* Renderizado */
 function render(files){
-  // agrupar por tipo tras ordenar
   const sorted = [...files].sort((a,b)=>String(b.date||b.modifiedTime).localeCompare(String(a.date||a.modifiedTime)));
   $("#col-p1").innerHTML=""; $("#col-p2").innerHTML=""; $("#col-final").innerHTML="";
 
@@ -200,6 +246,7 @@ function render(files){
         const tipoTxt = key==='P1'?'1er Parcial': key==='P2'?'2do Parcial':'Final';
         $('#v-meta').textContent = [tipoTxt, it.date?fmt(it.date):null].filter(Boolean).join(' · ');
         $('#v-iframe').src = previewURL(it.id);
+        $('#v-open').href  = viewURL(it.id);  // <-- link para nueva pestaña
         $('#viewer').hidden = false;
       });
       $(col).appendChild(el);
@@ -219,7 +266,6 @@ async function loadExams(){
     if(!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
 
-    // Soporta {files:[...]} o {items:[...]} según la versión del Apps Script
     const raw = Array.isArray(data.files) ? data.files
               : Array.isArray(data.items) ? data.items
               : [];
@@ -227,7 +273,7 @@ async function loadExams(){
       id: f.id,
       title: (f.name || f.title || '').trim(),
       date:  f.modifiedTime || f.modifiedDate || null
-    })).filter(x=>x.title.toLowerCase().endsWith('.pdf') || true); // acepta todos; el Apps Script ya filtra PDFs
+    }));
 
     render(ALL);
 
