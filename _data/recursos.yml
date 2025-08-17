@@ -1,0 +1,24 @@
+featured_repos:
+  - TC2Lib---LTSPICE
+  - TC2Lib---KiCad
+  - TC2-PlotTool
+  - L2-Recursos-Python
+  - Spice-a-PDF
+  - TC2-FilterTool
+
+pdfs:
+  - title: Guía de TC2-PlotTool
+    desc: Tutorial de uso para la herramienta de graficado.
+    url: https://drive.google.com/file/d/1mHmUzHIZZMZ9XE-cUx5moP_v4Gl3oNJB/view?usp=drive_link
+  - title: Conceptos elementales
+    desc: Resumen con fórmulas y conceptos básicos.
+    url: https://drive.google.com/file/d/1tughN9rpb_lM2v66-H71Ir4llchD7--F/view?usp=drive_link
+
+apps:
+  - title: Calculadora de seno elíptico (Streamlit)
+    url: https://tc2-sntool.streamlit.app
+    embed: true
+    height: 680
+
+# si no tenés links, podés dejarlo vacío o comentarlo:
+links: []
