@@ -63,7 +63,12 @@ Solo ítems que tengan PDF (archivo o pdf_file).
 
         <div class="actions">
           <a class="btn" href="{{ g.url | relative_url }}">Ver detalles</a>
-          <a class="btn ghost" href="{{ pdf_url }}" target="_blank" rel="noopener">Descargar</a>
+          <a class="btn ghost"
+             href="{{ pdf_url }}"
+             download
+             type="application/pdf">
+             Descargar
+          </a>
         </div>
       </div>
     </article>
