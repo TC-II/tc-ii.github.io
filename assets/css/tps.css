@@ -38,14 +38,6 @@
   }
   .tp-card.alt .tp-cover{ order: 0; }
   .tp-card.alt .tp-info { order: 0; }
-
-  /* portada controlada en ancho */
-  .tp-cover{
-    min-height: 0;
-    max-width: 220px;
-    width: 100%;
-    margin: 0 auto;
-  }
 }
 
 /* ===== Portada (imagen primera hoja) ===== */
@@ -57,9 +49,31 @@
   min-height: 420px;
   display:flex; align-items:center; justify-content:center;
 }
-.tp-cover img{ width:100%; height:100%; object-fit: cover; display:block; }
+.tp-cover img{
+  width:100%;
+  height:100%;
+  object-fit: cover;              /* Desktop: llena el cuadro */
+  display:block;
+}
 .tp-cover.no-thumb{ border-style: dashed; }
 .tp-cover-fallback{ opacity:.75; font-weight:600; }
+
+/* En mobile limitamos tamaño y evitamos recorte */
+@media (max-width: 780px){
+  .tp-cover{
+    min-height: 0;                /* quita alto forzado */
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-height: 60vh;            /* que quepa en pantalla */
+  }
+  .tp-cover img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;          /* se ve la hoja completa */
+    background: #fff;             /* “papel” detrás si sobra */
+  }
+}
 
 /* ===== Info ===== */
 .tp-info{ display: grid; gap: .75rem; align-content: start; }

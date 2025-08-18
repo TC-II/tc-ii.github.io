@@ -50,10 +50,10 @@
   const overlay = document.createElement('div');
   overlay.className = 'tp-modal-overlay';
   overlay.innerHTML = `
-    <div class="tp-modal" role="dialog" aria-modal="true">
+    <div class="tp-modal" role="dialog" aria-modal="true" aria-label="${title || "Detalles del Trabajo Práctico"}">
       <div class="tp-modal-header">
         <h3 class="tp-modal-title">${title || "Detalles del Trabajo Práctico"}</h3>
-        <button class="tp-modal-close" aria-label="Cerrar">×</button>
+        <button class="tp-modal-close" aria-label="Cerrar" aria-keyshortcuts="Esc">×</button>
       </div>
       ${description ? `<p class="tp-modal-desc">${description}</p>` : ''}
       ${pdf_id ? `
@@ -67,12 +67,22 @@
       </div>
     </div>
   `;
+
+  // Cerrar al hacer click fuera o en el botón
+  const close = () => {
+    document.body.classList.remove('tp-modal-open');
+    window.removeEventListener('keydown', onKey);
+    overlay.remove();
+  };
+  const onKey = (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc') close();
+  };
+
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay || e.target.classList.contains('tp-modal-close')) {
-      document.body.classList.remove('tp-modal-open');
-      overlay.remove();
-    }
+    if (e.target === overlay || e.target.classList.contains('tp-modal-close')) close();
   });
+  window.addEventListener('keydown', onKey);
+
   document.body.classList.add('tp-modal-open');
   document.body.appendChild(overlay);
 }
