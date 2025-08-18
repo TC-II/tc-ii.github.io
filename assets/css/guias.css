@@ -218,3 +218,19 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Para carátulas de Drive (iframe) */
+.gthumb iframe.gthumb-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Para carátulas de Drive cuando se usa fallback a iframe */
+.gthumb iframe.gthumb-iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}

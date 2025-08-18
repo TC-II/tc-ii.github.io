@@ -98,26 +98,27 @@
       
 
     </div>
-
-    
       <!-- Acciones -->
       <div class="actions" style="gap:.5rem; margin:.75rem 0 1rem 0">
-        <a class="btn" href="/Pagina_material/assets/Guias/25_14___TC2___Guia_1_2025.pdf" download>Descargar PDF</a>
-        <a class="btn ghost" href="/Pagina_material/assets/Guias/25_14___TC2___Guia_1_2025.pdf" target="_blank" rel="noopener">Abrir en pestaña</a>
+        <a class="btn" href="https://drive.google.com/uc?export=download&id=1um5yPgpC8Z6OZva56Tqj8nXrT2cjdYqk" download>Descargar PDF</a>
+        <a class="btn ghost" href="https://drive.google.com/file/d/1um5yPgpC8Z6OZva56Tqj8nXrT2cjdYqk/view" target="_blank" rel="noopener">Abrir en pestaña</a>
       </div>
 
-      <!-- Visor PDF con fallback móvil -->
-      <div id="pdfWrapper" class="pdf-fit card">
-        <iframe
-          id="pdfFrame"
-          title="Visor PDF"
-          data-pdf="/Pagina_material/assets/Guias/25_14___TC2___Guia_1_2025.pdf">
-        </iframe>
-      </div>
-
-      <p class="small text-dim" style="margin-top:1rem">
-        Si el visor no carga, usá “Abrir en pestaña” o “Descargar PDF”.
-      </p>
+      <!-- Visor PDF -->
+      
+        <!-- Drive: usar preview directamente en iframe -->
+        <div id="pdfWrapper" class="pdf-fit card">
+          <iframe
+            id="pdfFrame"
+            title="Visor PDF"
+            src="https://drive.google.com/file/d/1um5yPgpC8Z6OZva56Tqj8nXrT2cjdYqk/preview"
+            allow="autoplay">
+          </iframe>
+        </div>
+        <p class="small text-dim" style="margin-top:1rem">
+          Si el visor no carga, usá “Abrir en pestaña” o “Descargar PDF”.
+        </p>
+      
     
 
   </article>
@@ -126,32 +127,30 @@
   const frame = document.getElementById('pdfFrame');
   if(!frame) return;
 
+  // Si es Drive (le dimos src directo), no tocamos nada
+  if (frame.getAttribute('src')) return;
+
   const pdfUrl = frame.getAttribute('data-pdf');
   if(!pdfUrl) return;
 
-  // Detección simple
   const ua = navigator.userAgent || '';
   const isIOS =
     /iPad|iPhone|iPod/.test(ua) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
 
-  // URLs
   const nativeUrl = pdfUrl + '#view=FitH';
-  const absolute  = new URL(pdfUrl, window.location.origin).href; // compat total
+  const absolute  = new URL(pdfUrl, window.location.origin).href;
   const gdocsUrl  = 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(absolute);
 
-  // iOS/Safari: ir directo a Google Viewer
   if (isIOS || isSafari) {
     frame.src = gdocsUrl;
     frame.dataset.external = 'gdocs';
     return;
   }
 
-  // Intento nativo primero
   frame.src = nativeUrl;
 
-  // Fallback si no carga a tiempo (content-type, etc.)
   let loaded = false;
   const fallbackTimer = setTimeout(() => {
     if (!loaded) {
@@ -166,11 +165,10 @@
   }, { once: true });
 })();
 
-// Controles de zoom / fullscreen (si los llamás desde botones)
 function setPdfZoom(z) {
   const f = document.getElementById('pdfFrame');
   if (!f) return;
-  if (f.dataset.external === 'gdocs') return; // en Google Viewer el hash no aplica
+  if (f.dataset.external === 'gdocs') return;
   const base = f.src.split('#')[0];
   f.src = base + '#zoom=' + encodeURIComponent(z) + '&view=FitH';
 }
@@ -242,6 +240,6 @@ function toggleFull() {
 
 
     <!-- Script del menú móvil -->
-    <script src="/Pagina_material/assets/js/nav.js?v=1755470542" defer></script>
+    <script src="/Pagina_material/assets/js/nav.js?v=1755490137" defer></script>
   </body>
 </html>

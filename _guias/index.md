@@ -35,7 +35,6 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
   {%- endfor -%}
 {%- endif -%}
 
-{%- comment -%} Orden natural por título {%- endcomment -%}
 {%- assign items = items | sort_natural: "title" -%}
 
 <section class="guides-alt">
@@ -65,14 +64,12 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
       {%- endif -%}
     {%- endif -%}
 
-    {%- comment -%} Miniatura (local/URL/Drive-thumbnail) {%- endcomment -%}
+    {%- comment -%} Miniatura: preferir IMG de Drive thumbnail; si falla -> iframe preview {%- endcomment -%}
     {%- assign raw_thumb = g.preview | default: g.thumb -%}
     {%- assign preview_drive_id = g.preview_drive_id | default: g.thumb_drive_id -%}
     {%- assign thumb_url = nil -%}
 
-    {%- if preview_drive_id -%}
-      {%- assign thumb_url = 'https://drive.google.com/uc?export=view&id=' | append: preview_drive_id -%}
-    {%- elsif raw_thumb -%}
+    {%- if raw_thumb and not preview_drive_id -%}
       {%- if raw_thumb contains '://' -%}
         {%- assign thumb_url = raw_thumb -%}
       {%- else -%}
@@ -82,7 +79,15 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
 
     <article class="gcard {% if odd == 1 %}flip{% endif %}">
       <a class="gthumb" href="{{ g.url | relative_url }}">
-        {%- if thumb_url -%}
+        {%- if preview_drive_id -%}
+          <!-- Intento: imagen estática sin controles -->
+          <img
+            class="drive-thumb"
+            data-drive-id="{{ preview_drive_id }}"
+            src="https://drive.google.com/thumbnail?id={{ preview_drive_id }}&sz=w1000"
+            alt="Vista previa de {{ g.title }}">
+          <!-- Si falla, un script abajo reemplaza por iframe preview -->
+        {%- elsif thumb_url -%}
           <img src="{{ thumb_url }}" alt="Vista previa de {{ g.title }}">
         {%- else -%}
           <div class="gthumb-placeholder"><span class="badge">Guía</span></div>
@@ -114,3 +119,18 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
     </article>
   {%- endfor -%}
 </section>
+
+<script>
+/* Reemplaza miniaturas de Drive que fallen por un iframe preview (con controles) */
+document.querySelectorAll('img.drive-thumb').forEach(function(img){
+  img.addEventListener('error', function(){
+    var id = img.getAttribute('data-drive-id');
+    if (!id) return;
+    var ifr = document.createElement('iframe');
+    ifr.className = 'gthumb-iframe';
+    ifr.src = 'https://drive.google.com/file/d/' + id + '/preview';
+    ifr.allow = 'autoplay';
+    img.replaceWith(ifr);
+  }, { once: true });
+});
+</script>
