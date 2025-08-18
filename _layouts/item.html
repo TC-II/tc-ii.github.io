@@ -30,66 +30,108 @@ layout: default
       {{ content }}
     </div>
 
-    {% if page.archivo %}
+    {%- comment -%}
+      Compatibilidad PDF:
+      - Local/URL: usa page.archivo
+      - Drive: usa page.drive_id (o aliases archivo_id / drive_file_id)
+    {%- endcomment -%}
+    {%- assign drive_id = page.drive_id | default: page.archivo_id | default: page.drive_file_id -%}
+    {%- assign raw_pdf  = page.archivo -%}
+
+    {%- assign is_drive = drive_id -%}
+    {%- assign pdf_download = nil -%}
+    {%- assign pdf_open     = nil -%}
+    {%- assign pdf_embed    = nil -%}
+
+    {%- if is_drive -%}
+      {%- assign pdf_download = 'https://drive.google.com/uc?export=download&id=' | append: drive_id -%}
+      {%- assign pdf_open     = 'https://drive.google.com/file/d/' | append: drive_id | append: '/view' -%}
+      {%- assign pdf_embed    = 'https://drive.google.com/file/d/' | append: drive_id | append: '/preview' -%}
+    {%- elsif raw_pdf -%}
+      {%- if raw_pdf contains '://' -%}
+        {%- assign pdf_download = raw_pdf -%}
+        {%- assign pdf_open     = raw_pdf -%}
+        {%- assign pdf_embed    = raw_pdf -%}
+      {%- else -%}
+        {%- assign pdf_download = raw_pdf | replace: '\','/' | relative_url -%}
+        {%- assign pdf_open     = pdf_download -%}
+        {%- assign pdf_embed    = pdf_download -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {% if pdf_open %}
       <!-- Acciones -->
       <div class="actions" style="gap:.5rem; margin:.75rem 0 1rem 0">
-        <a class="btn" href="{{ page.archivo | relative_url }}" download>Descargar PDF</a>
-        <a class="btn ghost" href="{{ page.archivo | relative_url }}" target="_blank" rel="noopener">Abrir en pestaña</a>
+        <a class="btn" href="{{ pdf_download }}" download>Descargar PDF</a>
+        <a class="btn ghost" href="{{ pdf_open }}" target="_blank" rel="noopener">Abrir en pestaña</a>
       </div>
 
-      <!-- Visor PDF con fallback móvil -->
-      <div id="pdfWrapper" class="pdf-fit card">
-        <iframe
-          id="pdfFrame"
-          title="Visor PDF"
-          data-pdf="{{ page.archivo | replace: '\','/' | relative_url }}">
-        </iframe>
-      </div>
+      <!-- Visor PDF -->
+      {% if is_drive %}
+        <!-- Drive: usar preview directamente en iframe -->
+        <div id="pdfWrapper" class="pdf-fit card">
+          <iframe
+            id="pdfFrame"
+            title="Visor PDF"
+            src="{{ pdf_embed }}"
+            allow="autoplay">
+          </iframe>
+        </div>
+        <p class="small text-dim" style="margin-top:1rem">
+          Si el visor no carga, usá “Abrir en pestaña” o “Descargar PDF”.
+        </p>
+      {% else %}
+        <!-- Local/URL: tu lógica original con fallback -->
+        <div id="pdfWrapper" class="pdf-fit card">
+          <iframe
+            id="pdfFrame"
+            title="Visor PDF"
+            data-pdf="{{ pdf_embed }}">
+          </iframe>
+        </div>
 
-      <p class="small text-dim" style="margin-top:1rem">
-        Si el visor no carga, usá “Abrir en pestaña” o “Descargar PDF”.
-      </p>
+        <p class="small text-dim" style="margin-top:1rem">
+          Si el visor no carga, usá “Abrir en pestaña” o “Descargar PDF”.
+        </p>
+      {% endif %}
     {% endif %}
 
   </article>
 </main>
 
 {%- comment -%}
-  JS: visor con fallback (iOS/Safari o si el navegador no embebe PDF).
-  - Desktop/Android: visor nativo (#view=FitH)
-  - iOS/Safari o si falla: Google Docs Viewer dentro del iframe
+  JS original de visor con fallback (solo aplica a PDFs locales/URL).
+  Para Drive se usa /preview directo y NO se toca el src con hashes.
 {%- endcomment -%}
 <script>
 (function initPdfViewer(){
   const frame = document.getElementById('pdfFrame');
   if(!frame) return;
 
+  // Si es Drive (le dimos src directo), no tocamos nada
+  if (frame.getAttribute('src')) return;
+
   const pdfUrl = frame.getAttribute('data-pdf');
   if(!pdfUrl) return;
 
-  // Detección simple
   const ua = navigator.userAgent || '';
   const isIOS =
     /iPad|iPhone|iPod/.test(ua) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
 
-  // URLs
   const nativeUrl = pdfUrl + '#view=FitH';
-  const absolute  = new URL(pdfUrl, window.location.origin).href; // compat total
+  const absolute  = new URL(pdfUrl, window.location.origin).href;
   const gdocsUrl  = 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(absolute);
 
-  // iOS/Safari: ir directo a Google Viewer
   if (isIOS || isSafari) {
     frame.src = gdocsUrl;
     frame.dataset.external = 'gdocs';
     return;
   }
 
-  // Intento nativo primero
   frame.src = nativeUrl;
 
-  // Fallback si no carga a tiempo (content-type, etc.)
   let loaded = false;
   const fallbackTimer = setTimeout(() => {
     if (!loaded) {
@@ -104,11 +146,10 @@ layout: default
   }, { once: true });
 })();
 
-// Controles de zoom / fullscreen (si los llamás desde botones)
 function setPdfZoom(z) {
   const f = document.getElementById('pdfFrame');
   if (!f) return;
-  if (f.dataset.external === 'gdocs') return; // en Google Viewer el hash no aplica
+  if (f.dataset.external === 'gdocs') return;
   const base = f.src.split('#')[0];
   f.src = base + '#zoom=' + encodeURIComponent(z) + '&view=FitH';
 }

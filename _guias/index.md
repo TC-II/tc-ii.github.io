@@ -35,7 +35,7 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
   {%- endfor -%}
 {%- endif -%}
 
-{%- comment -%} Orden: por título natural {%- endcomment -%}
+{%- comment -%} Orden natural por título {%- endcomment -%}
 {%- assign items = items | sort_natural: "title" -%}
 
 <section class="guides-alt">
@@ -46,7 +46,7 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
   {%- for g in items -%}
     {%- assign odd = forloop.index0 | modulo: 2 -%}
 
-    {%- comment -%} Normalizo fuentes PDF: local, URL o Drive {%- endcomment -%}
+    {%- comment -%} Normalizo PDF (local/URL/Drive) {%- endcomment -%}
     {%- assign raw_pdf = g.pdf_file | default: g.archivo -%}
     {%- assign drive_id = g.drive_id | default: g.archivo_id | default: g.drive_file_id -%}
 
@@ -65,20 +65,18 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
       {%- endif -%}
     {%- endif -%}
 
-    {%- comment -%} Normalizo thumbnail: local, URL o Drive {%- endcomment -%}
+    {%- comment -%} Miniatura (local/URL/Drive-thumbnail) {%- endcomment -%}
     {%- assign raw_thumb = g.preview | default: g.thumb -%}
     {%- assign preview_drive_id = g.preview_drive_id | default: g.thumb_drive_id -%}
     {%- assign thumb_url = nil -%}
 
     {%- if preview_drive_id -%}
       {%- assign thumb_url = 'https://drive.google.com/uc?export=view&id=' | append: preview_drive_id -%}
-    {%- else -%}
-      {%- if raw_thumb -%}
-        {%- if raw_thumb contains '://' -%}
-          {%- assign thumb_url = raw_thumb -%}
-        {%- else -%}
-          {%- assign thumb_url = raw_thumb | replace: '\', '/' | relative_url -%}
-        {%- endif -%}
+    {%- elsif raw_thumb -%}
+      {%- if raw_thumb contains '://' -%}
+        {%- assign thumb_url = raw_thumb -%}
+      {%- else -%}
+        {%- assign thumb_url = raw_thumb | replace: '\', '/' | relative_url -%}
       {%- endif -%}
     {%- endif -%}
 
@@ -86,6 +84,8 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
       <a class="gthumb" href="{{ g.url | relative_url }}">
         {%- if thumb_url -%}
           <img src="{{ thumb_url }}" alt="Vista previa de {{ g.title }}">
+        {%- else -%}
+          <div class="gthumb-placeholder"><span class="badge">Guía</span></div>
         {%- endif -%}
       </a>
 
@@ -108,9 +108,7 @@ Solo ítems que tengan PDF (archivo o pdf_file) o un drive_id.
           {%- if pdf_url -%}
             <a class="btn ghost" href="{{ pdf_url }}" download type="application/pdf">Descargar</a>
           {%- endif -%}
-          {%- if drive_id -%}
-            <a class="btn ghost" href="{{ 'https://drive.google.com/file/d/' | append: drive_id | append: '/view' }}" target="_blank" rel="noopener">Ver en Drive</a>
-          {%- endif -%}
+          {% comment %} Botón “Ver en Drive” REMOVIDO {% endcomment %}
         </div>
       </div>
     </article>
