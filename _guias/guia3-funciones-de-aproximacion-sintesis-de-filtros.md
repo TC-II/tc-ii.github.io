@@ -1,9 +1,14 @@
 ---
-title: "Guía 3 - Funciones de Aporximacion: Síntesis de Filtros"
+title: "Guía 3 - Funciones de Aproximación: Síntesis de Filtros"
 date: 2025-08-14
 layout: item
 tipo: "Guía"
-archivo: assets/Guias/25_14___TC2___Guia_3_2025.pdf
-descripcion: "Desarollo de funciones de aproximación y su aplicación el la síntesis de filtros"
-preview: /assets/Guias/thumbs/Guia3.jpg
+
+# PDF en Drive
+drive_id: 1_PK4PFVQcZCy4YK_xs7Pe1Q3xcCLqOIW
+
+# Carátula / miniatura en Drive
+preview_drive_id: 172EuykvilZd77rfBjbLSAKgdl24Ipt3c
+
+descripcion: "Desarrollo de funciones de aproximación y su aplicación en la síntesis de filtros"
 ---
