@@ -4,20 +4,18 @@ title: Trabajos Prácticos
 permalink: /tps/
 ---
 
-<div class="card soft" style="margin-top:.5rem">
-  <strong>Listado</strong>
+<div class="tps-page">
+  {% include tp-guidelines.md %}
+
+  <div id="tps-status" class="small text-dim" style="margin:1rem 0;opacity:.8">Cargando Trabajos Prácticos…</div>
+  <div id="tps-list" class="tps-list"></div>
 </div>
 
-<p class="text-dim">Enunciados y material para los TPs.</p>
+<script>
+  window.TPS_CONFIG = {
+    jsonUrl: "https://script.google.com/macros/s/AKfycbyj-wGGjtdzh_41BjqJJLAGYH7IDPrEhIUGGBQh59IY0YBCO1jGukCa9_KORALgr2mpbg/exec?type=json"
+  };
+</script>
 
-<ul class="nice-list">
-  <!-- Dejé ejemplos; reemplazá/duplicá estos <li> según tus TPs reales -->
-  <li>
-    <a href="#">TP1 — Señales y sistemas</a>
-    <span class="text-dim"> · Enunciado + material base</span>
-  </li>
-  <li>
-    <a href="#">TP2 — LTspice: modelado y simulación</a>
-    <span class="text-dim"> · Enunciado + assets</span>
-  </li>
-</ul>
+<link rel="stylesheet" href="{{ '/assets/css/tps.css' | relative_url }}">
+<script src="{{ '/assets/js/tps.js' | relative_url }}"></script>

@@ -73,23 +73,40 @@
   <article class="card">
     <h1 class="title-lg">Trabajos Prácticos</h1>
     <div class="prose">
-      <div class="card soft" style="margin-top:.5rem">
-  <strong>Listado</strong>
+      <div class="tps-page">
+  <section class="tp-guidelines">
+  <h2 class="guidelines-title">Pautas Generales</h2>
+  <ul class="guidelines-list">
+    <li>
+      Los trabajos entregados fuera de término serán computados como desaprobados,
+      y regirán las condiciones estipuladas reglamentariamente.
+    </li>
+    <li>
+      No obstante, todos los trabajos deben entregarse completos para mantener
+      la condición regular de cursada.
+    </li>
+    <li>
+      La consigna presentada comprende lineamientos generales. Se requiere
+      interpretar los casos presentados y realizar un análisis relevante.
+    </li>
+  </ul>
+</section>
+
+
+  <div id="tps-status" class="small text-dim" style="margin:1rem 0;opacity:.8">Cargando Trabajos Prácticos…</div>
+  <div id="tps-list" class="tps-list"></div>
 </div>
 
-<p class="text-dim">Enunciados y material para los TPs.</p>
+<script>
+  window.TPS_CONFIG = {
+    jsonUrl: "https://script.google.com/macros/s/AKfycbyj-wGGjtdzh_41BjqJJLAGYH7IDPrEhIUGGBQh59IY0YBCO1jGukCa9_KORALgr2mpbg/exec?type=json"
+  };
+</script>
 
-<ul class="nice-list">
-  <!-- Dejé ejemplos; reemplazá/duplicá estos <li> según tus TPs reales -->
-  <li>
-    <a href="#">TP1 — Señales y sistemas</a>
-    <span class="text-dim"> · Enunciado + material base</span>
-  </li>
-  <li>
-    <a href="#">TP2 — LTspice: modelado y simulación</a>
-    <span class="text-dim"> · Enunciado + assets</span>
-  </li>
-</ul>
+<link rel="stylesheet" href="/Pagina_material/assets/css/tps.css" />
+
+<script src="/Pagina_material/assets/js/tps.js"></script>
+
 
     </div>
   </article>
@@ -144,13 +161,13 @@
 
     <div class="legal">
       <span>© 2025 Teoría de Circuitos II – ITBA</span>
-      <span>Hecho con ♥ por RN</span>
+      <span>Hecho con ♥ por RN. Propuesto por JP</span>
     </div>
   </div>
 </footer>
 
 
     <!-- Script del menú móvil -->
-    <script src="/Pagina_material/assets/js/nav.js?v=1755490137" defer></script>
+    <script src="/Pagina_material/assets/js/nav.js?v=1755531820" defer></script>
   </body>
 </html>

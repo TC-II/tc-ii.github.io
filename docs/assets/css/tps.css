@@ -1,0 +1,172 @@
+/* ===== Layout base ===== */
+.tps-page { display: grid; gap: 1.2rem; }
+.tps-list  { display: grid; gap: 1.2rem; }
+
+/* ===== Tarjeta (portada + contenido) ===== */
+.tp-card{
+  display: grid;
+  grid-template-columns: 340px 1fr; /* tarjeta impar: portada izquierda */
+  gap: 1.25rem;
+  padding: 1.1rem;
+  border: 1px solid var(--border, #2a2a2a);
+  background: var(--card, #141414);
+  border-radius: 16px;
+  box-shadow: var(--shadow, 0 0 0 1px rgba(255,255,255,0.03), 0 12px 36px rgba(0,0,0,.35));
+}
+
+/* Tarjeta par (alternancia): portada a la derecha */
+.tp-card.alt{
+  grid-template-columns: 1fr 340px;
+}
+.tp-card.alt .tp-cover{ order: 2; }
+.tp-card.alt .tp-info { order: 1; }
+
+/* step-down responsive: portada va bajando */
+@media (max-width: 1200px){
+  .tp-card{ grid-template-columns: 300px 1fr; }
+  .tp-card.alt{ grid-template-columns: 1fr 300px; }
+}
+@media (max-width: 980px){
+  .tp-card{ grid-template-columns: 260px 1fr; }
+  .tp-card.alt{ grid-template-columns: 1fr 260px; }
+}
+
+/* Mobile: apilado y SIN alternancia (portada arriba siempre) */
+@media (max-width: 780px){
+  .tp-card, .tp-card.alt{
+    grid-template-columns: 1fr;
+  }
+  .tp-card.alt .tp-cover{ order: 0; }
+  .tp-card.alt .tp-info { order: 0; }
+
+  /* portada controlada en ancho */
+  .tp-cover{
+    min-height: 0;
+    max-width: 220px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* ===== Portada (imagen primera hoja) ===== */
+.tp-cover{
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border, #2a2a2a);
+  background: rgba(255,255,255,.04);
+  min-height: 420px;
+  display:flex; align-items:center; justify-content:center;
+}
+.tp-cover img{ width:100%; height:100%; object-fit: cover; display:block; }
+.tp-cover.no-thumb{ border-style: dashed; }
+.tp-cover-fallback{ opacity:.75; font-weight:600; }
+
+/* ===== Info ===== */
+.tp-info{ display: grid; gap: .75rem; align-content: start; }
+.tp-title{
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  margin-top:.15rem;
+}
+
+/* ===== Fechas ===== */
+.tp-dates{ display:flex; flex-wrap:wrap; gap:.55rem .6rem; align-items:center; }
+
+.pill{
+  display:inline-flex; align-items:center;
+  padding:.5rem .85rem;
+  border-radius: 12px;
+  font-size:.9rem; line-height:1; font-weight:700;
+  border: none;
+}
+
+/* Publicación = outline azul */
+.pill-publish{
+  color: var(--accent, #1e68ff);
+  background: transparent;
+  border: 1px solid var(--accent, #1e68ff);
+}
+
+/* Entrega = rojo sólido */
+.pill-deadline{
+  color: #fff;
+  background: #ff3b30;
+}
+
+/* ===== Botón circular Calendar ===== */
+.calendar-chip{
+  width: 36px; height: 36px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent, #1e68ff);
+  color: var(--accent, #1e68ff);
+  background: transparent;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease, transform .1s ease;
+  margin-left: .25rem;
+  box-sizing: border-box;
+}
+.calendar-chip:hover{
+  background: var(--accent, #1e68ff);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.cal-ico{
+  width: 18px; height: 18px;
+  display:block;
+  stroke: currentColor; fill: none; stroke-width: 1.7;
+}
+
+/* ===== Descripción ===== */
+.tp-desc{ color: var(--muted, #b4b4b4); margin-top: .2rem; }
+
+/* ===== Acciones: solo 2 estilos (primary + outline) ===== */
+.tp-actions{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.3rem; }
+
+.btn-primary{
+  display:inline-block; padding:.62rem 1.1rem; border-radius:12px;
+  background: var(--accent, #1e68ff); color:#fff; text-decoration:none; border:none;
+  font-weight:700; transition:.2s;
+}
+.btn-primary:hover{ filter:brightness(1.1); }
+
+.btn-outline{
+  display:inline-block; padding:.62rem 1.1rem; border-radius:12px;
+  border:1px solid var(--accent,#1e68ff);
+  color: var(--accent,#1e68ff);
+  background: transparent; text-decoration:none; font-weight:700; transition:.2s;
+}
+.btn-outline:hover{ background: var(--accent,#1e68ff); color:#fff; }
+
+/* ===== Modal ===== */
+.tp-modal-open{ overflow:hidden; }
+.tp-modal-overlay{
+  position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  display:flex; align-items:center; justify-content:center; z-index: 80; padding: 1rem;
+}
+.tp-modal{
+  width: min(100%, 980px);
+  background: var(--card, #141414);
+  border:1px solid var(--border, #2a2a2a);
+  border-radius: 16px;
+  box-shadow: var(--shadow, 0 20px 60px rgba(0,0,0,.5));
+  padding: 1rem 1rem 1.2rem;
+}
+.tp-modal-header{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.3rem; }
+.tp-modal-title{ margin:0; font-size:1.18rem; font-weight:700; }
+.tp-modal-close{
+  background: transparent; border: 1px solid var(--border, #2a2a2a);
+  color: var(--fg, #eaeaea); border-radius: 10px; padding:.25rem .55rem; cursor:pointer;
+}
+.tp-modal-desc{ color: var(--muted, #a0a0a0); margin:.35rem 0 .95rem; }
+
+.tp-modal-viewer{
+  aspect-ratio: 16 / 10; width: 100%;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border, #2a2a2a);
+  background: #000; margin-bottom: 1rem;
+}
+.tp-modal-viewer iframe{ width:100%; height:100%; border:0; }
+
+.tp-modal-actions{ display:flex; gap:.6rem; flex-wrap:wrap; }
