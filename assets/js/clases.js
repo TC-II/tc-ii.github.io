@@ -1,6 +1,7 @@
 // /assets/js/clases.js
 (function () {
   const $ = (s, r=document) => r.querySelector(s);
+  const IS_MOBILE = () => window.matchMedia('(max-width: 680px)').matches;
 
   // === Config ===
   const CFG  = window.LIST_CONFIG || {};
@@ -23,7 +24,7 @@
   const parseRelease = (s) => { const d = new Date(s); return isNaN(d.getTime()) ? null : d; };
   const now = () => new Date();
 
-  // ---- Data
+  // ---- Data del JSON central
   function buildDataUrl() {
     const q = new URLSearchParams({ id: FID, type: FTY, _: Date.now() });
     return `${APP}?${q.toString()}`;
@@ -34,7 +35,7 @@
     return res.json();
   }
 
-  // WebApp que lista archivos de una carpeta de Drive
+  // ---- WebApp que lista archivos de una carpeta de Drive
   async function listFolderFiles(folderId) {
     const url = `${LIST}?folderId=${encodeURIComponent(folderId)}&depth=6`;
     const r = await fetch(url, { cache: "no-store", credentials: "omit" });
@@ -47,24 +48,12 @@
     return json.files;
   }
 
-  // ========= Cache & Precarga =========
-  // Mantenemos un caché por folderId con la promesa de sus archivos.
-  const fileCache = new Map();  // folderId -> Promise<files[]>
-
-  function preloadFolder(folderId) {
-    if (!fileCache.has(folderId)) {
-      const p = listFolderFiles(folderId).catch(err => {
-        console.error("[Clases] Precarga falló para", folderId, err);
-        return [];
-      });
-      fileCache.set(folderId, p);
-    }
-    return fileCache.get(folderId);
-  }
+  // ========= Caché de archivos (folderId -> files[]) =========
+  const fileCache = new Map();
 
   // ========= Modal (desktop con herramientas / mobile minimal) =========
   function openModal({ title, iframeSrc, description, openUrl }) {
-    const isMobile = window.matchMedia('(max-width: 680px)').matches;
+    const isMobile = IS_MOBILE();
 
     const overlay = document.createElement('div');
     overlay.className = 'clase-modal-overlay';
@@ -134,7 +123,6 @@
     const viewport= overlay.querySelector('.iframe-viewport');
 
     let scale = 1;
-
     const apply = () => {
       scaler.style.transform       = `scale(${scale})`;
       scaler.style.transformOrigin = 'top left';
@@ -364,8 +352,13 @@
 
       if (loaded) return;
 
-      // Usa PRECARGA desde caché; si aún no terminó, espera esa promesa.
-      const files = await preloadFolder(item.folder_id);
+      // Pinta desde caché (ya precargado en init). Si por alguna razón no está, trae ahora.
+      let files = fileCache.get(item.folder_id);
+      if (!files) {
+        try { files = await listFolderFiles(item.folder_id); }
+        catch { files = []; }
+        fileCache.set(item.folder_id, files);
+      }
       paintFiles(files);
       loaded = true;
       resyncExpandedHeight(collapse);
@@ -387,19 +380,35 @@
   }
 
   function renderFileRow(f) {
+    const mobile = IS_MOBILE();
     const row = document.createElement('div');
     row.className = 'item-row';
+
+    // Acciones: mobile con emojis; desktop con texto
+    const actionsHTML = mobile
+      ? `
+        <div class="item-actions item-actions--mobile">
+          ${f.previewPdf || f.exportPdf ? `<button class="iconbtn btn-quickview" type="button" title="Vista rápida" aria-label="Vista rápida">🔍</button>` : ``}
+          <a class="iconbtn" href="${f.webViewLink}" target="_blank" rel="noopener" title="Abrir" aria-label="Abrir">🔗</a>
+          <a class="iconbtn" href="${f.downloadUrl}" title="Descargar" aria-label="Descargar">⬇️</a>
+        </div>
+      `
+      : `
+        <div class="item-actions">
+          ${f.previewPdf || f.exportPdf ? `<button class="btn btn-ghost btn-quickview" type="button">Vista rápida</button>` : ``}
+          <a class="btn" href="${f.webViewLink}" target="_blank" rel="noopener">Abrir</a>
+          <a class="btn" href="${f.downloadUrl}">Descargar</a>
+        </div>
+      `;
+
     row.innerHTML = `
       <div class="item-left">
         <span class="pill">${labelForKind(f.kind)}</span>
         <span class="item-name">${f.name}</span>
       </div>
-      <div class="item-actions">
-        ${f.previewPdf || f.exportPdf ? `<button class="btn btn-ghost btn-quickview" type="button">Vista rápida</button>` : ``}
-        <a class="btn" href="${f.webViewLink}" target="_blank" rel="noopener">Abrir</a>
-        <a class="btn" href="${f.downloadUrl}">Descargar</a>
-      </div>
+      ${actionsHTML}
     `;
+
     const quick = row.querySelector('.btn-quickview');
     if (quick) {
       quick.addEventListener('click', () => {
@@ -407,26 +416,35 @@
         openModal({ title: f.name, iframeSrc: src, openUrl: f.webViewLink });
       });
     }
+    const quickIcon = row.querySelector('.iconbtn.btn-quickview');
+    if (quickIcon) {
+      quickIcon.addEventListener('click', () => {
+        const src = f.previewPdf || f.exportPdf || '';
+        openModal({ title: f.name, iframeSrc: src, openUrl: f.webViewLink });
+      });
+    }
+
     return row;
   }
 
   // ============= INIT =============
   document.addEventListener("DOMContentLoaded", async () => {
     try {
+      // 1) Leer JSON
       const all = await loadAllItems();
 
+      // 2) Separar
       const elementales = all.filter(x => String(x.kind).toLowerCase() === "elemental" && x.pdf_id);
       const clases = all.filter(x => String(x.kind).toLowerCase() === "clase" && x.folder_id && x.release);
 
-      // Elementales
+      // 3) Render Elementales
       elElem.innerHTML = "";
       elementales.forEach((it, i) => {
         const card = renderElemental(it, i);
         if (card) elElem.appendChild(card);
       });
 
-      // Clases (solo liberadas; orden por number o fecha)
-      elList.innerHTML = "";
+      // 4) Filtrar clases liberadas
       const released = clases
         .filter(c => {
           const d = parseRelease(c.release);
@@ -443,17 +461,32 @@
         elStatus.textContent = 'Aún no hay clases liberadas.';
         return;
       }
-      elStatus.textContent = '';
 
-      // *** PRECARGA TODAS LAS CARPETAS ***
-      released.forEach(cls => preloadFolder(cls.folder_id));
+      // 5) PRECARGA REAL (espera a que terminen TODAS antes de dibujar las tarjetas)
+      elStatus.style.display = 'block';
+      elStatus.textContent = 'Precargando material de clases…';
+      const preloads = await Promise.all(
+        released.map(async cls => {
+          try {
+            const files = await listFolderFiles(cls.folder_id);
+            fileCache.set(cls.folder_id, files);
+          } catch (e) {
+            console.error('[Clases] Precarga falló', cls.folder_id, e);
+            fileCache.set(cls.folder_id, []); // evita fetch posterior
+          }
+        })
+      );
 
-      // Render cards
+      // 6) Render de tarjetas (ya con todo precargado)
+      elList.innerHTML = "";
       released.forEach((cls, i) => {
         const num = Number(cls.number || (i + 1));
         const card = renderClassCard(cls, num);
         elList.appendChild(card);
       });
+
+      elStatus.textContent = '';  // limpio el cartel
+      elStatus.style.display = 'none';
 
     } catch (err) {
       console.error("[Clases] Init:", err);

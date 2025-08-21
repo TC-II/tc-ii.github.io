@@ -205,6 +205,20 @@
 .item-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
 .item-name{ font-weight:500; }
 
+/* ===== Icon buttons (mobile actions) ===== */
+.iconbtn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 40px; height: 40px;
+  border:1px solid var(--bd);
+  border-radius: 10px;
+  text-decoration: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.15rem;   /* tamaño del emoji */
+  line-height: 1;
+}
+.iconbtn:hover{ background: rgba(0,0,0,.06); }
+
 /* ===== Modal base ===== */
 .clase-modal-open{ overflow:hidden; }
 .clase-modal-overlay{
@@ -265,9 +279,10 @@
   border-radius: 0;
 }
 
-/* ===== Responsive ===== */
+/* ===== Anim ===== */
 @keyframes fadeIn{ from{ opacity:0 } to { opacity:1 } }
 
+/* ===== Responsive ===== */
 @media (max-width: 860px){
   .grid-elem{ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }
@@ -300,6 +315,11 @@
     grid-column: 1 / -1;         /* ocupa TODO el ancho debajo */
     justify-self: start;
     white-space: normal;         /* no se corta */
+  }
+
+  /* Acciones de items en una sola línea con emojis */
+  .item-actions--mobile{
+    display:flex; gap:.4rem; flex-wrap:nowrap;
   }
 
   .class-actions{ gap:.4rem; }
