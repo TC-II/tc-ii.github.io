@@ -1,0 +1,350 @@
+// /assets/js/clases.js
+(function () {
+  const $ = (s, r=document) => r.querySelector(s);
+
+  // === Config ===
+  const CFG  = window.LIST_CONFIG || {};
+  const APP  = CFG.APP_URL;
+  const FID  = CFG.FILE_ID;
+  const FTY  = CFG.FILE_TYPE || 'json';
+  const LIST = window.DRIVE_LIST_APP_URL || APP;
+
+  const elElem   = $("#elementales");
+  const elList   = $("#clases-list");
+  const elStatus = $("#clases-status");
+
+  // ---- Drive helpers
+  const drivePreview  = (id) => `https://drive.google.com/file/d/${encodeURIComponent(id)}/preview`;
+  const driveView     = (id) => `https://drive.google.com/file/d/${encodeURIComponent(id)}/view`;
+  const driveDownload = (id) => `https://drive.google.com/uc?export=download&id=${encodeURIComponent(id)}`;
+  const driveFolder   = (id) => `https://drive.google.com/drive/folders/${encodeURIComponent(id)}`;
+
+  // ---- Fecha/hora
+  const parseRelease = (s) => { const d = new Date(s); return isNaN(d.getTime()) ? null : d; };
+  const now = () => new Date();
+
+  // ---- Data
+  function buildDataUrl() {
+    const q = new URLSearchParams({ id: FID, type: FTY, _: Date.now() });
+    return `${APP}?${q.toString()}`;
+  }
+  async function loadAllItems() {
+    const res = await fetch(buildDataUrl(), { cache: "no-store", credentials: "omit" });
+    if (!res.ok) throw new Error("HTTP "+res.status);
+    return res.json();
+  }
+  async function listFolderFiles(folderId) {
+    const url = `${LIST}?folderId=${encodeURIComponent(folderId)}&depth=6`;
+    const r = await fetch(url, { cache: "no-store", credentials: "omit" });
+    const text = await r.text();
+    let json;
+    try { json = JSON.parse(text); }
+    catch { throw new Error("Respuesta no-JSON del Web App:\n" + text.slice(0,400)); }
+    if (json.ok === false) throw new Error(json.error || "ok:false");
+    if (!Array.isArray(json.files)) throw new Error("Sin 'files' en respuesta");
+    return json.files;
+  }
+
+  // ========= Modal =========
+  function openModal({ title, iframeSrc, description }) {
+    const overlay = document.createElement('div');
+    overlay.className = 'clase-modal-overlay';
+    overlay.innerHTML = `
+      <div class="clase-modal" role="dialog" aria-modal="true" aria-label="${title || 'Vista rápida'}">
+        <div class="clase-modal-header">
+          <h3 class="clase-modal-title">${title || 'Vista rápida'}</h3>
+          <button class="clase-modal-close" aria-label="Cerrar">×</button>
+        </div>
+        ${description ? `<p class="clase-modal-desc">${description}</p>` : ''}
+        ${iframeSrc ? `
+          <div class="clase-modal-viewer">
+            <iframe src="${iframeSrc}" loading="lazy" allow="autoplay"></iframe>
+          </div>
+        ` : `<div class="clase-modal-empty">No hay vista previa disponible.</div>`}
+      </div>
+    `;
+    const close = () => {
+      document.body.classList.remove('clase-modal-open');
+      window.removeEventListener('keydown', onKey);
+      overlay.remove();
+    };
+    const onKey = (e) => { if (e.key === 'Escape' || e.key === 'Esc') close(); };
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.classList.contains('clase-modal-close')) close();
+    });
+    window.addEventListener('keydown', onKey);
+    document.body.classList.add('clase-modal-open');
+    document.body.appendChild(overlay);
+  }
+
+  // ========= Animación para clases (expansión suave) =========
+  const EASE = 'cubic-bezier(.22,.61,.36,1)';
+  const DURATION = 420;
+
+  function expandSmooth(el) {
+    if (!el) return;
+    el.style.willChange = 'height, opacity';
+    el.style.overflow = 'hidden';
+    el.style.opacity = '0';
+    el.style.height = '0px';
+    el.hidden = false;
+    const target = el.scrollHeight;
+    requestAnimationFrame(() => {
+      el.style.transition = `height ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}`;
+      el.style.height = target + 'px';
+      el.style.opacity = '1';
+      const onEnd = (ev) => {
+        if (ev.propertyName !== 'height') return;
+        el.style.transition = '';
+        el.style.height = 'auto';
+        el.style.overflow = '';
+        el.style.willChange = '';
+        el.removeEventListener('transitionend', onEnd);
+      };
+      el.addEventListener('transitionend', onEnd);
+    });
+  }
+  function collapseSmooth(el) {
+    if (!el) return;
+    el.style.willChange = 'height, opacity';
+    el.style.overflow = 'hidden';
+    el.style.transition = '';
+    const start = el.scrollHeight;
+    el.style.height = start + 'px';
+    el.style.opacity = '1';
+    requestAnimationFrame(() => {
+      el.style.transition = `height ${DURATION}ms ${EASE}, opacity ${DURATION}ms ${EASE}`;
+      el.style.height = '0px';
+      el.style.opacity = '0';
+      const onEnd = (ev) => {
+        if (ev.propertyName !== 'height') return;
+        el.hidden = true;
+        el.style.transition = '';
+        el.style.height = '';
+        el.style.overflow = '';
+        el.style.willChange = '';
+        el.removeEventListener('transitionend', onEnd);
+      };
+      el.addEventListener('transitionend', onEnd);
+    });
+  }
+
+  // ========= UI: Elementales (SIN despliegue / SIN flecha) =========
+  const EMOJIS = ["★","⚡️","📘","🧭","🧪","🧰","📐","📊","🔧","🔗","🧠","🗂️"];
+
+  function renderElemental(item, idx=0) {
+    if (!item.pdf_id) return null;
+    const emoji = EMOJIS[idx % EMOJIS.length];
+    const variant = (idx % 6) + 1; // 1..6 colores
+
+    const card = document.createElement("article");
+    card.className = "class-card class-card--elemental";
+    card.innerHTML = `
+      <div class="class-head">
+        <div class="class-badge badge-var-${variant}" aria-hidden="true"><span>${item.emoji || emoji}</span></div>
+        <div class="class-title">${item.title || "Documento"}</div>
+        <div class="class-meta pill">PDF</div>
+      </div>
+      <div class="class-actions">
+        <a class="btn btn-primary" href="${driveView(item.pdf_id)}" target="_blank" rel="noopener">Abrir</a>
+        <a class="btn" href="${driveDownload(item.pdf_id)}">Descargar</a>
+        <button class="btn btn-ghost btn-quickview" type="button">Vista rápida</button>
+      </div>
+    `;
+    card.querySelector('.btn-quickview')?.addEventListener('click', () => {
+      openModal({ title: item.title, iframeSrc: drivePreview(item.pdf_id) });
+    });
+    return card;
+  }
+
+  // ========= UI: Clase (con despliegue y flecha) =========
+  function renderClassCard(item, badgeNum) {
+    const rel = parseRelease(item.release);
+    const relText = rel ? rel.toLocaleString() : "—";
+
+    const card = document.createElement("article");
+    card.className = "class-card class-card--class is-collapsed";
+    card.innerHTML = `
+      <div class="class-head">
+        <div class="class-badge" aria-hidden="true"><span>${badgeNum}</span></div>
+        <div class="class-title">${item.title || "Clase"}</div>
+        <div class="class-meta pill">Liberada ${relText}</div>
+        <button class="chevron-toggle" type="button" aria-expanded="false" aria-label="Mostrar detalles de la clase">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M8 9l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="class-actions">
+        <a class="btn btn-primary" href="${driveFolder(item.folder_id)}" target="_blank" rel="noopener">Abrir carpeta</a>
+      </div>
+
+      <div class="class-collapse" hidden>
+        <div class="class-groups"></div>
+      </div>
+    `;
+
+    const collapse  = card.querySelector('.class-collapse');
+    const groupsEl  = card.querySelector('.class-groups');
+    const chevron   = card.querySelector('.chevron-toggle');
+
+    let loaded = false;
+
+    const toggle = async () => {
+      const expanded = chevron.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        chevron.setAttribute('aria-expanded', 'false');
+        card.classList.remove('is-expanded');
+        card.classList.add('is-collapsed');
+        collapseSmooth(collapse);
+        return;
+      }
+
+      chevron.setAttribute('aria-expanded', 'true');
+      card.classList.add('is-expanded');
+      card.classList.remove('is-collapsed');
+      expandSmooth(collapse);
+
+      if (loaded) return;
+
+      // Loader mínimo
+      const loader = document.createElement('div');
+      loader.className = 'text-dim small';
+      loader.textContent = 'Cargando archivos…';
+      groupsEl.appendChild(loader);
+
+      try {
+        const files = await listFolderFiles(item.folder_id);
+        groupsEl.innerHTML = '';
+
+        // Agrupar por path (subcarpetas)
+        const map = new Map();
+        files.forEach(f => {
+          const key = (f.path || '').trim(); // "" = raíz
+          if (!map.has(key)) map.set(key, []);
+          map.get(key).push(f);
+        });
+
+        const sortedPaths = Array.from(map.keys()).sort((a,b) => (a||'').localeCompare(b||'', 'es'));
+
+        sortedPaths.forEach(path => {
+          const box = document.createElement('div');
+          box.className = 'group-box';
+          box.innerHTML = `
+            <div class="group-head">
+              <div class="group-title">${path || 'Raíz'}</div>
+            </div>
+            <div class="group-body"></div>
+          `;
+          const body = box.querySelector('.group-body');
+
+          // ordenar por nombre
+          map.get(path).sort((a,b) => a.name.localeCompare(b.name,'es')).forEach(f => {
+            body.appendChild(renderFileRow(f));
+          });
+
+          groupsEl.appendChild(box);
+        });
+
+        if (!files.length) {
+          const msg = document.createElement('div');
+          msg.className = 'text-dim small';
+          msg.textContent = 'Esta carpeta no tiene archivos visibles.';
+          groupsEl.appendChild(msg);
+        }
+
+        loaded = true;
+      } catch (err) {
+        console.error('[Clases] Error al listar carpeta:', err);
+        groupsEl.innerHTML = '<div class="text-dim small">No se pudieron cargar los archivos.</div>';
+      }
+    };
+
+    chevron.addEventListener('click', toggle);
+    chevron.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+
+    return card;
+  }
+
+  function labelForKind(k){
+    return ({
+      pdf:'PDF', gdoc:'Google Doc', gslides:'Google Slides', gsheets:'Google Sheets',
+      image:'Imagen', audio:'Audio', video:'Video', archive:'Archivo', code:'Código'
+    }[k] || 'Archivo');
+  }
+
+  function renderFileRow(f) {
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    row.innerHTML = `
+      <div class="item-left">
+        <span class="pill">${labelForKind(f.kind)}</span>
+        <span class="item-name">${f.name}</span>
+      </div>
+      <div class="item-actions">
+        ${f.previewPdf || f.exportPdf ? `<button class="btn btn-ghost btn-quickview" type="button">Vista rápida</button>` : ``}
+        <a class="btn" href="${f.webViewLink}" target="_blank" rel="noopener">Abrir</a>
+        <a class="btn" href="${f.downloadUrl}">Descargar</a>
+      </div>
+    `;
+    const quick = row.querySelector('.btn-quickview');
+    if (quick) {
+      quick.addEventListener('click', () => {
+        const src = f.previewPdf || f.exportPdf || '';
+        openModal({ title: f.name, iframeSrc: src });
+      });
+    }
+    return row;
+  }
+
+  // ============= INIT =============
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const all = await loadAllItems();
+
+      const elementales = all.filter(x => String(x.kind).toLowerCase() === "elemental" && x.pdf_id);
+      const clases = all.filter(x => String(x.kind).toLowerCase() === "clase" && x.folder_id && x.release);
+
+      // Elementales (tarjetas simples con emoji y color variante)
+      elElem.innerHTML = "";
+      elementales.forEach((it, i) => {
+        const card = renderElemental(it, i);
+        if (card) elElem.appendChild(card);
+      });
+
+      // Clases (solo liberadas; orden por number o fecha)
+      elList.innerHTML = "";
+      const released = clases
+        .filter(c => {
+          const d = parseRelease(c.release);
+          return d && d.getTime() <= now().getTime();
+        })
+        .sort((a,b) => {
+          const na = Number(a.number || 0), nb = Number(b.number || 0);
+          if (na && nb && na !== nb) return na - nb;
+          return (parseRelease(a.release)?.getTime() || 0) - (parseRelease(b.release)?.getTime() || 0);
+        });
+
+      if (!released.length) {
+        elStatus.style.display = 'block';
+        elStatus.textContent = 'Aún no hay clases liberadas.';
+        return;
+      }
+      elStatus.textContent = '';
+
+      released.forEach((cls, i) => {
+        const num = Number(cls.number || (i + 1));
+        const card = renderClassCard(cls, num);
+        elList.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error("[Clases] Init:", err);
+      elStatus.style.display = 'block';
+      elStatus.textContent = 'No se pudieron cargar las clases. Revisá la configuración.';
+    }
+  });
+})();

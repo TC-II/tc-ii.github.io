@@ -73,7 +73,43 @@
   <article class="card">
     <h1 class="title-lg">Clases</h1>
     <div class="prose">
-      <p>Material de clases (apuntes, slides, ejemplos):</p>
+      <div class="classes-page">
+
+  <div class="card soft">
+    <strong>Archivos elementales</strong>
+  </div>
+  <div id="elementales" class="grid-elem" style="margin-top:1rem"></div>
+
+  <div class="card soft" style="margin-top:2rem">
+    <strong>Material por clase</strong>
+    <p class="text-dim small">
+      El material presentado aquí corresponde a documentos/archivos de carácter complementario a lo dictado en clase,
+      no comprende ni busca abarcar la totalidad del contenido dado.
+    </p>
+  </div>
+
+  <div id="clases-status" class="small text-dim" style="margin:1rem 0;opacity:.8">Cargando clases…</div>
+  <div id="clases-list" class="classes-list"></div>
+</div>
+
+<script>
+  /* MISMO Web App para datos y para listar carpetas */
+  const APP_URL = 'https://script.google.com/macros/s/AKfycbyj-wGGjtdzh_41BjqJJLAGYH7IDPrEhIUGGBQh59IY0YBCO1jGukCa9_KORALgr2mpbg/exec';
+
+  /* JSON maestro (el mismo de TPs/Guías) */
+  window.LIST_CONFIG = {
+    APP_URL:  APP_URL,
+    FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',
+    FILE_TYPE:'json'
+  };
+
+  /* Para listar archivos de una carpeta, el JS usa ?folderId=... sobre el mismo Web App */
+  window.DRIVE_LIST_APP_URL = APP_URL;
+</script>
+
+<link rel="stylesheet" href="/Pagina_material/assets/css/clases.css" />
+
+<script src="/Pagina_material/assets/js/clases.js" defer=""></script>
 
 
     </div>
@@ -141,6 +177,6 @@
 
 
     <!-- Script del menú móvil -->
-    <script src="/Pagina_material/assets/js/nav.js?v=1755745233" defer></script>
+    <script src="/Pagina_material/assets/js/nav.js?v=1755811888" defer></script>
   </body>
 </html>

@@ -1,0 +1,287 @@
+/* ===== Variables ===== */
+:root{
+  --accent: #0a84ff;         /* azul iOS */
+  --accent-2: #8e8e93;       /* gris iOS */
+  --elev: var(--card, rgba(255,255,255,0.07));
+  --bd: var(--border, rgba(255,255,255,0.1));
+  --sh: 0 10px 30px rgba(0,0,0,.25);
+  --rad: 16px;
+}
+
+@media (prefers-color-scheme: light){
+  :root{
+    --elev: rgba(255,255,255,0.7);
+    --bd: #e5e7eb;
+    --sh: 0 10px 30px rgba(0,0,0,.06);
+  }
+}
+
+/* ===== Layout ===== */
+.grid-elem{
+  display:grid; gap:1rem;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+}
+.classes-list{ display:grid; gap:1.25rem; }
+
+/* ===== Card ===== */
+.class-card{
+  background: var(--elev);
+  border: 1px solid var(--bd);
+  border-radius: var(--rad);
+  box-shadow: var(--sh);
+  padding: 1rem 1.1rem;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  position: relative;           /* rail lateral */
+  padding-left: 108px;          /* espacio para rail */
+}
+.class-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.28);
+}
+
+/* ===== Head ===== */
+.class-head{
+  display:grid;
+  grid-template-columns: 1fr auto auto;
+  gap:.9rem; align-items:center;
+  margin-bottom:.6rem;
+}
+.class-title{
+  font-size: 1.05rem;
+  font-weight: 700;
+  transition: font-size .2s ease, letter-spacing .2s ease, transform .2s ease;
+}
+.class-card.is-expanded .class-title{
+  font-size: 1.22rem;
+  letter-spacing: .2px;
+  transform: translateY(-1px);
+}
+.class-meta{ justify-self: end; }
+
+/* ===== Chevron solo para CLASES ===== */
+.chevron-toggle{
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--bd);
+  background: transparent;
+  display:grid; place-items:center;
+  color: var(--accent);
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.chevron-toggle:hover{ background: rgba(0,0,0,.06); }
+.class-card.is-expanded .chevron-toggle{ transform: rotate(180deg); }
+
+/* en elementales no se muestra chevron */
+.class-card--elemental .chevron-toggle { display: none !important; }
+
+/* ===== Rail numérico/emoji (toda altura) ===== */
+.class-badge{
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 92px;
+  border-top-left-radius: var(--rad);
+  border-bottom-left-radius: var(--rad);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 14px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(255,255,255,.18), transparent 60%),
+    conic-gradient(from 220deg, #59a4ff, #0a84ff, #7b79ff, #59a4ff);
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.25),
+    0 10px 22px rgba(10,132,255,.22);
+  border-right: 1px solid color-mix(in oklab, var(--accent) 30%, var(--bd) 70%);
+}
+
+/* Numeración grande en CLASES */
+.class-badge > span{
+  font-size: 48px; /* en clases es número; en elementales lo sobreescribimos abajo */
+  line-height: 1;
+  letter-spacing: .5px;
+  text-shadow: 0 1px 0 rgba(0,0,0,.25);
+  transform: translateX(-2px);
+}
+.class-card.is-expanded .class-badge{ width: 112px; }
+.class-card.is-expanded{ padding-left: 124px; }
+
+/* ===== Colores alternados: CLASES ===== */
+.classes-list > .class-card:nth-child(6n+1) .class-badge{
+  background: conic-gradient(from 220deg, #59a4ff, #0a84ff, #7b79ff, #59a4ff);
+}
+.classes-list > .class-card:nth-child(6n+2) .class-badge{
+  background: conic-gradient(from 220deg, #ff8a59, #ff5e0a, #ff7b79, #ff8a59);
+}
+.classes-list > .class-card:nth-child(6n+3) .class-badge{
+  background: conic-gradient(from 220deg, #59ff9c, #0aff84, #79ff7b, #59ff9c);
+}
+.classes-list > .class-card:nth-child(6n+4) .class-badge{
+  background: conic-gradient(from 220deg, #ffd859, #ffb90a, #ffdf79, #ffd859);
+}
+.classes-list > .class-card:nth-child(6n+5) .class-badge{
+  background: conic-gradient(from 220deg, #c759ff, #8a0aff, #b579ff, #c759ff);
+}
+.classes-list > .class-card:nth-child(6n) .class-badge{
+  background: conic-gradient(from 220deg, #59e0ff, #0aa4ff, #79c8ff, #59e0ff);
+}
+
+/* ===== Colores alternados: ELEMENTALES (por variante badge-var-N) ===== */
+.class-card--elemental .class-badge.badge-var-1{
+  background: conic-gradient(from 220deg, #5ec2ff, #0a9bff, #78c3ff, #5ec2ff);
+}
+.class-card--elemental .class-badge.badge-var-2{
+  background: conic-gradient(from 220deg, #ffa85e, #ff7a0a, #ffb37a, #ffa85e);
+}
+.class-card--elemental .class-badge.badge-var-3{
+  background: conic-gradient(from 220deg, #62ffb0, #12d690, #86ffc6, #62ffb0);
+}
+.class-card--elemental .class-badge.badge-var-4{
+  background: conic-gradient(from 220deg, #ffe062, #ffbb0a, #ffe680, #ffe062);
+}
+.class-card--elemental .class-badge.badge-var-5{
+  background: conic-gradient(from 220deg, #d47dff, #962aff, #c29bff, #d47dff);
+}
+.class-card--elemental .class-badge.badge-var-6{
+  background: conic-gradient(from 220deg, #6fe6ff, #10b8ff, #93ecff, #6fe6ff);
+}
+
+/* ===== “Glass token” + relieve solo para ELEMENTALES ===== */
+.class-card--elemental .class-badge{
+  /* más glow para que el token se funda con la franja */
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.25),
+    0 14px 28px rgba(0,0,0,.25),
+    0 0 0 1px rgba(255,255,255,.08);
+}
+
+/* Placa de vidrio detrás del emoji */
+.class-card--elemental .class-badge::after{
+  content:"";
+  position:absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 18px;
+  background: color-mix(in oklab, white 22%, transparent);
+  box-shadow:
+    inset 0 2px 8px rgba(255,255,255,.35),
+    inset 0 -10px 18px rgba(0,0,0,.15),
+    0 10px 24px rgba(0,0,0,.28);
+  backdrop-filter: saturate(160%) blur(2px);
+  -webkit-backdrop-filter: saturate(160%) blur(2px);
+  /* centrado */
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+/* Emoji grande con drop-shadows y leve emboste */
+.class-card--elemental .class-badge > span{
+  position: relative;
+  z-index: 1;
+  font-size: 42px;         /* un poco menor para que respire dentro del token */
+  transform: none;         /* anulamos el shift de -2px */
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.25), /* brillo superior */
+    0 2px 4px rgba(0,0,0,.25);     /* sombra suave */
+  filter:
+    drop-shadow(0 4px 10px rgba(0,0,0,.35))
+    saturate(1.05) contrast(1.05);
+}
+
+/* Pills / Buttons */
+.pill{
+  display:inline-flex; align-items:center; gap:.35rem;
+  font-size:.8rem; padding:.25rem .55rem;
+  border-radius:999px; border:1px solid var(--bd); opacity:.9;
+  white-space:nowrap;
+}
+.btn{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.5rem .8rem; border-radius:12px;
+  text-decoration:none; border:1px solid var(--bd);
+  transition: background .2s, border-color .2s;
+}
+.btn:hover{ background: rgba(0,0,0,.06); }
+.btn-primary{
+  background: var(--accent); border-color: var(--accent);
+  color: white;
+}
+.btn-primary:hover{ filter: brightness(1.05); }
+.btn-ghost{ background: transparent; }
+
+/* ===== Collapse (solo clases; JS maneja height/opacity) ===== */
+.class-actions{
+  display:flex; gap:.5rem; flex-wrap:wrap;
+  margin: .35rem 0 .5rem;
+}
+.class-collapse{ overflow: hidden; }
+.class-groups{ display:flex; flex-direction:column; gap:.75rem; }
+
+/* Group box (subcarpetas) */
+.group-box{
+  background: color-mix(in oklab, var(--elev) 92%, black 8%);
+  border: 1px dashed var(--bd);
+  border-radius: 12px;
+  padding: .75rem .9rem;
+}
+.group-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: .25rem;
+}
+.group-title{ font-weight:600; opacity:.9; }
+
+/* Items */
+.item-row{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:.75rem; flex-wrap:wrap;
+  padding:.5rem 0; border-top:1px dashed var(--bd);
+}
+.item-row:first-of-type{ border-top:0; }
+.item-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
+.item-name{ font-weight:500; }
+
+/* ===== Modal ===== */
+.clase-modal-open{ overflow:hidden; }
+.clase-modal-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.45);
+  display:grid; place-items:center; z-index: 1000;
+  animation: fadeIn .15s ease;
+}
+.clase-modal{
+  width:min(1100px, 92vw);
+  max-height: 90vh;
+  background: var(--elev);
+  border:1px solid var(--bd);
+  border-radius: 14px;
+  box-shadow: var(--sh);
+  display:flex; flex-direction:column;
+}
+.clase-modal-header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.9rem 1rem; border-bottom:1px solid var(--bd);
+}
+.clase-modal-title{ font-size:1.05rem; font-weight:650; }
+.clase-modal-close{
+  border:0; background:transparent; font-size:1.4rem; line-height:1; cursor:pointer;
+}
+.clase-modal-desc{ margin:.25rem 1rem 0; opacity:.85; }
+.clase-modal-viewer{ padding: .75rem 1rem 1rem; }
+.clase-modal-viewer iframe{
+  width:100%; height:70vh; border:0; border-radius: 10px;
+  background:#0000000d;
+}
+.clase-modal-empty{ padding:1rem; opacity:.8; }
+
+@keyframes fadeIn{
+  from{ opacity:0 } to { opacity:1 }
+}
+
+/* Responsive */
+@media (max-width: 680px){
+  .class-meta{ justify-self: start; }
+  .class-badge{ width: 80px; }
+  .class-card{ padding-left: 96px; }
+  .class-card.is-expanded .class-badge{ width: 96px; }
+  .class-card.is-expanded{ padding-left: 110px; }
+}
