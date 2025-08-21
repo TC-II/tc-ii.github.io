@@ -159,6 +159,17 @@ body {
 .footer-links a { text-decoration: none; color: var(--fg); opacity:.85; }
 .footer-links a:hover { opacity:1; }
 
+/* Disclaimer en el footer */
+.site-footer .disclaimer {
+  font-size: 0.8rem;       /* más chico que el resto */
+  color: #9aa0a6;          /* gris tenue */
+  line-height: 1.45;       /* más aire entre líneas */
+  font-style: italic;      /* opcional: cursiva */
+  margin-top: 0.3rem;
+  max-width: 280px;        /* evita que se haga muy ancho */
+}
+
+
 /* Prose tweaks */
 .prose p, .prose ul, .prose ol { line-height: 1.65; }
 .prose code { background: rgba(125,125,125,.1); padding: 2px 6px; border-radius: 6px; }

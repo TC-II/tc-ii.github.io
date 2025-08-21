@@ -45,36 +45,93 @@
     return json.files;
   }
 
-  // ========= Modal =========
-  function openModal({ title, iframeSrc, description }) {
+  // ========= Modal con controles de zoom =========
+  function openModal({ title, iframeSrc, description, openUrl }) {
     const overlay = document.createElement('div');
     overlay.className = 'clase-modal-overlay';
     overlay.innerHTML = `
       <div class="clase-modal" role="dialog" aria-modal="true" aria-label="${title || 'Vista rápida'}">
         <div class="clase-modal-header">
           <h3 class="clase-modal-title">${title || 'Vista rápida'}</h3>
-          <button class="clase-modal-close" aria-label="Cerrar">×</button>
+          <div class="clase-modal-tools">
+            <button class="tool-btn tool-zoom-out" title="Zoom -">−</button>
+            <button class="tool-btn tool-zoom-reset" title="Zoom 100%">100%</button>
+            <button class="tool-btn tool-zoom-in" title="Zoom +">+</button>
+            <span class="tool-sep"></span>
+            <button class="tool-btn tool-fit-w" title="Ajustar ancho">⇱⇲</button>
+            <button class="tool-btn tool-fit-h" title="Ajustar alto">↕</button>
+            <span class="tool-sep"></span>
+            ${openUrl ? `<a class="tool-btn" href="${openUrl}" target="_blank" rel="noopener" title="Abrir en Drive">Abrir</a>` : ""}
+            <button class="tool-btn tool-full" title="Pantalla completa">⛶</button>
+            <button class="clase-modal-close" aria-label="Cerrar">×</button>
+          </div>
         </div>
         ${description ? `<p class="clase-modal-desc">${description}</p>` : ''}
-        ${iframeSrc ? `
-          <div class="clase-modal-viewer">
-            <iframe src="${iframeSrc}" loading="lazy" allow="autoplay"></iframe>
+        <div class="clase-modal-viewer">
+          <div class="iframe-viewport">
+            <div class="iframe-scaler">
+              <iframe src="${iframeSrc || ''}" loading="lazy" allow="autoplay"></iframe>
+            </div>
           </div>
-        ` : `<div class="clase-modal-empty">No hay vista previa disponible.</div>`}
+        </div>
       </div>
     `;
+
+    const modal   = overlay.querySelector('.clase-modal');
+    const scaler  = overlay.querySelector('.iframe-scaler');
+    const viewport= overlay.querySelector('.iframe-viewport');
+
+    let scale = 1;
+    let mode  = 'free';
+
+    const apply = () => {
+      scaler.style.transform       = `scale(${scale})`;
+      scaler.style.transformOrigin = 'top left';
+      scaler.style.width           = `${100/scale}%`;
+      scaler.style.height          = 'auto';
+    };
+
+    function fitWidth() { mode = 'fit-w'; scale = 1; apply(); }
+    function fitHeight(){
+      mode = 'fit-h';
+      const viewH = viewport.clientHeight;
+      const base  = 800;
+      scale = Math.max(0.5, Math.min(1.6, viewH / base));
+      apply();
+    }
+    function zoom(delta){ mode='free'; scale = Math.max(0.5, Math.min(2, +(scale+delta).toFixed(2))); apply(); }
+    function zoomReset(){ mode='free'; scale = 1; apply(); }
+
+    overlay.querySelector('.tool-zoom-in')   ?.addEventListener('click', () => zoom(+0.1));
+    overlay.querySelector('.tool-zoom-out')  ?.addEventListener('click', () => zoom(-0.1));
+    overlay.querySelector('.tool-zoom-reset')?.addEventListener('click', zoomReset);
+    overlay.querySelector('.tool-fit-w')     ?.addEventListener('click', fitWidth);
+    overlay.querySelector('.tool-fit-h')     ?.addEventListener('click', fitHeight);
+    overlay.querySelector('.tool-full')      ?.addEventListener('click', () => {
+      if (modal.requestFullscreen) modal.requestFullscreen().catch(()=>{});
+    });
+
     const close = () => {
       document.body.classList.remove('clase-modal-open');
       window.removeEventListener('keydown', onKey);
       overlay.remove();
     };
-    const onKey = (e) => { if (e.key === 'Escape' || e.key === 'Esc') close(); };
+    const onKey = (e) => {
+      if (e.key === 'Escape' || e.key === 'Esc') close();
+      if (e.ctrlKey && e.key === '+') { e.preventDefault(); zoom(+0.1); }
+      if (e.ctrlKey && e.key === '-') { e.preventDefault(); zoom(-0.1); }
+      if (e.ctrlKey && (e.key === '0' || e.key === 'º')) { e.preventDefault(); zoomReset(); }
+    };
+
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay || e.target.classList.contains('clase-modal-close')) close();
     });
     window.addEventListener('keydown', onKey);
+
     document.body.classList.add('clase-modal-open');
     document.body.appendChild(overlay);
+
+    fitWidth();
   }
 
   // ========= Animación para clases (expansión suave) =========
@@ -129,19 +186,31 @@
     });
   }
 
-  // ========= UI: Elementales (SIN despliegue / SIN flecha) =========
-  const EMOJIS = ["★","⚡️","📘","🧭","🧪","🧰","📐","📊","🔧","🔗","🧠","🗂️"];
+  // 👉 Ajusta la altura si el contenido cambió mientras está expandido
+  function resyncExpandedHeight(el) {
+    if (!el || el.hidden) return;
+    const prev = el.style.transition;
+    el.style.transition = '';                          // quita transición para medir
+    const h = el.scrollHeight;
+    el.style.height = h + 'px';                        // fija a la altura nueva
+    // re-aplica transición corta para no “pegarse”
+    requestAnimationFrame(() => {
+      el.style.transition = prev || `height 150ms ${EASE}`;
+      // a los ms volvemos a 'auto' para permitir futuros crecimientos
+      setTimeout(() => { if (!el.hidden) el.style.height = 'auto'; }, 160);
+    });
+  }
 
+  // ========= UI: Elementales (SIN despliegue / SIN flecha) =========
   function renderElemental(item, idx=0) {
     if (!item.pdf_id) return null;
-    const emoji = EMOJIS[idx % EMOJIS.length];
-    const variant = (idx % 6) + 1; // 1..6 colores
+    const variant = (idx % 6) + 1;
 
     const card = document.createElement("article");
     card.className = "class-card class-card--elemental";
     card.innerHTML = `
       <div class="class-head">
-        <div class="class-badge badge-var-${variant}" aria-hidden="true"><span>${item.emoji || emoji}</span></div>
+        <div class="class-badge badge-var-${variant}" aria-hidden="true"><span>${item.emoji || "⭐"}</span></div>
         <div class="class-title">${item.title || "Documento"}</div>
         <div class="class-meta pill">PDF</div>
       </div>
@@ -152,7 +221,11 @@
       </div>
     `;
     card.querySelector('.btn-quickview')?.addEventListener('click', () => {
-      openModal({ title: item.title, iframeSrc: drivePreview(item.pdf_id) });
+      openModal({
+        title: item.title,
+        iframeSrc: drivePreview(item.pdf_id),
+        openUrl: driveView(item.pdf_id)
+      });
     });
     return card;
   }
@@ -206,9 +279,10 @@
       card.classList.remove('is-collapsed');
       expandSmooth(collapse);
 
+      // Cargar si hace falta
       if (loaded) return;
 
-      // Loader mínimo
+      // loader
       const loader = document.createElement('div');
       loader.className = 'text-dim small';
       loader.textContent = 'Cargando archivos…';
@@ -218,7 +292,7 @@
         const files = await listFolderFiles(item.folder_id);
         groupsEl.innerHTML = '';
 
-        // Agrupar por path (subcarpetas)
+        // agrupar por path
         const map = new Map();
         files.forEach(f => {
           const key = (f.path || '').trim(); // "" = raíz
@@ -239,12 +313,11 @@
           `;
           const body = box.querySelector('.group-body');
 
-          // ordenar por nombre
           map.get(path).sort((a,b) => a.name.localeCompare(b.name,'es')).forEach(f => {
             body.appendChild(renderFileRow(f));
           });
 
-          groupsEl.appendChild(box);
+        groupsEl.appendChild(box);
         });
 
         if (!files.length) {
@@ -255,9 +328,14 @@
         }
 
         loaded = true;
+
+        // 🔧 IMPORTANTE: resincro altura ahora que hay contenido real
+        resyncExpandedHeight(collapse);
+
       } catch (err) {
         console.error('[Clases] Error al listar carpeta:', err);
         groupsEl.innerHTML = '<div class="text-dim small">No se pudieron cargar los archivos.</div>';
+        resyncExpandedHeight(collapse);
       }
     };
 
@@ -294,7 +372,7 @@
     if (quick) {
       quick.addEventListener('click', () => {
         const src = f.previewPdf || f.exportPdf || '';
-        openModal({ title: f.name, iframeSrc: src });
+        openModal({ title: f.name, iframeSrc: src, openUrl: f.webViewLink });
       });
     }
     return row;
@@ -308,7 +386,7 @@
       const elementales = all.filter(x => String(x.kind).toLowerCase() === "elemental" && x.pdf_id);
       const clases = all.filter(x => String(x.kind).toLowerCase() === "clase" && x.folder_id && x.release);
 
-      // Elementales (tarjetas simples con emoji y color variante)
+      // Elementales
       elElem.innerHTML = "";
       elementales.forEach((it, i) => {
         const card = renderElemental(it, i);
