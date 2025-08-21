@@ -1,236 +1,233 @@
-/* ====== Guías (cards con thumbnail y alternadas) ====== */
-.guides-alt{
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-top: .75rem;
-}
+/* ===== Layout base (Guías) ===== */
+.guides-page { display: grid; gap: 1.2rem; }
+.guides-list { display: grid; gap: 1.2rem; }
 
-/* Card base */
-.gcard{
-  display: grid;
-  grid-template-columns: 340px 1fr;   /* imagen | texto */
-  gap: 1.25rem;
-  align-items: center;
-  padding: 1rem 1.25rem;
-  background: var(--surface, #161618);
-  border: 1px solid var(--border, #2a2a2e);
-  border-radius: var(--radius, 12px);
-  box-shadow: 0 6px 20px rgba(0,0,0,.20);
-  min-height: 180px;
-}
-
-/* Alternar (imagen a la derecha) */
-.gcard.flip .gthumb { order: 2; }
-.gcard.flip .gbody  { order: 1; }
-
-/* Thumbnail (A4 aprox 3:4) */
-.gthumb{
-  display: block;
-  width: 100%;
-  max-width: 340px;
-  aspect-ratio: 3 / 4;
-  border-radius: calc(var(--radius, 12px) - 2px);
-  overflow: hidden;
-  border: 1px solid var(--border, #2a2a2e);
-  background: #0b0b0c;
-  box-shadow: 0 8px 24px rgba(0,0,0,.25);
-}
-.gthumb img{
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-}
-
-/* Si no hay preview: placeholder */
-.gthumb-placeholder{
-  width: 100%; height: 100%;
-  display: grid; place-items: center;
-  color: var(--fg-dim, #aaa);
-  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-}
-.badge{
-  display:inline-block;
-  padding: .25rem .6rem;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--accent, #007aff) 40%, var(--border, #2a2a2e));
-  color: var(--accent, #007aff);
-  font-size: .8rem;
-}
-
-/* Texto */
-.gbody { align-self: stretch; display: flex; flex-direction: column; }
-.gtitle{
-  font-size: clamp(1.25rem, 1.1vw + 1rem, 1.9rem);
-  line-height: 1.2; margin: .35rem 0 .35rem;
-}
-.gdesc{ color: var(--fg-dim, #aaa); max-width: 70ch; margin: 0 0 .25rem 0; }
-
-/* Sin morado (enlaces de título) */
-.gcard a, .gcard a:visited { color: var(--fg, #fff); text-decoration: none; }
-.gtitle a:hover { color: var(--accent, #007aff); }
-
-/* Responsive */
-@media (max-width: 980px){
-  .gcard { grid-template-columns: 280px 1fr; }
-}
-@media (max-width: 760px){
-  .gcard { grid-template-columns: 1fr; }
-  .gcard.flip .gthumb, .gcard.flip .gbody { order: initial; }
-  .gthumb { max-width: 100%; }
-}
-
-
-/* ===== Guías: layout y tarjetas alargadas ===== */
-.guides-list{
-  display: grid;
-  grid-template-columns: 1fr;         /* 1 por fila para protagonismo */
-  gap: 1rem;
-  margin-top: .75rem;
-}
-
-@media (min-width: 980px){
-  .guides-list{ grid-template-columns: 1fr; } /* seguimos 1 por fila en desktop */
-}
-
+/* ===== Tarjeta (portada + contenido) ===== */
 .guide-card{
   display: grid;
-  grid-template-columns: 1fr auto;    /* texto a la izquierda, acciones a la derecha */
-  gap: 1rem 1.25rem;
-  align-items: start;
-  padding: 1.25rem 1.5rem;
-  background: var(--surface, #161618);
-  border: 1px solid var(--border, #2a2a2e);
-  border-radius: var(--radius, 12px);
-  box-shadow: 0 6px 20px rgba(0,0,0,.20);
-  min-height: 150px;                  /* altura cómoda */
-}
-
-.guide-title{
-  font-size: clamp(1.25rem, 1.2vw + 1rem, 1.8rem);
-  line-height: 1.2;
-  margin: .35rem 0 .35rem;
-}
-
-.guide-desc{
-  color: var(--fg-dim, #aaa);
-  max-width: 75ch;
-  margin: 0 0 .25rem 0;
-}
-
-.guide-meta{
-  margin-bottom: .25rem;
-}
-
-.guide-card .actions{
-  align-self: end;                     /* botones alineados abajo a la derecha */
-  justify-self: end;
-}
-
-/* Chip “Guía” */
-.pill{
-  background: transparent;
-  border: 1px solid color-mix(in srgb, var(--accent, #007aff) 38%, var(--border, #2a2a2e));
-  color: var(--accent, #007aff);
-  padding: .2rem .55rem;
-  border-radius: 999px;
-  font-size: .78rem;
-}
-
-/* Título de la página /guias más protagónico */
-.page-title, .guides-list-heading, main.container h1{
-  font-size: clamp(1.6rem, 2.4vw + 1rem, 2.2rem) !important;
-  margin-bottom: .25rem;
-}
-
-/* ====== Visor PDF “que entra en pantalla” ======
-   - ocupa el 100% del ancho de la card
-   - altura dinámica: 78vh (con límites)
-*/
-.pdf-fit {
-  padding: 0;
-  overflow: hidden;
-  border-radius: var(--radius, 12px);
-  border: 1px solid var(--border, #333);
-  background: #fff;
-}
-
-.pdf-fit object,
-.pdf-fit iframe {
-  width: 100%;
-  height: 78vh;          /* ~pantalla completa sin tapar header/footer */
-  max-height: 1000px;    /* evita que sea excesivo en monitores enormes */
-  min-height: 520px;     /* evita que quede enano en laptops */
-  border: 0;
-  display: block;
-}
-
-@media (max-width: 640px) {
-  .pdf-fit object,
-  .pdf-fit iframe {
-    height: 72vh;
-    min-height: 420px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .pdf-fit {
-    background: #111;
-  }
-}
-
-/* ===== Hotfix guías: imagen a la derecha pegada al borde ===== */
-
-/* Solo 1 por fila */
-.guides-alt {
-  display: grid !important;
-  grid-template-columns: 1fr;
+  grid-template-columns: 340px 1fr; /* impar: portada izquierda */
   gap: 1.25rem;
+  padding: 1.1rem;
+  border: 1px solid var(--border, #2a2a2a);
+  background: var(--card, #141414);
+  border-radius: 16px;
+  box-shadow: var(--shadow, 0 0 0 1px rgba(255,255,255,0.03), 0 12px 36px rgba(0,0,0,.35));
 }
 
-/* imagen izquierda (default) */
-.gcard {
-  grid-template-columns: 340px 1fr; /* ancho imagen + texto */
-  align-items: stretch;
-  overflow: hidden;
+/* Par (alternancia): portada a la derecha */
+.guide-card.alt{
+  grid-template-columns: 1fr 340px;
+}
+.guide-card.alt .guide-cover{ order: 2; }
+.guide-card.alt .guide-info  { order: 1; }
+
+/* step-down responsive: portada va bajando */
+@media (max-width: 1200px){
+  .guide-card{ grid-template-columns: 300px 1fr; }
+  .guide-card.alt{ grid-template-columns: 1fr 300px; }
+}
+@media (max-width: 980px){
+  .guide-card{ grid-template-columns: 260px 1fr; }
+  .guide-card.alt{ grid-template-columns: 1fr 260px; }
 }
 
-/* imagen derecha */
-.gcard.flip {
-  grid-template-columns: 1fr 340px; /* texto + imagen */
-}
-
-/* La miniatura ocupa todo y sin borde raro */
-.gthumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Para que la imagen a la derecha quede pegada */
-.gcard.flip .gthumb {
-  justify-self: end;
-}
-
-/* Responsive: en móviles 1 columna normal */
-@media (max-width: 760px) {
-  .gcard,
-  .gcard.flip {
+/* Mobile: apilado y SIN alternancia (portada arriba siempre) */
+@media (max-width: 780px){
+  .guide-card, .guide-card.alt{
     grid-template-columns: 1fr;
   }
+  .guide-card.alt .guide-cover{ order: 0; }
+  .guide-card.alt .guide-info  { order: 0; }
 }
 
-/* Para carátulas de Drive (iframe) */
-.gthumb iframe.gthumb-iframe {
+/* ===== Portada (imagen primera hoja) ===== */
+.guide-cover{
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border, #2a2a2a);
+  background: rgba(255,255,255,.04);
+  min-height: 420px;
+  display:flex; align-items:center; justify-content:center;
+}
+.guide-cover img{
+  width:100%;
+  height:100%;
+  object-fit: cover;   /* Desktop: llena el cuadro */
+  display:block;
+}
+.guide-cover.no-thumb{ border-style: dashed; }
+.guide-cover-fallback{ opacity:.75; font-weight:600; }
+
+/* En mobile limitamos tamaño y evitamos recorte */
+@media (max-width: 780px){
+  .guide-cover{
+    min-height: 0;
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    max-height: 60vh;
+  }
+  .guide-cover img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* se ve la hoja completa */
+    background: #fff;     /* “papel” si sobra */
+  }
+}
+
+/* ===== Info ===== */
+.guide-info{ display: grid; gap: .75rem; align-content: start; }
+.guide-title{
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  margin-top:.15rem;
+}
+
+/* ===== “Condiciones” arriba ===== */
+.guide-meta{ display:flex; flex-wrap:wrap; gap:.55rem .6rem; align-items:center; }
+
+.pill{
+  display:inline-flex; align-items:center;
+  padding:.5rem .85rem;
+  border-radius: 12px;
+  font-size:.9rem; line-height:1; font-weight:700;
+  border: none;
+}
+
+/* Publicación = outline azul (igual estética TP publish) */
+.pill-publish{
+  color: var(--accent, #1e68ff);
+  background: transparent;
+  border: 1px solid var(--accent, #1e68ff);
+}
+
+/* Chips secundarios (unidad/tema) en gris sutil */
+.pill-muted{
+  color: var(--muted, #b4b4b4);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--muted, #b4b4b4) 65%, transparent);
+}
+
+/* Entrega = rojo sólido (igual a TPs) */
+.pill-deadline{
+  color: #fff;
+  background: #ff3b30;
+}
+
+/* ===== Botón circular Calendar (igual a TPs) ===== */
+.calendar-chip{
+  width: 36px; height: 36px;
+  display:inline-flex; align-items:center; justify-content:center;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent, #1e68ff);
+  color: var(--accent, #1e68ff);
+  background: transparent;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease, transform .1s ease;
+  margin-left: .25rem;
+  box-sizing: border-box;
+}
+.calendar-chip:hover{
+  background: var(--accent, #1e68ff);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.cal-ico{
+  width: 18px; height: 18px;
+  display:block;
+  stroke: currentColor; fill: none; stroke-width: 1.7;
+}
+
+/* ===== Descripción ===== */
+.guide-desc{ color: var(--muted, #b4b4b4); margin-top: .2rem; }
+
+/* ===== Acciones ===== */
+.guide-actions{ display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.3rem; }
+
+.btn-primary{
+  display:inline-block; padding:.62rem 1.1rem; border-radius:12px;
+  background: var(--accent, #1e68ff); color:#fff; text-decoration:none; border:none;
+  font-weight:700; transition:.2s;
+}
+.btn-primary:hover{ filter:brightness(1.1); }
+
+.btn-outline{
+  display:inline-block; padding:.62rem 1.1rem; border-radius:12px;
+  border:1px solid var(--accent,#1e68ff);
+  color: var(--accent,#1e68ff);
+  background: transparent; text-decoration:none; font-weight:700; transition:.2s;
+}
+.btn-outline:hover{ background: var(--accent,#1e68ff); color:#fff; }
+
+/* ===== Modal (namespaced Guías) ===== */
+.g-modal-open{ overflow:hidden; }
+.g-modal-overlay{
+  position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  display:flex; align-items:center; justify-content:center; z-index: 80; padding: 1rem;
+}
+.g-modal{
+  width: min(100%, 980px);
+  background: var(--card, #141414);
+  border:1px solid var(--border, #2a2a2a);
+  border-radius: 16px;
+  box-shadow: var(--shadow, 0 20px 60px rgba(0,0,0,.5));
+  padding: 1rem 1rem 1.2rem;
+}
+.g-modal-header{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.3rem; }
+.g-modal-title{ margin:0; font-size:1.18rem; font-weight:700; }
+.g-modal-close{
+  background: transparent; border: 1px solid var(--border, #2a2a2a);
+  color: var(--fg, #eaeaea); border-radius: 10px; padding:.25rem .55rem; cursor:pointer;
+}
+.g-modal-desc{ color: var(--muted, #a0a0a0); margin:.35rem 0 .95rem; }
+
+.g-modal-viewer{
+  aspect-ratio: 16 / 10; width: 100%;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border, #2a2a2a);
+  background: #000; margin-bottom: 1rem;
+}
+.g-modal-viewer iframe{ width:100%; height:100%; border:0; }
+.g-modal-actions{ display:flex; gap:.6rem; flex-wrap:wrap; }
+
+/* ===== Modal alto (Guías) ===== */
+.g-modal {
+  width: min(100%, 1200px);
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.g-modal-header { margin-bottom: .35rem; }
+.g-modal-desc   { margin: .35rem 0 .75rem; }
+
+/* El visor llena el modal */
+.g-modal-viewer{
+  flex: 1 1 auto;
+  height: 0;
+  min-height: 70vh;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border, #2a2a2a);
+  background: #000;
+  margin-bottom: .9rem;
+}
+
+.g-modal-viewer iframe{
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
 }
 
-/* Para carátulas de Drive cuando se usa fallback a iframe */
-.gthumb iframe.gthumb-iframe{
-  width:100%;
-  height:100%;
-  border:0;
-  display:block;
+.g-modal-actions{
+  display:flex; gap:.6rem; flex-wrap:wrap;
+  margin-top: 0;
 }
+
+@media (max-width: 780px){
+  .g-modal { max-height: 96vh; }
+  .g-modal-viewer { min-height: 65vh; }
+}
+

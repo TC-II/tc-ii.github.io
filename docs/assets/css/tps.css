@@ -184,3 +184,46 @@
 .tp-modal-viewer iframe{ width:100%; height:100%; border:0; }
 
 .tp-modal-actions{ display:flex; gap:.6rem; flex-wrap:wrap; }
+/* ===== Modal alto (TPs) ===== */
+.tp-modal {
+  width: min(100%, 1200px);
+  max-height: 94vh;               /* casi pantalla completa */
+  display: flex;                  /* para que el visor crezca */
+  flex-direction: column;
+}
+
+.tp-modal-header { margin-bottom: .35rem; }
+.tp-modal-desc   { margin: .35rem 0 .75rem; }
+
+/* El visor ahora ocupa TODO el alto disponible del modal */
+.tp-modal-viewer{
+  flex: 1 1 auto;                 /* crece para llenar */
+  height: 0;                      /* con flex, usamos height:0 */
+  min-height: 70vh;               /* asegura un buen alto */
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border, #2a2a2a);
+  background: #000;
+  margin-bottom: .9rem;
+}
+
+/* El iframe se estira al 100% del contenedor */
+.tp-modal-viewer iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Botonera al final */
+.tp-modal-actions{
+  display:flex; gap:.6rem; flex-wrap:wrap;
+  margin-top: 0;
+}
+
+/* Ajuste mobile */
+@media (max-width: 780px){
+  .tp-modal { max-height: 96vh; }
+  .tp-modal-viewer { min-height: 65vh; }
+}
+

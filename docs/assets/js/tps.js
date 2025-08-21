@@ -1,16 +1,23 @@
 (function () {
   const $ = (s, r=document) => r.querySelector(s);
-  const cfg = window.TPS_CONFIG || {};
-  const listEl = $("#tps-list");
+
+  // === Config (compat) ===
+  // Opción nueva (archivo único): window.LIST_CONFIG = { APP_URL, FILE_ID, FILE_TYPE, KIND:'tp' }
+  // Opción vieja (sigue funcionando): window.TPS_CONFIG = { jsonUrl: '.../exec?type=json' }
+  const CFG_NEW = window.LIST_CONFIG || {};
+  const CFG_OLD = window.TPS_CONFIG || {};
+  const USE_NEW = !!(CFG_NEW.APP_URL && CFG_NEW.FILE_ID);
+
+  const listEl   = $("#tps-list");
   const statusEl = $("#tps-status");
 
-  // ---- Drive helpers
+  // ---- Drive helpers (igual que antes)
   const driveView     = (id) => `https://drive.google.com/file/d/${encodeURIComponent(id)}/view#page=1`;
   const drivePreview  = (id) => `https://drive.google.com/file/d/${encodeURIComponent(id)}/preview`;
   const driveThumb    = (id, sz="w2000") => `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=${sz}`;
   const driveDownload = (id) => `https://docs.google.com/uc?export=download&id=${encodeURIComponent(id)}`;
 
-  // ---- Dates (AR -03:00)
+  // ---- Dates (AR -03:00) (igual que antes)
   const parseDateAR = (ymd) => {
     if (!ymd) return null;
     const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(ymd).trim());
@@ -45,50 +52,48 @@
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}`;
   };
 
-  // ---- Modal (detalles + visor PDF)
+  // ---- Modal (igual que antes)
   function openModal({ title, description, pdf_id }) {
-  const overlay = document.createElement('div');
-  overlay.className = 'tp-modal-overlay';
-  overlay.innerHTML = `
-    <div class="tp-modal" role="dialog" aria-modal="true" aria-label="${title || "Detalles del Trabajo Práctico"}">
-      <div class="tp-modal-header">
-        <h3 class="tp-modal-title">${title || "Detalles del Trabajo Práctico"}</h3>
-        <button class="tp-modal-close" aria-label="Cerrar" aria-keyshortcuts="Esc">×</button>
-      </div>
-      ${description ? `<p class="tp-modal-desc">${description}</p>` : ''}
-      ${pdf_id ? `
-        <div class="tp-modal-viewer">
-          <iframe src="${drivePreview(pdf_id)}" loading="lazy" allow="autoplay"></iframe>
+    const overlay = document.createElement('div');
+    overlay.className = 'tp-modal-overlay';
+    overlay.innerHTML = `
+      <div class="tp-modal" role="dialog" aria-modal="true" aria-label="${title || "Detalles del Trabajo Práctico"}">
+        <div class="tp-modal-header">
+          <h3 class="tp-modal-title">${title || "Detalles del Trabajo Práctico"}</h3>
+          <button class="tp-modal-close" aria-label="Cerrar" aria-keyshortcuts="Esc">×</button>
         </div>
-      ` : `<div class="tp-modal-empty">No hay archivo para previsualizar.</div>`}
-      <div class="tp-modal-actions">
-        ${pdf_id ? `<a class="btn-primary" href="${driveView(pdf_id)}" target="_blank" rel="noopener">Abrir PDF</a>` : ''}
-        ${pdf_id ? `<a class="btn-outline" href="${driveDownload(pdf_id)}" target="_blank" rel="noopener">Descargar</a>` : ''}
+        ${description ? `<p class="tp-modal-desc">${description}</p>` : ''}
+        ${pdf_id ? `
+          <div class="tp-modal-viewer">
+            <iframe src="${drivePreview(pdf_id)}" loading="lazy" allow="autoplay"></iframe>
+          </div>
+        ` : `<div class="tp-modal-empty">No hay archivo para previsualizar.</div>`}
+        <div class="tp-modal-actions">
+          ${pdf_id ? `<a class="btn-primary" href="${driveView(pdf_id)}" target="_blank" rel="noopener">Abrir PDF</a>` : ''}
+          ${pdf_id ? `<a class="btn-outline" href="${driveDownload(pdf_id)}" target="_blank" rel="noopener">Descargar</a>` : ''}
+        </div>
       </div>
-    </div>
-  `;
+    `;
 
-  // Cerrar al hacer click fuera o en el botón
-  const close = () => {
-    document.body.classList.remove('tp-modal-open');
-    window.removeEventListener('keydown', onKey);
-    overlay.remove();
-  };
-  const onKey = (e) => {
-    if (e.key === 'Escape' || e.key === 'Esc') close();
-  };
+    const close = () => {
+      document.body.classList.remove('tp-modal-open');
+      window.removeEventListener('keydown', onKey);
+      overlay.remove();
+    };
+    const onKey = (e) => {
+      if (e.key === 'Escape' || e.key === 'Esc') close();
+    };
 
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay || e.target.classList.contains('tp-modal-close')) close();
-  });
-  window.addEventListener('keydown', onKey);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay || e.target.classList.contains('tp-modal-close')) close();
+    });
+    window.addEventListener('keydown', onKey);
 
-  document.body.classList.add('tp-modal-open');
-  document.body.appendChild(overlay);
-}
+    document.body.classList.add('tp-modal-open');
+    document.body.appendChild(overlay);
+  }
 
-
-  // ---- Render de tarjeta (con soporte alternancia por índice)
+  // ---- Render (igual que antes)
   const renderCard = (item, index=0) => {
     const releaseStr  = fmtDDMMYYYY(item.release);
     const deadlineStr = fmtDDMMYYYY(item.deadline);
@@ -97,16 +102,15 @@
 
     const el = document.createElement("article");
     el.className = "tp-card";
-    if (index % 2 === 1) el.classList.add("alt"); // alternancia en pares
+    if (index % 2 === 1) el.classList.add("alt"); // alternancia
 
-    // Portada (imagen 1ª hoja)
     const cover = document.createElement('div');
     cover.className = 'tp-cover';
     if (item.pdf_id) {
       const img = document.createElement('img');
       img.alt = `Portada ${item.title || ""}`;
       img.loading = "lazy";
-      img.src = driveThumb(item.pdf_id, "w2000");
+      img.src = driveThumb(item.pdf_id, "w2000"); // <-- primera hoja del PDF (igual que antes)
       img.onerror = () => {
         cover.classList.add('no-thumb');
         cover.innerHTML = `<div class="tp-cover-fallback">PDF</div>`;
@@ -117,7 +121,6 @@
       cover.innerHTML = `<div class="tp-cover-fallback">Sin PDF</div>`;
     }
 
-    // Info
     const info = document.createElement('div');
     info.className = 'tp-info';
     info.innerHTML = `
@@ -150,7 +153,6 @@
     el.appendChild(cover);
     el.appendChild(info);
 
-    // “Ver detalles”
     info.querySelector('.btn-details')?.addEventListener('click', () => {
       openModal({ title: item.title, description: item.description, pdf_id: item.pdf_id });
     });
@@ -158,8 +160,9 @@
     return el;
   };
 
-  // ---- Data helpers
+  // ---- Data helpers (min cambio: agregamos 'kind')
   const normalize = (arr) => (arr || []).map(o => ({
+    kind: String(o.kind || o.type || '').toLowerCase().trim(), // <— NUEVO
     title: (o.title||"").trim(),
     description: (o.description||"").trim(),
     pdf_id: (o.pdf_id||"").trim(),
@@ -167,29 +170,49 @@
     deadline: o.deadline ? parseDateAR(String(o.deadline)) : null,
   }));
 
-  async function loadFromWebApp(url) {
-    const u = new URL(url, location.href);
-    u.searchParams.set("_", Date.now().toString()); // evitar caché
-    const res = await fetch(u.toString(), { cache: "no-store", credentials: "omit" });
+  // Arma URL según config nueva o vieja
+  function buildUrl() {
+    if (USE_NEW) {
+      const { APP_URL, FILE_ID, FILE_TYPE } = CFG_NEW;
+      const usp = new URLSearchParams();
+      if (FILE_ID)   usp.set('id', FILE_ID);
+      if (FILE_TYPE) usp.set('type', FILE_TYPE);
+      usp.set('_', Date.now().toString());
+      return `${APP_URL}?${usp.toString()}`;
+    }
+    // Compat: jsonUrl ya armado
+    const u = new URL(CFG_OLD.jsonUrl, location.href);
+    u.searchParams.set('_', Date.now().toString());
+    return u.toString();
+  }
+
+  async function loadFromWebApp() {
+    const url = buildUrl();
+    const res = await fetch(url, { cache: "no-store", credentials: "omit" });
     if (!res.ok) throw new Error("HTTP "+res.status);
     const data = await res.json();
     return normalize(data);
   }
 
-  // ---- Init
+  // ---- Init (min cambio: filtro por kind='tp' si está configurado)
   document.addEventListener("DOMContentLoaded", async () => {
     try {
-      if (!cfg.jsonUrl) throw new Error("Falta jsonUrl en TPS_CONFIG.");
-      const items = await loadFromWebApp(cfg.jsonUrl);
+      if (!USE_NEW && !CFG_OLD.jsonUrl) throw new Error("Falta LIST_CONFIG (APP_URL/FILE_ID) o TPS_CONFIG.jsonUrl.");
+
+      const items = await loadFromWebApp();
+
+      // Filtrar por kind (si hay config nueva). Default 'tp'.
+      const wantedKind = (CFG_NEW.KIND || 'tp').toLowerCase().trim();
+      const filtered = items.filter(it => !wantedKind || it.kind === wantedKind || (!it.kind && wantedKind === 'tp'));
 
       const now = todayAR();
-      const published = items
+      const published = filtered
         .filter(it => it.release && it.release.getTime() <= now.getTime())
         .sort((a,b) => (b.release?.getTime()||0) - (a.release?.getTime()||0));
 
       statusEl.textContent = "";
       listEl.innerHTML = "";
-      published.forEach((it, i) => listEl.appendChild(renderCard(it, i))); // <<< alternancia
+      published.forEach((it, i) => listEl.appendChild(renderCard(it, i)));
     } catch (err) {
       console.error("[TPs] Error:", err);
       statusEl.textContent = "No se pudieron cargar los Trabajos Prácticos. Revisá la configuración y permisos.";
