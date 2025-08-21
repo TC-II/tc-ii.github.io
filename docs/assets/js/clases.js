@@ -51,12 +51,55 @@
   // ========= Caché de archivos (folderId -> files[]) =========
   const fileCache = new Map();
 
+  // ========= Scroll lock robusto (mobile) =========
+  let scrollState = { locked: false, top: 0 };
+  function lockScroll() {
+    if (scrollState.locked) return;
+    scrollState.top = window.scrollY || window.pageYOffset || 0;
+    document.body.dataset.scrollTop = String(scrollState.top);
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollState.top}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.classList.add('clase-modal-open'); // además de overflow hidden
+    scrollState.locked = true;
+  }
+  function unlockScroll() {
+    if (!scrollState.locked) return;
+    const top = parseInt(document.body.dataset.scrollTop || '0', 10) || 0;
+    document.body.classList.remove('clase-modal-open');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    delete document.body.dataset.scrollTop;
+    window.scrollTo(0, top);
+    scrollState.locked = false;
+  }
+
   // ========= Modal (desktop con herramientas / mobile minimal) =========
+  function closeAnyOpenModal() {
+    // cierra overlays huérfanos si existieran
+    document.querySelectorAll('.clase-modal-overlay').forEach(ov => {
+      // stop drive stream
+      ov.querySelectorAll('iframe').forEach(fr => { try { fr.src = ''; } catch {} });
+      ov.remove();
+    });
+    unlockScroll();
+  }
+
   function openModal({ title, iframeSrc, description, openUrl }) {
     const isMobile = IS_MOBILE();
 
+    // evita overlays duplicados
+    closeAnyOpenModal();
+
     const overlay = document.createElement('div');
     overlay.className = 'clase-modal-overlay';
+
+    let onKey;
 
     if (isMobile) {
       // ----- Mobile: modal fullscreen minimal -----
@@ -74,17 +117,22 @@
           </div>
         </div>
       `;
+
       const close = () => {
-        document.body.classList.remove('clase-modal-open');
+        // corta video / visor en iOS para evitar leaks y glitches
+        overlay.querySelectorAll('iframe').forEach(fr => { try { fr.src = ''; } catch {} });
+        unlockScroll();
         window.removeEventListener('keydown', onKey);
         overlay.remove();
       };
-      const onKey = (e) => { if (e.key === 'Escape' || e.key === 'Esc') close(); };
+      onKey = (e) => { if (e.key === 'Escape' || e.key === 'Esc') close(); };
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay || e.target.classList.contains('clase-modal-close')) close();
       });
       window.addEventListener('keydown', onKey);
-      document.body.classList.add('clase-modal-open');
+
+      // Bloqueo de scroll robusto
+      lockScroll();
       document.body.appendChild(overlay);
       return;
     }
@@ -149,11 +197,12 @@
     });
 
     const close = () => {
+      overlay.querySelectorAll('iframe').forEach(fr => { try { fr.src = ''; } catch {} });
       document.body.classList.remove('clase-modal-open');
       window.removeEventListener('keydown', onKey);
       overlay.remove();
     };
-    const onKey = (e) => {
+    onKey = (e) => {
       if (e.key === 'Escape' || e.key === 'Esc') close();
       if (e.ctrlKey && e.key === '+') { e.preventDefault(); zoom(+0.1); }
       if (e.ctrlKey && e.key === '-') { e.preventDefault(); zoom(-0.1); }
@@ -352,7 +401,7 @@
 
       if (loaded) return;
 
-      // Pinta desde caché (ya precargado en init). Si por alguna razón no está, trae ahora.
+      // Pinta desde caché (precargado en init). Si por alguna razón no está, trae ahora.
       let files = fileCache.get(item.folder_id);
       if (!files) {
         try { files = await listFolderFiles(item.folder_id); }
@@ -384,7 +433,6 @@
     const row = document.createElement('div');
     row.className = 'item-row';
 
-    // Acciones: mobile con emojis; desktop con texto
     const actionsHTML = mobile
       ? `
         <div class="item-actions item-actions--mobile">
@@ -410,19 +458,15 @@
     `;
 
     const quick = row.querySelector('.btn-quickview');
-    if (quick) {
-      quick.addEventListener('click', () => {
-        const src = f.previewPdf || f.exportPdf || '';
-        openModal({ title: f.name, iframeSrc: src, openUrl: f.webViewLink });
-      });
-    }
+    if (quick) quick.addEventListener('click', () => {
+      const src = f.previewPdf || f.exportPdf || '';
+      openModal({ title: f.name, iframeSrc: src, openUrl: f.webViewLink });
+    });
     const quickIcon = row.querySelector('.iconbtn.btn-quickview');
-    if (quickIcon) {
-      quickIcon.addEventListener('click', () => {
-        const src = f.previewPdf || f.exportPdf || '';
-        openModal({ title: f.name, iframeSrc: src, openUrl: f.webViewLink });
-      });
-    }
+    if (quickIcon) quickIcon.addEventListener('click', () => {
+      const src = f.previewPdf || f.exportPdf || '';
+      openModal({ title: f.name, iframeSrc: src, openUrl: f.webViewLink });
+    });
 
     return row;
   }
@@ -430,21 +474,19 @@
   // ============= INIT =============
   document.addEventListener("DOMContentLoaded", async () => {
     try {
-      // 1) Leer JSON
       const all = await loadAllItems();
 
-      // 2) Separar
       const elementales = all.filter(x => String(x.kind).toLowerCase() === "elemental" && x.pdf_id);
       const clases = all.filter(x => String(x.kind).toLowerCase() === "clase" && x.folder_id && x.release);
 
-      // 3) Render Elementales
+      // Elementales
       elElem.innerHTML = "";
       elementales.forEach((it, i) => {
         const card = renderElemental(it, i);
         if (card) elElem.appendChild(card);
       });
 
-      // 4) Filtrar clases liberadas
+      // Clases liberadas
       const released = clases
         .filter(c => {
           const d = parseRelease(c.release);
@@ -462,22 +504,22 @@
         return;
       }
 
-      // 5) PRECARGA REAL (espera a que terminen TODAS antes de dibujar las tarjetas)
+      // Precarga real (espera a que terminen TODAS antes de dibujar tarjetas)
       elStatus.style.display = 'block';
       elStatus.textContent = 'Precargando material de clases…';
-      const preloads = await Promise.all(
+      await Promise.all(
         released.map(async cls => {
           try {
             const files = await listFolderFiles(cls.folder_id);
             fileCache.set(cls.folder_id, files);
           } catch (e) {
             console.error('[Clases] Precarga falló', cls.folder_id, e);
-            fileCache.set(cls.folder_id, []); // evita fetch posterior
+            fileCache.set(cls.folder_id, []);
           }
         })
       );
 
-      // 6) Render de tarjetas (ya con todo precargado)
+      // Render de tarjetas (ya con todo precargado)
       elList.innerHTML = "";
       released.forEach((cls, i) => {
         const num = Number(cls.number || (i + 1));
@@ -485,8 +527,11 @@
         elList.appendChild(card);
       });
 
-      elStatus.textContent = '';  // limpio el cartel
+      elStatus.textContent = '';
       elStatus.style.display = 'none';
+
+      // por si hay algún overlay viejo por recarga parcial
+      closeAnyOpenModal();
 
     } catch (err) {
       console.error("[Clases] Init:", err);
