@@ -33,6 +33,8 @@
     if (!res.ok) throw new Error("HTTP "+res.status);
     return res.json();
   }
+
+  // WebApp que lista archivos de una carpeta de Drive
   async function listFolderFiles(folderId) {
     const url = `${LIST}?folderId=${encodeURIComponent(folderId)}&depth=6`;
     const r = await fetch(url, { cache: "no-store", credentials: "omit" });
@@ -43,6 +45,21 @@
     if (json.ok === false) throw new Error(json.error || "ok:false");
     if (!Array.isArray(json.files)) throw new Error("Sin 'files' en respuesta");
     return json.files;
+  }
+
+  // ========= Cache & Precarga =========
+  // Mantenemos un caché por folderId con la promesa de sus archivos.
+  const fileCache = new Map();  // folderId -> Promise<files[]>
+
+  function preloadFolder(folderId) {
+    if (!fileCache.has(folderId)) {
+      const p = listFolderFiles(folderId).catch(err => {
+        console.error("[Clases] Precarga falló para", folderId, err);
+        return [];
+      });
+      fileCache.set(folderId, p);
+    }
+    return fileCache.get(folderId);
   }
 
   // ========= Modal (desktop con herramientas / mobile minimal) =========
@@ -117,7 +134,6 @@
     const viewport= overlay.querySelector('.iframe-viewport');
 
     let scale = 1;
-    const EASE = 'cubic-bezier(.22,.61,.36,1)';
 
     const apply = () => {
       scaler.style.transform       = `scale(${scale})`;
@@ -274,7 +290,7 @@
         <div class="class-title">${item.title || "Clase"}</div>
         <div class="class-meta pill">Liberada ${relText}</div>
         <button class="chevron-toggle" type="button" aria-expanded="false" aria-label="Mostrar detalles de la clase">
-          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
             <path d="M8 9l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
@@ -295,6 +311,42 @@
 
     let loaded = false;
 
+    const paintFiles = (files) => {
+      groupsEl.innerHTML = '';
+      const map = new Map();
+      files.forEach(f => {
+        const key = (f.path || '').trim(); // "" = raíz
+        if (!map.has(key)) map.set(key, []);
+        map.get(key).push(f);
+      });
+
+      const sortedPaths = Array.from(map.keys()).sort((a,b) => (a||'').localeCompare(b||'', 'es'));
+      sortedPaths.forEach(path => {
+        const box = document.createElement('div');
+        box.className = 'group-box';
+        box.innerHTML = `
+          <div class="group-head">
+            <div class="group-title">${path || 'Raíz'}</div>
+          </div>
+          <div class="group-body"></div>
+        `;
+        const body = box.querySelector('.group-body');
+
+        map.get(path).sort((a,b) => a.name.localeCompare(b.name,'es')).forEach(f => {
+          body.appendChild(renderFileRow(f));
+        });
+
+        groupsEl.appendChild(box);
+      });
+
+      if (!files.length) {
+        const msg = document.createElement('div');
+        msg.className = 'text-dim small';
+        msg.textContent = 'Esta carpeta no tiene archivos visibles.';
+        groupsEl.appendChild(msg);
+      }
+    };
+
     const toggle = async () => {
       const expanded = chevron.getAttribute('aria-expanded') === 'true';
       if (expanded) {
@@ -312,57 +364,11 @@
 
       if (loaded) return;
 
-      const loader = document.createElement('div');
-      loader.className = 'text-dim small';
-      loader.textContent = 'Cargando archivos…';
-      groupsEl.appendChild(loader);
-
-      try {
-        const files = await listFolderFiles(item.folder_id);
-        groupsEl.innerHTML = '';
-
-        const map = new Map();
-        files.forEach(f => {
-          const key = (f.path || '').trim(); // "" = raíz
-          if (!map.has(key)) map.set(key, []);
-          map.get(key).push(f);
-        });
-
-        const sortedPaths = Array.from(map.keys()).sort((a,b) => (a||'').localeCompare(b||'', 'es'));
-
-        sortedPaths.forEach(path => {
-          const box = document.createElement('div');
-          box.className = 'group-box';
-          box.innerHTML = `
-            <div class="group-head">
-              <div class="group-title">${path || 'Raíz'}</div>
-            </div>
-            <div class="group-body"></div>
-          `;
-          const body = box.querySelector('.group-body');
-
-          map.get(path).sort((a,b) => a.name.localeCompare(b.name,'es')).forEach(f => {
-            body.appendChild(renderFileRow(f));
-          });
-
-          groupsEl.appendChild(box);
-        });
-
-        if (!files.length) {
-          const msg = document.createElement('div');
-          msg.className = 'text-dim small';
-          msg.textContent = 'Esta carpeta no tiene archivos visibles.';
-          groupsEl.appendChild(msg);
-        }
-
-        loaded = true;
-        resyncExpandedHeight(collapse);
-
-      } catch (err) {
-        console.error('[Clases] Error al listar carpeta:', err);
-        groupsEl.innerHTML = '<div class="text-dim small">No se pudieron cargar los archivos.</div>';
-        resyncExpandedHeight(collapse);
-      }
+      // Usa PRECARGA desde caché; si aún no terminó, espera esa promesa.
+      const files = await preloadFolder(item.folder_id);
+      paintFiles(files);
+      loaded = true;
+      resyncExpandedHeight(collapse);
     };
 
     chevron.addEventListener('click', toggle);
@@ -439,6 +445,10 @@
       }
       elStatus.textContent = '';
 
+      // *** PRECARGA TODAS LAS CARPETAS ***
+      released.forEach(cls => preloadFolder(cls.folder_id));
+
+      // Render cards
       released.forEach((cls, i) => {
         const num = Number(cls.number || (i + 1));
         const card = renderClassCard(cls, num);

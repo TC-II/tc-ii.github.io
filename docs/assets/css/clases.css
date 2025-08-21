@@ -23,11 +23,12 @@
 }
 .classes-list{ display:grid; gap:1.25rem; }
 
-/* ===== Card ===== */
+/* ===== Reset box sizing ===== */
 *,
 *::before,
 *::after{ box-sizing: border-box; }
 
+/* ===== Card ===== */
 .class-card{
   background: var(--elev);
   border: 1px solid var(--bd);
@@ -38,7 +39,7 @@
   position: relative;
   padding-left: 108px;           /* espacio para rail */
   max-width: 100%;
-  overflow: hidden;              /* evita desbordes en mobile */
+  overflow: hidden;
 }
 .class-card:hover{
   transform: translateY(-2px);
@@ -48,10 +49,10 @@
 /* ===== Head ===== */
 .class-head{
   display:grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr auto auto; /* título | meta | chevron */
   gap:.9rem; align-items:center;
   margin-bottom:.6rem;
-  min-width: 0;                  /* evita overflow por títulos largos */
+  min-width: 0;
 }
 .class-title{
   font-size: 1.05rem;
@@ -102,7 +103,6 @@
     0 10px 22px rgba(10,132,255,.22);
   border-right: 1px solid color-mix(in oklab, var(--accent) 30%, var(--bd) 70%);
 }
-
 .class-badge > span{
   font-size: 48px; /* número en clases; emoji en elementales se redefine abajo */
   line-height: 1;
@@ -114,44 +114,20 @@
 .class-card.is-expanded{ padding-left: 124px; }
 
 /* ===== Colores alternados: CLASES ===== */
-.classes-list > .class-card:nth-child(6n+1) .class-badge{
-  background: conic-gradient(from 220deg, #59a4ff, #0a84ff, #7b79ff, #59a4ff);
-}
-.classes-list > .class-card:nth-child(6n+2) .class-badge{
-  background: conic-gradient(from 220deg, #ff8a59, #ff5e0a, #ff7b79, #ff8a59);
-}
-.classes-list > .class-card:nth-child(6n+3) .class-badge{
-  background: conic-gradient(from 220deg, #59ff9c, #0aff84, #79ff7b, #59ff9c);
-}
-.classes-list > .class-card:nth-child(6n+4) .class-badge{
-  background: conic-gradient(from 220deg, #ffd859, #ffb90a, #ffdf79, #ffd859);
-}
-.classes-list > .class-card:nth-child(6n+5) .class-badge{
-  background: conic-gradient(from 220deg, #c759ff, #8a0aff, #b579ff, #c759ff);
-}
-.classes-list > .class-card:nth-child(6n) .class-badge{
-  background: conic-gradient(from 220deg, #59e0ff, #0aa4ff, #79c8ff, #59e0ff);
-}
+.classes-list > .class-card:nth-child(6n+1) .class-badge{ background: conic-gradient(from 220deg, #59a4ff, #0a84ff, #7b79ff, #59a4ff); }
+.classes-list > .class-card:nth-child(6n+2) .class-badge{ background: conic-gradient(from 220deg, #ff8a59, #ff5e0a, #ff7b79, #ff8a59); }
+.classes-list > .class-card:nth-child(6n+3) .class-badge{ background: conic-gradient(from 220deg, #59ff9c, #0aff84, #79ff7b, #59ff9c); }
+.classes-list > .class-card:nth-child(6n+4) .class-badge{ background: conic-gradient(from 220deg, #ffd859, #ffb90a, #ffdf79, #ffd859); }
+.classes-list > .class-card:nth-child(6n+5) .class-badge{ background: conic-gradient(from 220deg, #c759ff, #8a0aff, #b579ff, #c759ff); }
+.classes-list > .class-card:nth-child(6n)   .class-badge{ background: conic-gradient(from 220deg, #59e0ff, #0aa4ff, #79c8ff, #59e0ff); }
 
 /* ===== Colores alternados: ELEMENTALES ===== */
-.class-card--elemental .class-badge.badge-var-1{
-  background: conic-gradient(from 220deg, #5ec2ff, #0a9bff, #78c3ff, #5ec2ff);
-}
-.class-card--elemental .class-badge.badge-var-2{
-  background: conic-gradient(from 220deg, #ffa85e, #ff7a0a, #ffb37a, #ffa85e);
-}
-.class-card--elemental .class-badge.badge-var-3{
-  background: conic-gradient(from 220deg, #62ffb0, #12d690, #86ffc6, #62ffb0);
-}
-.class-card--elemental .class-badge.badge-var-4{
-  background: conic-gradient(from 220deg, #ffe062, #ffbb0a, #ffe680, #ffe062);
-}
-.class-card--elemental .class-badge.badge-var-5{
-  background: conic-gradient(from 220deg, #d47dff, #962aff, #c29bff, #d47dff);
-}
-.class-card--elemental .class-badge.badge-var-6{
-  background: conic-gradient(from 220deg, #6fe6ff, #10b8ff, #93ecff, #6fe6ff);
-}
+.class-card--elemental .class-badge.badge-var-1{ background: conic-gradient(from 220deg, #5ec2ff, #0a9bff, #78c3ff, #5ec2ff); }
+.class-card--elemental .class-badge.badge-var-2{ background: conic-gradient(from 220deg, #ffa85e, #ff7a0a, #ffb37a, #ffa85e); }
+.class-card--elemental .class-badge.badge-var-3{ background: conic-gradient(from 220deg, #62ffb0, #12d690, #86ffc6, #62ffb0); }
+.class-card--elemental .class-badge.badge-var-4{ background: conic-gradient(from 220deg, #ffe062, #ffbb0a, #ffe680, #ffe062); }
+.class-card--elemental .class-badge.badge-var-5{ background: conic-gradient(from 220deg, #d47dff, #962aff, #c29bff, #d47dff); }
+.class-card--elemental .class-badge.badge-var-6{ background: conic-gradient(from 220deg, #6fe6ff, #10b8ff, #93ecff, #6fe6ff); }
 
 /* ===== Token “glass” + relieve (ELEMENTALES) ===== */
 .class-card--elemental .class-badge{
@@ -199,12 +175,8 @@
   transition: background .2s, border-color .2s;
 }
 .btn:hover{ background: rgba(0,0,0,.06); }
-.btn-primary{
-  background: var(--accent); border-color: var(--accent);
-  color: white;
-}
+.btn-primary{ background: var(--accent); border-color: var(--accent); color: white; }
 .btn-primary:hover{ filter: brightness(1.05); }
-.btn-ghost{ background: transparent; }
 
 .class-actions{
   display:flex; gap:.5rem; flex-wrap:wrap;
@@ -220,10 +192,7 @@
   border-radius: 12px;
   padding: .75rem .9rem;
 }
-.group-head{
-  display:flex; align-items:center; justify-content:space-between;
-  margin-bottom: .25rem;
-}
+.group-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom: .25rem; }
 .group-title{ font-weight:600; opacity:.9; }
 
 /* Items */
@@ -236,7 +205,7 @@
 .item-actions{ display:flex; gap:.5rem; flex-wrap:wrap; }
 .item-name{ font-weight:500; }
 
-/* ===== Modal ===== */
+/* ===== Modal base ===== */
 .clase-modal-open{ overflow:hidden; }
 .clase-modal-overlay{
   position:fixed; inset:0; background:rgba(0,0,0,.45);
@@ -258,8 +227,6 @@
   padding:.7rem 1rem; border-bottom:1px solid var(--bd);
 }
 .clase-modal-title{ font-size:1.02rem; font-weight:650; margin-right:auto; }
-
-/* Toolbar del visor */
 .clase-modal-tools{ display:flex; align-items:center; gap:.4rem; }
 .tool-btn{
   border:1px solid var(--bd);
@@ -284,37 +251,55 @@
 }
 .clase-modal-empty{ padding:1rem; opacity:.8; }
 
-@keyframes fadeIn{
-  from{ opacity:0 } to { opacity:1 }
+/* ===== Mobile: modal fullscreen minimal ===== */
+.clase-modal--mobile{
+  width:100vw; height:100vh;
+  max-height: 100vh;
+  border-radius: 0;
+}
+.clase-modal-viewer--fill{
+  padding: 0; flex: 1 1 auto; display:flex;
+}
+.clase-modal--mobile .clase-modal-viewer--fill iframe{
+  width:100%; height: calc(100vh - 56px); /* header ~56px */
+  border-radius: 0;
 }
 
 /* ===== Responsive ===== */
+@keyframes fadeIn{ from{ opacity:0 } to { opacity:1 } }
+
 @media (max-width: 860px){
-  .grid-elem{
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
+  .grid-elem{ grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }
 
 @media (max-width: 680px){
-  .grid-elem{
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
+  .grid-elem{ grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 
   .class-badge{ width: 72px; }
   .class-card{ padding-left: 88px; }
 
+  /* Cabecera mobile:
+     - 2 columnas: [título] [chevron]
+     - la meta ocupa toda la fila de abajo, a lo ancho, sin cortarse
+  */
   .class-head{
-    grid-template-columns: 1fr auto;   /* título + meta debajo */
+    grid-template-columns: 1fr auto !important;
     grid-auto-rows: auto;
-    align-items: start;
-    gap:.5rem;
+    align-items: center;
+    gap:.6rem;
   }
-  .class-meta{
-    justify-self: start;
-    order: 2;
+  .chevron-toggle{
+    width: 40px; height: 40px;   /* target táctil cómodo */
+    grid-column: 2; grid-row: 1; /* visible siempre */
   }
   .class-title{
-    white-space: normal;
+    grid-column: 1; grid-row: 1;
+    white-space: normal;         /* puede saltar de línea */
+  }
+  .class-meta{
+    grid-column: 1 / -1;         /* ocupa TODO el ancho debajo */
+    justify-self: start;
+    white-space: normal;         /* no se corta */
   }
 
   .class-actions{ gap:.4rem; }
