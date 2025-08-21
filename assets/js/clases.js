@@ -45,10 +45,45 @@
     return json.files;
   }
 
-  // ========= Modal con controles de zoom =========
+  // ========= Modal (desktop con herramientas / mobile minimal) =========
   function openModal({ title, iframeSrc, description, openUrl }) {
+    const isMobile = window.matchMedia('(max-width: 680px)').matches;
+
     const overlay = document.createElement('div');
     overlay.className = 'clase-modal-overlay';
+
+    if (isMobile) {
+      // ----- Mobile: modal fullscreen minimal -----
+      overlay.innerHTML = `
+        <div class="clase-modal clase-modal--mobile" role="dialog" aria-modal="true" aria-label="${title || 'Vista rápida'}">
+          <div class="clase-modal-header">
+            <h3 class="clase-modal-title">${title || 'Vista rápida'}</h3>
+            <div class="clase-modal-tools">
+              ${openUrl ? `<a class="tool-btn" href="${openUrl}" target="_blank" rel="noopener" title="Abrir en Drive">Abrir</a>` : ""}
+              <button class="clase-modal-close" aria-label="Cerrar">×</button>
+            </div>
+          </div>
+          <div class="clase-modal-viewer clase-modal-viewer--fill">
+            <iframe src="${iframeSrc || ''}" loading="lazy" allow="autoplay"></iframe>
+          </div>
+        </div>
+      `;
+      const close = () => {
+        document.body.classList.remove('clase-modal-open');
+        window.removeEventListener('keydown', onKey);
+        overlay.remove();
+      };
+      const onKey = (e) => { if (e.key === 'Escape' || e.key === 'Esc') close(); };
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target.classList.contains('clase-modal-close')) close();
+      });
+      window.addEventListener('keydown', onKey);
+      document.body.classList.add('clase-modal-open');
+      document.body.appendChild(overlay);
+      return;
+    }
+
+    // ----- Desktop: con herramientas (zoom / fit / abrir / full) -----
     overlay.innerHTML = `
       <div class="clase-modal" role="dialog" aria-modal="true" aria-label="${title || 'Vista rápida'}">
         <div class="clase-modal-header">
@@ -82,7 +117,7 @@
     const viewport= overlay.querySelector('.iframe-viewport');
 
     let scale = 1;
-    let mode  = 'free';
+    const EASE = 'cubic-bezier(.22,.61,.36,1)';
 
     const apply = () => {
       scaler.style.transform       = `scale(${scale})`;
@@ -90,17 +125,15 @@
       scaler.style.width           = `${100/scale}%`;
       scaler.style.height          = 'auto';
     };
-
-    function fitWidth() { mode = 'fit-w'; scale = 1; apply(); }
-    function fitHeight(){
-      mode = 'fit-h';
+    function fitWidth()  { scale = 1; apply(); }
+    function fitHeight() {
       const viewH = viewport.clientHeight;
       const base  = 800;
       scale = Math.max(0.5, Math.min(1.6, viewH / base));
       apply();
     }
-    function zoom(delta){ mode='free'; scale = Math.max(0.5, Math.min(2, +(scale+delta).toFixed(2))); apply(); }
-    function zoomReset(){ mode='free'; scale = 1; apply(); }
+    function zoom(delta){ scale = Math.max(0.5, Math.min(2, +(scale+delta).toFixed(2))); apply(); }
+    function zoomReset(){ scale = 1; apply(); }
 
     overlay.querySelector('.tool-zoom-in')   ?.addEventListener('click', () => zoom(+0.1));
     overlay.querySelector('.tool-zoom-out')  ?.addEventListener('click', () => zoom(-0.1));
@@ -186,17 +219,15 @@
     });
   }
 
-  // 👉 Ajusta la altura si el contenido cambió mientras está expandido
+  // Re-sincroniza altura si el contenido se cargó estando abierto
   function resyncExpandedHeight(el) {
     if (!el || el.hidden) return;
     const prev = el.style.transition;
-    el.style.transition = '';                          // quita transición para medir
+    el.style.transition = '';
     const h = el.scrollHeight;
-    el.style.height = h + 'px';                        // fija a la altura nueva
-    // re-aplica transición corta para no “pegarse”
+    el.style.height = h + 'px';
     requestAnimationFrame(() => {
       el.style.transition = prev || `height 150ms ${EASE}`;
-      // a los ms volvemos a 'auto' para permitir futuros crecimientos
       setTimeout(() => { if (!el.hidden) el.style.height = 'auto'; }, 160);
     });
   }
@@ -279,10 +310,8 @@
       card.classList.remove('is-collapsed');
       expandSmooth(collapse);
 
-      // Cargar si hace falta
       if (loaded) return;
 
-      // loader
       const loader = document.createElement('div');
       loader.className = 'text-dim small';
       loader.textContent = 'Cargando archivos…';
@@ -292,7 +321,6 @@
         const files = await listFolderFiles(item.folder_id);
         groupsEl.innerHTML = '';
 
-        // agrupar por path
         const map = new Map();
         files.forEach(f => {
           const key = (f.path || '').trim(); // "" = raíz
@@ -317,7 +345,7 @@
             body.appendChild(renderFileRow(f));
           });
 
-        groupsEl.appendChild(box);
+          groupsEl.appendChild(box);
         });
 
         if (!files.length) {
@@ -328,8 +356,6 @@
         }
 
         loaded = true;
-
-        // 🔧 IMPORTANTE: resincro altura ahora que hay contenido real
         resyncExpandedHeight(collapse);
 
       } catch (err) {
