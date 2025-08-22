@@ -231,3 +231,56 @@
   .g-modal-viewer { min-height: 65vh; }
 }
 
+/* Fuerza lista de guías a 1 sola columna */
+.guides-list{
+  display: grid;
+  grid-template-columns: 1fr !important;  /* pisa cualquier repeat(...) previo */
+  grid-auto-flow: row;
+  align-items: stretch;
+}
+
+/* Asegura que cada tarjeta ocupe todo el ancho de la columna */
+.guides-list .guide-card{
+  width: 100%;
+  min-width: 0;   /* evita desbordes por contenidos largos */
+}
+
+/* (opcional) separadores verticales claros si algún reset los anuló */
+.guides-list{
+  gap: 1.2rem;    /* ya lo tenías, pero lo dejo aquí por claridad */
+}
+/* Fuerza a que las guías se apilen en una sola columna */
+.guides-page .guides-list{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-auto-flow: row !important;
+  align-items: stretch !important;
+}
+
+.guides-page .guides-list .guide-card{
+  width: 100% !important;
+  min-width: 0 !important;
+}
+/* Guías: cada ítem ocupa toda la fila, sin “masonry” ni 2 columnas */
+.guides-page .guides-list{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  grid-auto-flow: row !important;
+  gap: 1.2rem !important;
+}
+
+/* Si .guides-list también tiene .grid-elem, pisa esa regla */
+.guides-page .guides-list.grid-elem{
+  grid-template-columns: 1fr !important;
+}
+
+/* Clave: cada hijo abarca de la 1ª a la última columna */
+.guides-page .guides-list > *{
+  grid-column: 1 / -1 !important;
+}
+
+/* Por las dudas, evitamos desbordes dentro de la tarjeta */
+.guides-page .guides-list .guide-card{
+  width: 100% !important;
+  min-width: 0 !important;
+}

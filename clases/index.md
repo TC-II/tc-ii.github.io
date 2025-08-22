@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Clases
-permalink: /clases/
+title: Material didáctico
+permalink: /material-didactico/
 ---
 
 <div class="classes-page">
@@ -14,8 +14,8 @@ permalink: /clases/
   <div class="card soft" style="margin-top:2rem">
     <strong>Material por clase</strong>
     <p class="text-dim small">
-      El material presentado aquí corresponde a documentos/archivos de carácter complementario a lo dictado en clase,
-      no comprende ni busca abarcar la totalidad del contenido dado.
+    El material presentado aquí corresponde a documentos/archivos de carácter complementario a lo dictado en cada clase, 
+    no comprende ni busca abarcar la totalidad del contenido dado.
     </p>
   </div>
 

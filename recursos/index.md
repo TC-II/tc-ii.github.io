@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Recursos
-permalink: /recursos/
+title: Herramientas
+permalink: /herramientas/
 ---
 
 {% assign R = site.data.recursos %}

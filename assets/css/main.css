@@ -249,50 +249,155 @@ body {
 /* Espacio bajo el header fijo */
 .after-header { margin-top: 12px; }
 
-/* ====== Footer limpio/minimal ====== */
-.site-footer {
-  border-top: 1px solid var(--border, #333);
+/* ===== Footer limpio (escudo+titulo arriba, secciones en columnas con bullets alineados) ===== */
+.site-footer{
+  --_fg: var(--fg, #111);
+  --_muted: var(--muted, #6b7280);
+  --_bd: var(--border, #e5e7eb);
+  --_accent: var(--accent, #0a84ff);
+
   margin-top: 2.5rem;
-  padding: 2rem 0;
-  color: var(--text-dim, #aaa);
+  padding: 2rem 0 1.6rem;
+  color: var(--_fg);
   font-size: .95rem;
+  border-top: 1px solid var(--_bd);
 }
 
-.site-footer .grid {
+.site-footer .container{
+  max-width: var(--maxw, 1040px);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Layout general: 3 columnas (marca / secciones / créditos) */
+.footer-wrap{
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem 2rem;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
 }
 
-.site-footer h4 { font-size: .95rem; margin: 0 0 .5rem 0; color: var(--text, #fff); }
-.site-footer a { color: inherit; text-decoration: none; }
-.site-footer a:hover { text-decoration: underline; }
+/* === Columna 1: escudo + título en fila, disclaimer debajo === */
+.footer-brand{
+  display: grid;
+  grid-template-columns: auto 1fr;  /* [logo][título] */
+  grid-template-rows: auto auto;    /* fila1: logo+título | fila2: disclaimer */
+  column-gap: .9rem;
+  row-gap: .5rem;
+  align-items: start;               /* ⬅️ alinea tope de logo y título */
+}
+.footer-brand .footer-logo{
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  height: 56px;                      /* ajustá 52–64 a gusto */
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  align-self: start;                 /* ⬅️ asegura alineado arriba */
+}
+.footer-brand .footer-title{
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: .2px;
+  align-self: start;                 /* ⬅️ asegura alineado arriba */
+}
+.footer-brand .footer-note{
+  grid-column: 1 / -1;               /* ocupa ambas columnas */
+  grid-row: 2 / 3;
+  margin: 0;
+  line-height: 1.55;
+  color: var(--_muted);
+}
 
-.site-footer .legal {
-  margin-top: 1.25rem;
+/* === Columna 2: Secciones en columnas con bullets alineados === */
+.footer-links h4{ margin: 0 0 .6rem 0; font-size: 1rem; letter-spacing: .2px; }
+.footer-links ul{ list-style: none; padding: 0; margin: 0; }
+
+/* Grilla de n columnas; los bullets quedan alineados dentro de cada columna */
+.links-mcols{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr)); /* 3 columnas desktop */
+  gap: .4rem 1.25rem;                                   /* [filas][columnas] */
+}
+.links-mcols li{
+  position: relative;
+  padding-left: 14px;            /* gutter para el bullet */
+  min-height: 28px;              /* altura homogénea por fila */
+  display: flex; align-items: center;
+}
+.links-mcols li::before{
+  content: "";
+  position: absolute;
+  left: 0; top: 50%; transform: translateY(-50%);
+  width: 6px; height: 6px; border-radius: 999px;
+  background: color-mix(in srgb, var(--_accent) 80%, var(--_fg));
+  opacity: .95;
+}
+.footer-links a{
+  color: var(--_fg);
+  text-decoration: none;
+  opacity: .92;
+  transition: color .2s ease, opacity .2s ease, transform .15s ease;
+}
+.footer-links a:hover{
+  color: var(--_accent);
+  opacity: 1;
+  transform: translateX(1px);
+}
+
+/* === Columna 3: créditos === */
+.footer-credits .footer-title{ margin: 0 0 .6rem 0; font-size: 1rem; }
+.footer-credits p{ margin: 0; color: var(--_muted); }
+
+/* Franja legal (sin líneas extra) */
+.footer-legal{
   display: flex;
-  justify-content: space-between;
   gap: 1rem;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  color: var(--_muted);
   font-size: .9rem;
 }
 
-@media (max-width: 900px) { .site-footer .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .site-footer .grid { grid-template-columns: 1fr; } }
-
-/* Escudo + texto en la primera columna del footer */
-.footer-brand {
-  display: flex;
-  align-items: flex-start;   /* tope alineado con el título */
-  gap: 0.75rem;
+/* Responsivo */
+@media (max-width: 1100px){
+  .links-mcols{ grid-template-columns: repeat(2, minmax(160px,1fr)); }
 }
-.footer-brand img {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1); /* blanco en el footer también */
+@media (max-width: 900px){
+  .footer-wrap{ grid-template-columns: 1fr 1fr; }
+  .footer-credits{ order: 3; }
+  .footer-brand .footer-logo{ height: 52px; }
+}
+@media (max-width: 600px){
+  .footer-wrap{ grid-template-columns: 1fr; }
+  .links-mcols{ grid-template-columns: 1fr; }
+  .footer-legal{ flex-wrap: wrap; gap: .5rem 1rem; }
 }
 
-@media (max-width: 560px) {
-  .footer-brand img { height: 40px; }
+
+
+/* SOBRE LA CÁTEDRA */
+.sobre-catedra {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.campus-link {
+  display: inline-block;
+  background: var(--accent, #0a84ff);
+  color: #fff !important;
+  padding: 0.7rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s, transform 0.15s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.campus-link:hover {
+  background: #006edc;
+  transform: translateY(-2px);
 }

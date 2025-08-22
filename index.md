@@ -103,7 +103,7 @@ title: ""   # evita el H1 automático fuera del hero
   <article class="card hero-azul">
     <h1 class="title-lg" style="margin:0 0 .5rem 0;">Teoría de Circuitos II</h1>
     <p class="text-dim lead-muted">
-      Guías, exámenes, material de clases, recursos, playlists y trabajos prácticos para acompañar el cursado.
+      Guías, exámenes, material didáctico, herramientas, playlists y trabajos prácticos para acompañar el cursado.
     </p>
 
     <!-- Botones ahora con misma saturación y con interacción -->
@@ -127,19 +127,19 @@ title: ""   # evita el H1 automático fuera del hero
       </article>
     </a>
 
-    <!-- 2: Clases -->
-    <a href="{{ '/clases/' | relative_url }}" class="card-link">
+    <!-- 2: Material didáctico -->
+    <a href="{{ '/material-didactico/' | relative_url }}" class="card-link">
       <article class="card-spectrum s2">
-        <h2 style="margin:.25rem 0 0 0;">Clases</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Slides, apuntes y ejemplos vistos en clase.</p>
+        <h2 style="margin:.25rem 0 0 0;">Material didáctico</h2>
+        <p class="text-dim" style="margin-top:.5rem;">Documentos y archivos complementarios.</p>
       </article>
     </a>
 
-    <!-- 3: Recursos -->
-    <a href="{{ '/recursos/' | relative_url }}" class="card-link">
+    <!-- 3: Herramientas -->
+    <a href="{{ '/herramientas/' | relative_url }}" class="card-link">
       <article class="card-spectrum s3">
-        <h2 style="margin:.25rem 0 0 0;">Recursos</h2>
-        <p class="text-dim" style="margin-top:.5rem;">LTspice, Python, bibliografía y utilitarios.</p>
+        <h2 style="margin:.25rem 0 0 0;">Herramientas</h2>
+        <p class="text-dim" style="margin-top:.5rem;">Apps, repos y utilidades (LTspice, Python, etc.).</p>
       </article>
     </a>
 
