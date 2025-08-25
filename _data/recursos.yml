@@ -2,9 +2,9 @@ featured_repos:
   - TC2Lib---LTSPICE
   - TC2Lib---KiCad
   - TC2-PlotTool
-  - L2-Recursos-Python
   - Spice-a-PDF
   - TC2-FilterTool
+  - L2-Recursos-Python
 
 
 apps:
