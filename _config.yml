@@ -1,5 +1,5 @@
 title: Teoría de Circuitos II
-email: -
+email: hola@hola.com
 description: >-
   Material de la materia Teoría de Circuitos II: guías, exámenes, clases, recursos y playlists.
 url: ""            # cambiar por dominio real si aplica
@@ -84,7 +84,7 @@ kramdown:
 author:
   name: Cátedra TC II
   url: ""
-  email: -
+  email: hola@hola.com
 
 toc:
   min_level: 2

@@ -4,7 +4,7 @@ $ErrorActionPreference = "Stop"
 Write-Host "==> Limpiando build previo..."
 bundle exec jekyll clean
 
-Write-Host "==> Compilando para producción (baseurl /Pagina_material)..."
+Write-Host "==> Compilando para producción (baseurl /)..."
 bundle exec jekyll build --config _config.yml,_config_prod.yml -d docs
 
 Write-Host "==> Commit & push a main (incluye /docs)..."
