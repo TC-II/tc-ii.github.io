@@ -1,7 +1,7 @@
-title: Teoría de Circuitos II - ITBA
-email: contacto@itba.edu.ar
+title: Teoría de Circuitos II
+email: -
 description: >-
-  Material de la materia Teoría de Circuitos II (ITBA): guías, exámenes, clases, recursos y playlists.
+  Material de la materia Teoría de Circuitos II: guías, exámenes, clases, recursos y playlists.
 url: ""            # cambiar por dominio real si aplica
 baseurl: ""        # dejar vacío si va en la raíz
 lang: es
@@ -82,9 +82,9 @@ kramdown:
   math_engine: katex
 
 author:
-  name: Cátedra TC II - ITBA
+  name: Cátedra TC II
   url: ""
-  email: contacto@itba.edu.ar
+  email: -
 
 toc:
   min_level: 2

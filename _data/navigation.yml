@@ -15,9 +15,7 @@ main:
     url: "/sobre/"
 
 footer:
-  - title: "ITBA"
-    url: "https://www.itba.edu.ar/"
   - title: "Repositorio"
-    url: "https://github.com/Teoria-de-Circuitos-II"
+    url: "https://github.com/TC-II"
   - title: "Contacto"
-    url: "mailto:jpetrucc@itba.edu.ar"
+    url: "-"

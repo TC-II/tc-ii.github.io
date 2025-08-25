@@ -4,7 +4,7 @@ $ErrorActionPreference = "Stop"
 Write-Host "==> Limpiando build previo..." -ForegroundColor Cyan
 bundle exec jekyll clean
 
-Write-Host "==> Compilando para producción con baseurl /Pagina_material..." -ForegroundColor Cyan
+Write-Host "==> Compilando para producción con baseurl /..." -ForegroundColor Cyan
 bundle exec jekyll build --config _config.yml,_config_prod.yml -d docs
 
 if (Test-Path ".\docs\index.html") {

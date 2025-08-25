@@ -157,7 +157,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   const DATA = window.TC_RESOURCES || {};
   const FEATURED_RAW = Array.isArray(DATA.featuredRepos) ? DATA.featuredRepos : [];
   const APPS = Array.isArray(DATA.apps) ? DATA.apps : [];
-  const ORG = "Teoria-de-Circuitos-II";
+  const ORG = "TC-II";
 
   const slug = s => String(s||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
   const FEATURED_KEYS = FEATURED_RAW.map(slug).filter(Boolean);
