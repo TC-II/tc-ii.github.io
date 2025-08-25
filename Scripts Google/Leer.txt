@@ -1,0 +1,8 @@
+Estos scripts se tienen que cargar en Google Apps Scripts
+
+Agregar el servicio "Drive" y elegir v2
+
+Deploy. Web app: Me
+Access everyone
+
+Deploy, y cargar las URL en el código.

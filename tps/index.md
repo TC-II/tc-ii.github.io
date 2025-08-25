@@ -16,8 +16,9 @@ permalink: /tps/
 <script>
   // Config centralizada: un SOLO archivo en Drive con TPs + Guías
   // y el mismo Apps Script (Web App) que ya usás.
+  /*URL PARA EJECUTAR EL SCRIPT "Manejo de TPs y Guías" */
   window.LIST_CONFIG = {
-    APP_URL:  'https://script.google.com/macros/s/AKfycbyj-wGGjtdzh_41BjqJJLAGYH7IDPrEhIUGGBQh59IY0YBCO1jGukCa9_KORALgr2mpbg/exec',
+    APP_URL:  'https://script.google.com/macros/s/AKfycbxMzey-vhPiX5CMU4VIDQgGheYS6WYgJCPGtZuQxeA8U_ARoCaaV2eYc6QWhqrw7HxE/exec',
     FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',  // JSON con TPs + Guías
     FILE_TYPE:'json',
     KIND:     'tp'

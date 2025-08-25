@@ -13,7 +13,7 @@ permalink: /guias/
 
 <script>
   window.LIST_CONFIG = {
-    APP_URL:  'https://script.google.com/macros/s/AKfycbyj-wGGjtdzh_41BjqJJLAGYH7IDPrEhIUGGBQh59IY0YBCO1jGukCa9_KORALgr2mpbg/exec',
+    APP_URL:  'https://script.google.com/macros/s/AKfycbxMzey-vhPiX5CMU4VIDQgGheYS6WYgJCPGtZuQxeA8U_ARoCaaV2eYc6QWhqrw7HxE/exec',
     FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',  // mismo JSON unificado
     FILE_TYPE:'json',
     KIND:     'guia'

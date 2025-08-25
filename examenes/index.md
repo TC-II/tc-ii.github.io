@@ -169,7 +169,9 @@ permalink: /examenes/
 </style>
 
 <script>
-const APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbwA5EYn_Id6-QwCgINyEPG8D3Y1C0sHG-zZADuV6biXGt5IImLMllOVvFnqc5DVxLor/exec";
+/*URL PARA EJECUTAR EL SCRIPT "Examenes" */
+const APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbw_lzGrgMdH4mtB1tXRg6QIPm0ulEuWx9_qRJiz6AFERY_urAzqJQJ63QuQMucPcvN3DA/exec";
+/*ID DE LA CARPETA DE DRIVE DONDE ESTAN LOS EXAMENES */
 const DRIVE_FOLDER_ID="1w8S--7_W_Tr1DqjTSs2MFHavYgc_LoGd";
 
 const $ = (q)=>document.querySelector(q);
