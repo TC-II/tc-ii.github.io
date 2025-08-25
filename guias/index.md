@@ -6,7 +6,7 @@ permalink: /guias/
 
 <div class="guias-page">
   <div id="guias-status" class="small text-dim" style="margin:1rem 0;opacity:.8">
-    Cargando Guías…
+    Cargando Guías &#x23F3;…
   </div>
   <div id="guias-list" class="guias-list"></div>
 </div>

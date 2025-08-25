@@ -93,7 +93,7 @@ title: ""   # evita el H1 automático fuera del hero
 /* Guías: mismo gradiente que s1 */
 .btn-guias{ background: linear-gradient(135deg,#0a84ff,#6f6cff) !important; }
 /* Exámenes: mismo gradiente que s4 */
-.btn-examenes{ background: linear-gradient(135deg,#ff6bd6,#ff7e6e) !important; }
+.btn-examenes{ background: linear-gradient(135deg,#6f6cff,#b86bff) !important; }
 /* Trabajos Prácticos: mismo gradiente que s6 */
 .btn-tps{ background: linear-gradient(135deg,#ff9f0a,#ff7e6e) !important; }
 </style>
@@ -103,7 +103,7 @@ title: ""   # evita el H1 automático fuera del hero
   <article class="card hero-azul">
     <h1 class="title-lg" style="margin:0 0 .5rem 0;">Teoría de Circuitos II</h1>
     <p class="text-dim lead-muted">
-      Guías, exámenes, material didáctico, herramientas, playlists y trabajos prácticos para acompañar el cursado.
+      Repositorio de recursos, creado para el uso de la cátedra y disponible para la comunidad.
     </p>
 
     <!-- Botones ahora con misma saturación y con interacción -->
@@ -123,31 +123,31 @@ title: ""   # evita el H1 automático fuera del hero
     <a href="{{ '/guias/' | relative_url }}" class="card-link">
       <article class="card-spectrum s1">
         <h2 style="margin:.25rem 0 0 0;">Guías</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Listados por unidad y tema. Incluye PDF.</p>
+        <p class="text-dim" style="margin-top:.5rem;">Listados por unidad y tema.</p>
       </article>
     </a>
 
-    <!-- 2: Material didáctico -->
-    <a href="{{ '/material-didactico/' | relative_url }}" class="card-link">
+    <!-- 2: Exámenes -->
+    <a href="{{ '/examenes/' | relative_url }}" class="card-link">
       <article class="card-spectrum s2">
+        <h2 style="margin:.25rem 0 0 0;">Exámenes</h2>
+        <p class="text-dim" style="margin-top:.5rem;">Enunciados por año y turno.</p>
+      </article>
+    </a>
+
+    <!-- 3: Material didáctico -->
+    <a href="{{ '/material-didactico/' | relative_url }}" class="card-link">
+      <article class="card-spectrum s3">
         <h2 style="margin:.25rem 0 0 0;">Material didáctico</h2>
         <p class="text-dim" style="margin-top:.5rem;">Documentos y archivos complementarios.</p>
       </article>
     </a>
 
-    <!-- 3: Herramientas -->
-    <a href="{{ '/herramientas/' | relative_url }}" class="card-link">
-      <article class="card-spectrum s3">
-        <h2 style="margin:.25rem 0 0 0;">Herramientas</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Apps, repos y utilidades (LTspice, Python, etc.).</p>
-      </article>
-    </a>
-
-    <!-- 4: Exámenes -->
-    <a href="{{ '/examenes/' | relative_url }}" class="card-link">
+    <!-- 4: Repositorios -->
+    <a href="{{ '/repositorios/' | relative_url }}" class="card-link">
       <article class="card-spectrum s4">
-        <h2 style="margin:.25rem 0 0 0;">Exámenes</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Enunciados por año y turno.</p>
+        <h2 style="margin:.25rem 0 0 0;">Repositorios</h2>
+        <p class="text-dim" style="margin-top:.5rem;">Apps, repos y utilidades (LTspice, Python, etc.).</p>
       </article>
     </a>
 

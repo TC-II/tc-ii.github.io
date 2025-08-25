@@ -272,9 +272,17 @@ body {
 /* Layout general: 3 columnas (marca / secciones / créditos) */
 .footer-wrap{
   display: grid;
-  grid-template-columns: 1.25fr 1fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: 2rem;
   align-items: start;
+}
+
+/* === Footer Layout: 2 columns === */
+.footer{
+  display: grid;
+  grid-template-columns: 1fr 2fr;   /* Col 1: brand | Col 2: links */
+  gap: 2rem;
+  padding: 2rem 0;
 }
 
 /* === Columna 1: escudo + título en fila, disclaimer debajo === */
@@ -284,16 +292,16 @@ body {
   grid-template-rows: auto auto;    /* fila1: logo+título | fila2: disclaimer */
   column-gap: .9rem;
   row-gap: .5rem;
-  align-items: start;               /* ⬅️ alinea tope de logo y título */
+  align-items: start;
 }
 .footer-brand .footer-logo{
   grid-column: 1 / 2;
   grid-row: 1 / 2;
-  height: 56px;                      /* ajustá 52–64 a gusto */
+  height: 56px;
   width: auto;
   object-fit: contain;
   filter: brightness(0) invert(1);
-  align-self: start;                 /* ⬅️ asegura alineado arriba */
+  align-self: start;
 }
 .footer-brand .footer-title{
   grid-column: 2 / 3;
@@ -301,10 +309,10 @@ body {
   margin: 0;
   font-size: 1rem;
   letter-spacing: .2px;
-  align-self: start;                 /* ⬅️ asegura alineado arriba */
+  align-self: start;
 }
 .footer-brand .footer-note{
-  grid-column: 1 / -1;               /* ocupa ambas columnas */
+  grid-column: 1 / -1;
   grid-row: 2 / 3;
   margin: 0;
   line-height: 1.55;
@@ -315,16 +323,15 @@ body {
 .footer-links h4{ margin: 0 0 .6rem 0; font-size: 1rem; letter-spacing: .2px; }
 .footer-links ul{ list-style: none; padding: 0; margin: 0; }
 
-/* Grilla de n columnas; los bullets quedan alineados dentro de cada columna */
 .links-mcols{
   display: grid;
   grid-template-columns: repeat(3, minmax(150px, 1fr)); /* 3 columnas desktop */
-  gap: .4rem 1.25rem;                                   /* [filas][columnas] */
+  gap: .4rem 1.25rem;
 }
 .links-mcols li{
   position: relative;
-  padding-left: 14px;            /* gutter para el bullet */
-  min-height: 28px;              /* altura homogénea por fila */
+  padding-left: 14px;
+  min-height: 28px;
   display: flex; align-items: center;
 }
 .links-mcols li::before{
@@ -347,12 +354,9 @@ body {
   transform: translateX(1px);
 }
 
-/* === Columna 3: créditos === */
-.footer-credits .footer-title{ margin: 0 0 .6rem 0; font-size: 1rem; }
-.footer-credits p{ margin: 0; color: var(--_muted); }
-
-/* Franja legal (sin líneas extra) */
+/* === Franja legal === */
 .footer-legal{
+  grid-column: 1 / -1;             /* ocupa ancho completo */
   display: flex;
   gap: 1rem;
   align-items: center;

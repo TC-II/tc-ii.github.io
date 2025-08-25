@@ -19,7 +19,7 @@ permalink: /material-didactico/
     </p>
   </div>
 
-  <div id="clases-status" class="small text-dim" style="margin:1rem 0;opacity:.8">Cargando clases…</div>
+  <div id="clases-status" class="small text-dim" style="margin:1rem 0;opacity:.8">Cargando clases &#x23F3;…</div>
   <div id="clases-list" class="classes-list"></div>
 </div>
 

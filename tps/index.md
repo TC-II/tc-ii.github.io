@@ -8,7 +8,7 @@ permalink: /tps/
   <!-- {% include tp-guidelines.md %} -->
 
   <div id="tps-status" class="small text-dim" style="margin:1rem 0;opacity:.8">
-    Cargando Trabajos Prácticos…
+    Cargando Trabajos Prácticos &#x23F3;…
   </div>
   <div id="tps-list" class="tps-list"></div>
 </div>

@@ -506,7 +506,7 @@
 
       // Precarga real (espera a que terminen TODAS antes de dibujar tarjetas)
       elStatus.style.display = 'block';
-      elStatus.textContent = 'Precargando material de clases…';
+      elStatus.textContent = 'Precargando material de clases ⏳…';
       await Promise.all(
         released.map(async cls => {
           try {

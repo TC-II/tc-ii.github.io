@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/guias/</loc>
-<lastmod>2025-08-22T19:12:50-03:00</lastmod>
-</url>
-<url>
 <loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/about/</loc>
 </url>
 <url>
 <loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/blog/</loc>
 </url>
 <url>
-<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/playlists/</loc>
+<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/material-didactico/</loc>
 </url>
 <url>
-<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/herramientas/</loc>
+<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/guias/</loc>
+</url>
+<url>
+<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/repositorios/</loc>
 </url>
 <url>
 <loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/tps/</loc>
@@ -23,7 +22,7 @@
 <loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/examenes/</loc>
 </url>
 <url>
-<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/material-didactico/</loc>
+<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/playlists/</loc>
 </url>
 <url>
 <loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/</loc>
@@ -33,8 +32,5 @@
 </url>
 <url>
 <loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/playlists/python/</loc>
-</url>
-<url>
-<loc>https://teoria-de-circuitos-ii.github.io/Pagina_material/sobre/</loc>
 </url>
 </urlset>

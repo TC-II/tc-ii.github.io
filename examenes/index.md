@@ -13,7 +13,7 @@ permalink: /examenes/
     </a>
   </div>
 
-  <div id="exams-status" style="margin:1rem 0;opacity:.7">Cargando exámenes…</div>
+  <div id="exams-status" style="margin:1rem 0;opacity:.7">Cargando exámenes &#x23F3;…</div>
 
   <!-- LISTA ÚNICA (1 COLUMNA, 5 VISIBLES + SCROLL) -->
   <div id="exams-list" class="exams-list"></div>
@@ -224,7 +224,7 @@ function render(files){
     const bTitle = cleanTitle((B.f.title||B.f.name||""));
     const ay = leadingYear(aTitle);
     const by = leadingYear(bTitle);
-    if(by !== ay) return by - ay;           // año descendente
+    if(by !== ay) return ay - by;           // año ascendente
     return A.i - B.i;                        // estable
   }).map(x=>x.f);
 

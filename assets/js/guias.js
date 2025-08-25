@@ -3,7 +3,6 @@
   const $ = (s, r=document) => r.querySelector(s);
 
   // === Config ===
-  // Usamos LIST_CONFIG (o GUIAS_CONFIG como fallback).
   const CFG = window.LIST_CONFIG || window.GUIAS_CONFIG || {};
   const USE_NEW = !!(CFG.APP_URL && CFG.FILE_ID);
 
@@ -11,7 +10,7 @@
   const listEl   = $("#guias-list");
   const statusEl = $("#guias-status");
 
-  // ---- Drive helpers (misma lógica que TPs: 1ª hoja)
+  // ---- Drive helpers
   const driveView     = (id) => `https://drive.google.com/file/d/${encodeURIComponent(id)}/view#page=1`;
   const drivePreview  = (id) => `https://drive.google.com/file/d/${encodeURIComponent(id)}/preview`;
   const driveThumb    = (id, sz="w2000") => `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=${sz}`;
@@ -26,28 +25,6 @@
   };
   const fmtDDMMYYYY = (d) =>
     d ? `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}` : "";
-
-  // Estado (por si querés colorear más adelante)
-  const stateFromDeadline = (deadlineDate, now) => {
-    if (!deadlineDate) return { label: "Sin fecha de entrega", kind: "neutral" };
-    const dl = parseDateAR(`${deadlineDate.getFullYear()}-${String(deadlineDate.getMonth()+1).padStart(2,'0')}-${String(deadlineDate.getDate()).padStart(2,'0')}`);
-    const n  = parseDateAR(`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`);
-    if (dl < n) return { label: "Vencido", kind: "danger" };
-    if (dl.getTime() === n.getTime()) return { label: "Vence hoy", kind: "warning" };
-    return { label: "Abierto", kind: "success" };
-  };
-
-  // Google Calendar (evento 1h a las 12:00Z)
-  const gcalUrlForDeadline = (title, deadlineDate) => {
-    if (!deadlineDate) return null;
-    const y = deadlineDate.getFullYear();
-    const m = String(deadlineDate.getMonth() + 1).padStart(2, "0");
-    const d = String(deadlineDate.getDate()).padStart(2, "0");
-    const start = `${y}${m}${d}T120000Z`;
-    const end   = `${y}${m}${d}T130000Z`;
-    const text  = encodeURIComponent(`Entrega ${title}`);
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${start}/${end}`;
-  };
 
   // ---- Normalización
   const normalize = (arr) => (arr || []).map(o => ({
@@ -83,19 +60,18 @@
     return normalize(await res.json());
   }
 
-  // ---- Render (clases guide-*, pero con la MISMA info que TPs)
+  // ---- Render
   function renderCard(item, index=0) {
     const release  = item.release ? parseDateAR(item.release) : null;
     const deadline = item.deadline ? parseDateAR(item.deadline) : null;
     const releaseStr  = fmtDDMMYYYY(release);
     const deadlineStr = fmtDDMMYYYY(deadline);
-    const calendarURL = gcalUrlForDeadline(item.title || "Guía", deadline);
 
     const art = document.createElement('article');
     art.className = 'guide-card';
-    if (index % 2 === 1) art.classList.add('alt'); // alternancia
+    if (index % 2 === 1) art.classList.add('alt');
 
-    // Portada (1ª hoja)
+    // Portada
     const cover = document.createElement('div');
     cover.className = 'guide-cover';
     if (item.pdf_id) {
@@ -122,7 +98,6 @@
     titleEl.className = 'guide-title';
     titleEl.textContent = item.title || "Guía";
 
-    // “Condiciones” arriba: Publicación + Entrega (y chips opcionales)
     const meta = document.createElement('div');
     meta.className = 'guide-meta';
     const chips = [];
@@ -130,26 +105,12 @@
     if (item.tema)   chips.push(`<span class="pill pill-muted">${item.tema}</span>`);
     chips.push(`<span class="pill pill-publish">Publicación: ${releaseStr || "—"}</span>`);
     chips.push(`<span class="pill pill-deadline">Entrega: ${deadlineStr || "—"}</span>`);
-    // Botón Calendar (redondo) si hay deadline
-    if (calendarURL) {
-      chips.push(`
-        <a class="calendar-chip" href="${calendarURL}" target="_blank" rel="noopener" title="Añadir a Calendar" aria-label="Añadir a Calendar">
-          <svg class="cal-ico" viewBox="0 0 24 24" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="17" rx="2"/>
-            <line x1="3" y1="9" x2="21" y2="9"/>
-            <line x1="8" y1="2" x2="8" y2="6"/>
-            <line x1="16" y1="2" x2="16" y2="6"/>
-          </svg>
-        </a>
-      `);
-    }
     meta.innerHTML = chips.join('');
 
     const desc = document.createElement('p');
     desc.className = 'guide-desc';
     desc.textContent = item.description || '';
 
-    // Acciones (Abrir, Descargar, Ver detalles)
     const actions = document.createElement('div');
     actions.className = 'guide-actions';
 
@@ -191,7 +152,7 @@
     return art;
   }
 
-  // ---- Modal (namespaced Guías)
+  // ---- Modal
   function openModal({ title, description, pdf_id }) {
     const overlay = document.createElement('div');
     overlay.className = 'g-modal-overlay';
@@ -237,10 +198,19 @@
       if (!USE_NEW && !CFG.jsonUrl) throw new Error('Falta LIST_CONFIG (APP_URL/FILE_ID) o GUIAS_CONFIG.jsonUrl.');
 
       const wanted = String(CFG.KIND || 'guia').toLowerCase();
-
       const all = await loadRows();
+
       // Filtrar por kind
       let rows = all.filter(r => !wanted || r.kind === wanted || (!r.kind && wanted === 'guia'));
+
+      // >>> Filtrar por release: solo mostrar guías publicadas (release <= hoy)
+      const today = new Date();
+      today.setHours(0,0,0,0); // medianoche
+      rows = rows.filter(r => {
+        if (!r.release) return false; // si no hay fecha, no mostrar
+        const rel = parseDateAR(r.release);
+        return rel && rel.getTime() <= today.getTime();
+      });
 
       // Orden: por publicación desc, luego título
       rows.sort((a,b) => {
