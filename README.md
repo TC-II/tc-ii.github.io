@@ -1,6 +1,6 @@
 # 📚 Teoría de Circuitos II – ITBA
 
-Repositorio oficial para la página de **Teoría de Circuitos II (ITBA)**, construida con Jekyll y [publicada](https://teoria-de-circuitos-ii.github.io/) en **GitHub Pages**.
+Repositorio oficial para la página de **Teoría de Circuitos II (ITBA)**, construida con Jekyll y [publicada](https://tc-ii.github.io/) en **GitHub Pages**.
 
 Este sitio centraliza **guías, exámenes, material de clases, recursos y playlists** de la materia, con un diseño moderno y soporte para modo oscuro.
 
