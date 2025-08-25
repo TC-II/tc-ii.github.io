@@ -1,5 +1,5 @@
 url: "https://teoria-de-circuitos-ii.github.io"
-baseurl: "/Pagina_material"
+baseurl: "/"
 
 kramdown:
   input: GFM
