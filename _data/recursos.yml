@@ -1,11 +1,39 @@
 featured_repos:
-  - TC2Lib---LTSPICE
-  - TC2Lib---KiCad
-  - TC2-PlotTool
-  - Spice-a-PDF
-  - TC2-FilterTool
-  - L2-Recursos-Python
+  - name: "TC2Lib---LTSPICE"
+    title: "TCLib para LTSpice"
+    desc:  "Librerías listas para simular."
+    color: "#60a5fa"
+    img:   "/assets/img/repositorios/tc2lib-ltspice.webp"
 
+  - name: "TC2Lib---KiCad"
+    title: "TCLib para KiCad"
+    desc:  "Footprints y símbolos consistentes."
+    color: "#22c55e"
+    img:   "/assets/img/repositorios/tc2lib-kicad.webp"
+
+  - name: "TC2-PlotTool"
+    title: "PlotTool"
+    desc:  "Graficá y compará señales."
+    color: "#f97316"
+    img:   "/assets/img/repositorios/tc2-plottool.webp"
+
+  - name: "Spice-a-PDF"
+    title: "SPICE → PDF"
+    desc:  "Exportá simulaciones a informes."
+    color: "#8b5cf6"
+    img:   "/assets/img/repositorios/spice-a-pdf.webp"
+
+  - name: "TC2-FilterTool"
+    title: "FilterTool"
+    desc:  "Diseño y comparación de filtros."
+    color: "#14b8a6"
+    img:   "/assets/img/repositorios/tc2-filtertool.webp"
+
+  - name: "L2-Recursos-Python"
+    title: "Recursos Python"
+    desc:  "Snippets y utilidades para TC2."
+    color: "#38bdf8"
+    img:   "/assets/img/repositorios/l2-recursos-python.webp"
 
 apps:
   - title: Calculadora de seno elíptico (Streamlit)
@@ -13,5 +41,4 @@ apps:
     embed: true
     height: 680
 
-# si no tenés links, podés dejarlo vacío o comentarlo:
 links: []
