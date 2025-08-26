@@ -9,7 +9,7 @@ featured_repos:
     title: "TCLib para KiCad"
     desc:  "Footprints y símbolos consistentes."
     color: "#22c55e"
-    img:   "/assets/img/repositorios/tc2lib-kicad.webp"
+    img:   "/assets/img/repositorios/tc2lib-kicad.png"
 
   - name: "TC2-PlotTool"
     title: "PlotTool"
@@ -26,14 +26,14 @@ featured_repos:
   - name: "TC2-FilterTool"
     title: "FilterTool"
     desc:  "Diseño y comparación de filtros."
-    color: "#14b8a6"
-    img:   "/assets/img/repositorios/tc2-filtertool.webp"
+    color: "#ec4899"
+    img:   "/assets/img/repositorios/tc2-filtertool.png"
 
   - name: "L2-Recursos-Python"
     title: "Recursos Python"
     desc:  "Snippets y utilidades para TC2."
     color: "#38bdf8"
-    img:   "/assets/img/repositorios/l2-recursos-python.webp"
+    img:   "/assets/img/repositorios/l2-recursos-python.png"
 
 apps:
   - title: Calculadora de seno elíptico (Streamlit)

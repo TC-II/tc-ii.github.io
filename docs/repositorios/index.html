@@ -78,7 +78,7 @@
       
 <script>
   window.TC_RESOURCES = {
-    featuredRepos: [{"name":"TC2Lib---LTSPICE","title":"TCLib para LTSpice","desc":"Librerías listas para simular.","color":"#60a5fa","img":"/assets/img/repositorios/tc2lib-ltspice.webp"},{"name":"TC2Lib---KiCad","title":"TCLib para KiCad","desc":"Footprints y símbolos consistentes.","color":"#22c55e","img":"/assets/img/repositorios/tc2lib-kicad.webp"},{"name":"TC2-PlotTool","title":"PlotTool","desc":"Graficá y compará señales.","color":"#f97316","img":"/assets/img/repositorios/tc2-plottool.webp"},{"name":"Spice-a-PDF","title":"SPICE → PDF","desc":"Exportá simulaciones a informes.","color":"#8b5cf6","img":"/assets/img/repositorios/spice-a-pdf.webp"},{"name":"TC2-FilterTool","title":"FilterTool","desc":"Diseño y comparación de filtros.","color":"#14b8a6","img":"/assets/img/repositorios/tc2-filtertool.webp"},{"name":"L2-Recursos-Python","title":"Recursos Python","desc":"Snippets y utilidades para TC2.","color":"#38bdf8","img":"/assets/img/repositorios/l2-recursos-python.webp"}],
+    featuredRepos: [{"name":"TC2Lib---LTSPICE","title":"TCLib para LTSpice","desc":"Librerías listas para simular.","color":"#60a5fa","img":"/assets/img/repositorios/tc2lib-ltspice.webp"},{"name":"TC2Lib---KiCad","title":"TCLib para KiCad","desc":"Footprints y símbolos consistentes.","color":"#22c55e","img":"/assets/img/repositorios/tc2lib-kicad.png"},{"name":"TC2-PlotTool","title":"PlotTool","desc":"Graficá y compará señales.","color":"#f97316","img":"/assets/img/repositorios/tc2-plottool.webp"},{"name":"Spice-a-PDF","title":"SPICE → PDF","desc":"Exportá simulaciones a informes.","color":"#8b5cf6","img":"/assets/img/repositorios/spice-a-pdf.webp"},{"name":"TC2-FilterTool","title":"FilterTool","desc":"Diseño y comparación de filtros.","color":"#ec4899","img":"/assets/img/repositorios/tc2-filtertool.png"},{"name":"L2-Recursos-Python","title":"Recursos Python","desc":"Snippets y utilidades para TC2.","color":"#38bdf8","img":"/assets/img/repositorios/l2-recursos-python.png"}],
     apps: [{"title":"Calculadora de seno elíptico (Streamlit)","url":"https://tc2-sntool.streamlit.app","embed":true,"height":680}]
   };
 </script>
@@ -118,13 +118,18 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
           mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
 }
 
-/* MOBILE: sin difuminado ni padding lateral, tarjeta a ancho completo y sin scroll lateral */
+/* MOBILE: una tarjeta exacta por vista; sin máscara para no comer bordes */
 @media (max-width:740px){
   .repos-stage{
-    --pad: 0;
+    --pad: 12px;
     -webkit-mask-image: none;
             mask-image: none;
   }
+}
+
+/* TABLET: dos por vista */
+@media (min-width:741px) and (max-width:1100px){
+  .repos-stage{ --pad: 28px; }
 }
 
 /* ===== Pista ===== */
@@ -139,18 +144,21 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
-  touch-action: pan-y; /* gesto vertical nativo */
-  will-change: transform;
+  touch-action: pan-y;
+  width:100%;
 }
 .repos-strip::-webkit-scrollbar{ height:0 }
 .repos-strip.nosnap{ scroll-snap-type: none; }
 
-/* MOBILE: sin scroll lateral; se mueve con transform */
+/* MOBILE: snap nativo, una tarjeta exacta. SIN transform en JS */
 @media (max-width:740px){
   .repos-strip{
-    overflow-x: hidden !important;
-    scroll-snap-type: none;
+    --gap: 0;
+    grid-auto-columns: calc(100% - 2*var(--pad)); /* coincide con el ancho útil del stage */
+    overflow-x:auto !important;
+    scroll-snap-type:x mandatory;
   }
+  .repo-card{ scroll-snap-align: start; }
 }
 
 /* ===== Flechas ===== */
@@ -180,9 +188,13 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 }
 .repo-card:hover{ transform: scale(1.06); z-index: 4; box-shadow: var(--shadow-2); }
 
-/* MOBILE: sin “achicar” */
+/* MOBILE: ocupa el ancho útil exacto del stage y sin hover-scale */
 @media (max-width:740px){
-  .repo-card{ transform:none; }
+  .repo-card{
+    transform:none;
+    width:100%;
+    box-sizing:border-box;
+  }
   .repo-card:hover{ transform:none; box-shadow: var(--shadow-1); }
 }
 
@@ -264,6 +276,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .repo-back .readme::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.25); border-radius:999px }
 .repo-back .readme::-webkit-scrollbar-track{ background:rgba(255,255,255,.06); border-radius:999px }
 
+/* ===== Markdown README ===== */
 .markdown-body{ color: var(--fg); line-height:1.55; font-size:.95rem }
 .markdown-body h1,.markdown-body h2{ padding-bottom:.3em; border-bottom:1px solid var(--stroke) }
 .markdown-body h1{ font-size:1.35em } .markdown-body h2{ font-size:1.15em }
@@ -271,7 +284,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .markdown-body code{ background:rgba(110,118,129,.12); border-radius:6px; padding:.15em .35em }
 .markdown-body a{ color:#58a6ff; text-decoration:none } .markdown-body a:hover{ text-decoration:underline }
 
-/* ===== Apps ===== */
+/* ===== Apps (formato viejo) ===== */
 .app{ border:1px solid var(--stroke); border-radius: 14px; background: rgba(255,255,255,.03); box-shadow: var(--shadow-1); overflow:hidden }
 .app-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px }
 .app-title{ margin:0; font-weight:800; font-size:1.12rem }
@@ -280,10 +293,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .app-embed{ padding: 0 16px 16px 16px; background: rgba(255,255,255,.02) }
 .app-frame{ width:100%; height:680px; border:1px solid var(--stroke); border-radius: 10px }
 
+/* Botones (formato viejo) */
 .btn{ appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
   padding:.46rem .8rem; border-radius:999px; font-weight:700; color:var(--fg);
   background: rgba(255,255,255,.06); border:1px solid var(--stroke);
-  transition: background .15s ease, border-color .15s ease, transform .08s ease; }
+  transition: background .15s ease, border-color .15s ease, transform .08s ease; text-decoration:none; }
 .btn:hover{ background: rgba(255,255,255,.1); border-color: var(--stroke-2) }
 .btn:active{ transform: translateY(1px) }
 .btn-ghost{ background: transparent; border:1px solid var(--stroke) }
@@ -294,14 +308,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   transition: background .15s ease, border-color .15s ease, transform .08s ease; }
 .btn-round:hover{ background: rgba(255,255,255,.1); border-color: var(--stroke-2) }
 .btn-round:active{ transform: translateY(1px) }
-
-/* Fallback si no hay cover */
-.cover-fallback{
-  position:absolute; inset:0; display:grid; place-items:center;
-  font-weight:900; letter-spacing:.5px; font-size: 28px; color: rgba(255,255,255,.96);
-  background: linear-gradient(135deg, rgba(126,144,255,.28), rgba(20,160,220,.25));
-  text-shadow: 0 2px 10px rgba(0,0,0,.35);
-}
 
 /* Accesibilidad */
 .repos-stage:focus{ outline: 2px solid var(--stroke-2); outline-offset: 4px; border-radius: 10px; }
@@ -336,9 +342,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   const ORG = "TC-II";
   const IMG_ROOT = "/assets/img/repositorios";
 
-  const byName = new Map(FEATURED.map(x=>[x.name, x]));
-  const want = new Set(FEATURED.map(x=>x.name).filter(Boolean));
   const slug = s => String(s||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+  const normalize = s => String(s||"").toLowerCase().replace(/[_\s]+/g,'-').replace(/-+/g,'-').replace(/[^a-z0-9-]/g,'');
+
+  const byName = new Map(FEATURED.map(x=>[normalize(x.name), x]));
+  const want = new Set([...byName.keys()]);
 
   const cacheKeyRepos = "tdc2_repos_cache_v3";
   const readmeKey = (name)=>`tdc2_readme_html_${name}`;
@@ -398,7 +406,13 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   const stage = document.getElementById('reposStage');
   const strip = document.getElementById('reposStrip');
 
-  const repos = (await fetchReposOrg()).filter(r=>want.has(r.name));
+  const allRepos = await fetchReposOrg();
+
+  const missing = FEATURED.map(x => x.name)
+    .filter(n => !allRepos.some(r => normalize(r.name) === normalize(n)));
+  if(missing.length) console.warn("Repos no encontrados (revisar nombres en featured_repos):", missing);
+
+  const repos = allRepos.filter(r => want.has(normalize(r.name)));
 
   const titleByRepo = Object.create(null);
   await Promise.all(repos.map(async r=>{
@@ -417,7 +431,10 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   }
 
   function createCard(repo){
-    const cfg = Object.assign({ title: repo.name, desc: '', color: getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#1690ff', img: null }, byName.get(repo.name)||{});
+    const cfg = Object.assign(
+      { title: repo.name, desc: '', color: getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#1690ff', img: null },
+      byName.get(normalize(repo.name)) || {}
+    );
 
     const card = document.createElement('article');
     card.className = 'repo-card';
@@ -442,7 +459,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     meta.textContent = `${repo.stargazers_count}★ · ${d}`;
     foot.append(lang, meta);
 
-    // GitHub mini
     const gh = document.createElement('a');
     gh.className='gh-btn'; gh.href=repo.html_url; gh.target='_blank'; gh.rel='noopener'; gh.innerHTML = octocatSVG(18);
 
@@ -472,10 +488,10 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   repos.forEach(r => strip.appendChild(createCard(r)));
 
-  /* ===== flip + README (ignora clicks si hay navegación/cierre en curso) ===== */
+  /* ===== flip + README ===== */
   const loadedReadme = new Set();
-  let navLock = false;               // evita gestos mientras se cierra y se navega
-  const FLIP_MS = 600;               // debe coincidir con CSS
+  let navLock = false;
+  const FLIP_MS = 600;
 
   strip.addEventListener('click', async (ev)=>{
     if (navLock) return;
@@ -497,160 +513,91 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   });
 
   /* ===== Layout ===== */
-  function isMobile(){ return window.matchMedia('(max-width: 740px)').matches; }
+  const btnPrev = document.querySelector('.repos-nav.prev');
+  const btnNext = document.querySelector('.repos-nav.next');
+
+  const isMobile = ()=> window.matchMedia('(max-width: 740px)').matches;
+  const isTablet = ()=> window.matchMedia('(min-width: 741px) and (max-width: 1100px)').matches;
+
+  let L = computeLayout();
+  let infiniteReady = false;
 
   function computeLayout(){
-    const gap  = parseFloat(getComputedStyle(strip).getPropertyValue('--gap')) || 24;
     const padL = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
     const padR = parseFloat(getComputedStyle(stage).paddingRight) || 0;
     const inner = stage.clientWidth - padL - padR;
 
-    const per   = isMobile() ? 1 : 3;
-    const cardW = Math.max(isMobile()? 300 : 320, Math.floor(isMobile()? inner : (inner - gap*(per-1)) / per));
+    const per = isMobile() ? 1 : (isTablet() ? 2 : 3);
+    const gap = isMobile() ? 0 : (parseFloat(getComputedStyle(strip).getPropertyValue('--gap')) || 24);
+    const rawW  = (inner - gap*(per-1)) / per;
+    const cardW = Math.max(280, Math.round(rawW));
 
     strip.style.setProperty('--card-w', cardW + 'px');
     return { step: cardW + gap, gap, cardW, per };
   }
 
-  let L = computeLayout();
-  window.addEventListener('resize', ()=> { 
-    L = computeLayout(); 
-    setupMode(); 
-  });
-
-  /* ===== Desktop: loop infinito; Mobile: paginado por transform ===== */
-  const btnPrev = document.querySelector('.repos-nav.prev');
-  const btnNext = document.querySelector('.repos-nav.next');
-
-  let loopState = null;      // desktop
-  let idx = 0;               // mobile index
-
-  function teardownDesktop(){
-    if(!loopState) return;
-    // quitar listeners de wheel/scroll agregados en desktop
-    strip.replaceWith(strip.cloneNode(true)); // hard reset de listeners en strip
-    // re-vinculamos referencia y reconstruimos contenido
-    const newStrip = document.getElementById('reposStrip');
-    newStrip.innerHTML = strip.innerHTML;
-    strip = newStrip;
-    // reenganchar click flip
-    strip.addEventListener('click', flipHandler);
-    loopState = null;
+  function clearClones(){
+    // elimina cualquier clon previo del modo infinito
+    strip.querySelectorAll('[data-clone="1"]').forEach(n=> n.remove());
+    infiniteReady = false;
   }
 
-  // guardo handler para poder re-enganchar tras teardown
-  const flipHandler = strip.onclick;
+  function setupInfiniteDesktop(){
+    if (infiniteReady) return;
+    if (L.per < 3) { clearClones(); return; }
 
-  function setupDesktop(){
-    // reconstruir handlers necesarios para desktop
-    loopState = setupInfinite(strip);
-  }
-
-  function applyMobileTransform(){
-    strip.style.transition = 'transform .35s ease';
-    strip.style.transform = `translateX(${-idx * (L.cardW + L.gap)}px)`;
-  }
-
-  function setupMobile(){
-    // sin scroll lateral; una tarjeta por “página”
-    idx = Math.max(0, Math.min(idx, strip.children.length - 1));
-    strip.style.transform = 'translateX(0)';
-    strip.style.transition = 'none';
-    requestAnimationFrame(applyMobileTransform);
-  }
-
-  function setupMode(){
-    if(isMobile()){
-      // quitar modo desktop si estaba
-      if(loopState){ /* no re-creamos DOM, sólo dejamos de usar wheel */ }
-      setupMobile();
-    }else{
-      setupDesktop();
-    }
-  }
-
-  /* ===== Infinite desktop ===== */
-  function setupInfinite(stripEl){
-    const originals = Array.from(stripEl.children);
+    const originals = Array.from(strip.children).filter(n=>!n.dataset.clone);
     const N = originals.length;
-    if (!N) return { step: L.step, N: 0 };
+    if (N < 4) { clearClones(); return; }
 
-    if (N < 4){
-      const init = ()=>{
-        stripEl.classList.add('nosnap');
-        stripEl.scrollLeft = 0;
-        requestAnimationFrame(()=> stripEl.classList.remove('nosnap'));
-      };
-      init();
-      window.addEventListener('resize', init);
-
-      let wheelAcc = 0;
-      stripEl.addEventListener('wheel', (e)=>{
-        if (navLock) { e.preventDefault(); return; }
-        if(e.target.closest('.readme')) return;
-        const vertical = Math.abs(e.deltaX) < Math.abs(e.deltaY);
-        if(!vertical) return;
-        e.preventDefault();
-        wheelAcc += e.deltaY;
-        const threshold = 40;
-        if(Math.abs(wheelAcc) >= threshold){
-          navigateBy(wheelAcc > 0 ? +1 : -1);
-          wheelAcc = 0;
-        }
-      }, {passive:false});
-
-      return { step: L.step, N: 0 };
-    }
-
-    // clones para loop
-    const head = originals.map(n=>n.cloneNode(true));
-    const tail = originals.map(n=>n.cloneNode(true));
-    head.forEach(n=>stripEl.prepend(n));
-    tail.forEach(n=>stripEl.append(n));
+    const head = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
+    const tail = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
+    head.forEach(n=>strip.prepend(n));
+    tail.forEach(n=>strip.append(n));
 
     const teleport = (to)=>{
-      stripEl.classList.add('nosnap');
-      stripEl.scrollLeft = to;
-      requestAnimationFrame(()=> stripEl.classList.remove('nosnap'));
+      strip.classList.add('nosnap');
+      strip.scrollLeft = to;
+      requestAnimationFrame(()=> strip.classList.remove('nosnap'));
     };
 
     const setStart = ()=>{
-      stripEl.classList.add('nosnap');
-      stripEl.scrollLeft = L.step * N;
-      requestAnimationFrame(()=> stripEl.classList.remove('nosnap'));
+      strip.classList.add('nosnap');
+      strip.scrollLeft = L.step * N;
+      requestAnimationFrame(()=> strip.classList.remove('nosnap'));
     };
     setStart();
-    window.addEventListener('resize', setStart);
 
-    stripEl.addEventListener('scroll', ()=>{
+    strip.addEventListener('scroll', onInfiniteScroll, {passive:true});
+    function onInfiniteScroll(){
       const min = L.step * (N - 1);
       const max = L.step * (N + N + 1);
-      if (stripEl.scrollLeft < min){
-        teleport(stripEl.scrollLeft + L.step * N);
-      } else if (stripEl.scrollLeft > max){
-        teleport(stripEl.scrollLeft - L.step * N);
-      }
-    }, {passive:true});
+      if (strip.scrollLeft < min){ teleport(strip.scrollLeft + L.step * N); }
+      else if (strip.scrollLeft > max){ teleport(strip.scrollLeft - L.step * N); }
+    }
 
-    let wheelAcc = 0;
-    stripEl.addEventListener('wheel', (e)=>{
-      if (navLock) { e.preventDefault(); return; }
-      if (e.target.closest('.readme')) return;
-      const vertical = Math.abs(e.deltaX) < Math.abs(e.deltaY);
-      if (!vertical) return;
-      e.preventDefault();
-      wheelAcc += e.deltaY;
-      const threshold = 40;
-      if (Math.abs(wheelAcc) >= threshold){
-        navigateBy(wheelAcc > 0 ? +1 : -1);
-        wheelAcc = 0;
-      }
-    }, {passive:false});
-
-    return { step: L.step, N };
+    infiniteReady = true;
   }
 
-  /* ===== Cerrar todas las tarjetas abiertas ===== */
+  // init
+  if (!isMobile()) setupInfiniteDesktop();
+
+  window.addEventListener('resize', ()=>{
+    const prevPer = L.per;
+    L = computeLayout();
+
+    if (isMobile()){
+      // pasar a mobile: limpiar clones y usar snap nativo
+      clearClones();
+      strip.style.transform = '';
+    }else{
+      // tablet/grande: reconfigurar infinito si cambió la grilla
+      if (prevPer !== L.per) { clearClones(); }
+      setupInfiniteDesktop();
+    }
+  });
+
+  /* ===== Cerrar tarjetas abiertas antes de navegar ===== */
   async function ensureFront(){
     const opened = strip.querySelectorAll('.repo-card.open');
     if (!opened.length) return;
@@ -664,38 +611,38 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     });
   }
 
-  /* ===== Navegar ===== */
+  /* ===== Navegar (flechas/teclado) ===== */
+  function currentIndex(){
+    // índice “a ojo” por scrollLeft
+    return Math.round(strip.scrollLeft / (L.step || 1));
+  }
+
   async function navigateBy(n){
     if (navLock) return;
     navLock = true;
     await ensureFront();
 
     if (isMobile()){
-      // paginado por índice + transform
+      // snap nativo: mover por scrollLeft exacto de una tarjeta
       const maxIdx = strip.children.length - 1;
-      idx = Math.max(0, Math.min(idx + n, maxIdx));
-      applyMobileTransform();
+      const next = Math.max(0, Math.min(currentIndex() + n, maxIdx));
+      strip.scrollTo({ left: next * (L.step||0), behavior:'smooth' });
       setTimeout(()=>{ navLock = false; }, 380);
     }else{
-      // desktop: scroll suave
+      // tablet/escritorio
       strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
       setTimeout(()=>{ navLock = false; }, 400);
     }
   }
 
-  // Botones / teclado
-  btnPrev.addEventListener('click', ()=> navigateBy(-1));
-  btnNext.addEventListener('click', ()=> navigateBy(+1));
+  document.querySelector('.repos-nav.prev').addEventListener('click', ()=> navigateBy(-1));
+  document.querySelector('.repos-nav.next').addEventListener('click', ()=> navigateBy(+1));
   stage.addEventListener('keydown', (e)=>{
     if(e.key === 'ArrowLeft'){ e.preventDefault(); navigateBy(-1); }
     if(e.key === 'ArrowRight'){ e.preventDefault(); navigateBy(+1); }
   });
 
-  // Inicializar modo
-  function initFlipHandler(){ /* no-op, ya asignado arriba */ }
-  setupMode();
-
-  /* ===== Apps ===== */
+  /* ===== Apps (formato viejo) ===== */
   const appsList = document.getElementById('appsList');
   (APPS||[]).forEach(app=>{
     const card = document.createElement('article'); card.className='app';
@@ -784,6 +731,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
 
     <!-- Script del menú móvil -->
-    <script src="/assets/js/nav.js?v=1756181991" defer></script>
+    <script src="/assets/js/nav.js?v=1756230276" defer></script>
   </body>
 </html>
