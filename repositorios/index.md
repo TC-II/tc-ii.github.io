@@ -451,6 +451,8 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   let L = computeLayout();
   let infiniteReady = false;
+  let onInfiniteScrollRef = null; // <— nuevo: para remover listener
+  let wrapping = false;           // <— nuevo: evita rebotes durante teleports
 
   function computeLayout(){
     const padL = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
@@ -467,8 +469,12 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   }
 
   function clearClones(){
-    // elimina cualquier clon previo del modo infinito
+    // elimina clones y listener (si existía)
     strip.querySelectorAll('[data-clone="1"]').forEach(n=> n.remove());
+    if (onInfiniteScrollRef){
+      strip.removeEventListener('scroll', onInfiniteScrollRef);
+      onInfiniteScrollRef = null;
+    }
     infiniteReady = false;
   }
 
@@ -486,26 +492,37 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     tail.forEach(n=>strip.append(n));
 
     const teleport = (to)=>{
+      wrapping = true;
       strip.classList.add('nosnap');
-      strip.scrollLeft = to;
-      requestAnimationFrame(()=> strip.classList.remove('nosnap'));
+      strip.scrollLeft = to + 0.5; // evita quedar EXACTO en el borde
+      requestAnimationFrame(()=>{
+        strip.classList.remove('nosnap');
+        setTimeout(()=>{ wrapping = false; }, 0);
+      });
     };
 
     const setStart = ()=>{
       strip.classList.add('nosnap');
-      strip.scrollLeft = L.step * N;
+      strip.scrollLeft = L.step * N + 0.5; // centro con pequeño offset
       requestAnimationFrame(()=> strip.classList.remove('nosnap'));
     };
     setStart();
 
-    strip.addEventListener('scroll', onInfiniteScroll, {passive:true});
-    function onInfiniteScroll(){
-      const min = L.step * (N - 1);
-      const max = L.step * (N + N + 1);
-      if (strip.scrollLeft < min){ teleport(strip.scrollLeft + L.step * N); }
-      else if (strip.scrollLeft > max){ teleport(strip.scrollLeft - L.step * N); }
-    }
+    const MARGIN = 2; // px de margen
+    onInfiniteScrollRef = function onInfiniteScroll(){
+      if (wrapping) return;
+      const min = L.step * (N - 1) + MARGIN;
+      const max = L.step * (N + N + 1) - MARGIN;
+      const x = strip.scrollLeft;
 
+      if (x < min){
+        teleport(x + L.step * N);
+      } else if (x > max){
+        teleport(x - L.step * N);
+      }
+    };
+
+    strip.addEventListener('scroll', onInfiniteScrollRef, {passive:true});
     infiniteReady = true;
   }
 
@@ -553,13 +570,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     await ensureFront();
 
     if (isMobile()){
-      // snap nativo: mover por scrollLeft exacto de una tarjeta
       const maxIdx = strip.children.length - 1;
       const next = Math.max(0, Math.min(currentIndex() + n, maxIdx));
       strip.scrollTo({ left: next * (L.step||0), behavior:'smooth' });
       setTimeout(()=>{ navLock = false; }, 380);
     }else{
-      // tablet/escritorio
       strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
       setTimeout(()=>{ navLock = false; }, 400);
     }
