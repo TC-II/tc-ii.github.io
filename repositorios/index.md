@@ -47,8 +47,13 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
           mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
 }
+/* En mobile: SIN difuminado y con gutters propios del stage */
 @media (max-width:740px){
-  .repos-stage{ --pad: 20px; --fade: 18px; }
+  .repos-stage{
+    --pad: 20px;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
 }
 
 /* ===== Pista ===== */
@@ -63,8 +68,8 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
-  /* gestos por JS; permite ambos ejes hasta decidir */
-  touch-action: none;
+  /* MUY IMPORTANTE: permitir el gesto vertical nativo */
+  touch-action: pan-y;
 }
 .repos-strip::-webkit-scrollbar{ height:0 }
 .repos-strip.nosnap{ scroll-snap-type: none; }
@@ -388,10 +393,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   repos.forEach(r => strip.appendChild(createCard(r)));
 
-  /* ===== flip + README ===== */
+  /* ===== flip + README (ignora clicks si hay navegación en curso) ===== */
   const loadedReadme = new Set();
   strip.addEventListener('click', async (ev)=>{
-    if(ev.target.closest('.gh-btn')) return;
+    if (navLock) return;                      // bloquear flip durante navegación/cierre
+    if (ev.target.closest('.gh-btn')) return;
     const card = ev.target.closest('.repo-card'); if(!card) return;
     card.classList.toggle('open');
     const name = card.dataset.repo;
@@ -408,7 +414,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     }
   });
 
-  /* ===== Layout: 3 desktop / 1 mobile ===== */
+  /* ===== Layout: 3 desktop / 1 mobile (tarjeta completa con gutters) ===== */
   function computeLayout(){
     const gap  = parseFloat(getComputedStyle(strip).getPropertyValue('--gap')) || 24;
     const padL = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
@@ -417,12 +423,19 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
     const isMobile = window.matchMedia('(max-width: 740px)').matches;
     const per   = isMobile ? 1 : 3;
-    const minW  = isMobile ? 300 : 320;
-    const cardW = Math.max(minW, Math.floor((inner - gap*(per-1)) / per));
+
+    let cardW;
+    if (isMobile) {
+      // 1 tarjeta exacta, gutters = padding del stage
+      cardW = Math.max(300, inner);
+    } else {
+      cardW = Math.max(320, Math.floor((inner - gap*(per-1)) / per));
+    }
 
     strip.style.setProperty('--card-w', cardW + 'px');
-    return { step: cardW + (per===1 ? gap : gap), gap, cardW, per };
+    return { step: cardW + gap, gap, cardW, per };
   }
+
   let L = computeLayout();
   window.addEventListener('resize', ()=> { L = computeLayout(); });
 
@@ -432,87 +445,127 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   function setupInfinite(stripEl){
     const originals = Array.from(stripEl.children);
-    if(!originals.length){ return { step: L.step, N: 0 }; }
-    if(originals.length < 4){ return { step: L.step, N: 0 }; }
-
     const N = originals.length;
-    const head = originals.slice(-N).map(n=>n.cloneNode(true));
-    const tail = originals.slice(0, N).map(n=>n.cloneNode(true));
+    if (!N) return { step: L.step, N: 0 };
+
+    // Si hay pocos ítems no hacemos clones, pero dejamos wheel funcional
+    if (N < 4){
+      const init = ()=>{
+        stripEl.classList.add('nosnap');
+        stripEl.scrollLeft = 0;
+        requestAnimationFrame(()=> stripEl.classList.remove('nosnap'));
+      };
+      init();
+      window.addEventListener('resize', init);
+
+      // Rueda desktop: salto de 1 tarjeta
+      let wheelAcc = 0;
+      stripEl.addEventListener('wheel', (e)=>{
+        if (navLock) { e.preventDefault(); return; }
+        if(e.target.closest('.readme')) return;
+        const vertical = Math.abs(e.deltaX) < Math.abs(e.deltaY);
+        if(!vertical) return;
+        e.preventDefault();
+        wheelAcc += e.deltaY;
+        const threshold = 40;
+        if(Math.abs(wheelAcc) >= threshold){
+          const dir = wheelAcc > 0 ? +1 : -1;
+          navigateBy(dir);
+          wheelAcc = 0;
+        }
+      }, {passive:false});
+
+      return { step: L.step, N: 0 };
+    }
+
+    // Clonado cabeza/cola para loop infinito
+    const head = originals.map(n=>n.cloneNode(true));
+    const tail = originals.map(n=>n.cloneNode(true));
     head.forEach(n=>stripEl.prepend(n));
     tail.forEach(n=>stripEl.append(n));
 
-    function teleport(to){
+    const teleport = (to)=>{
       stripEl.classList.add('nosnap');
       stripEl.scrollLeft = to;
       requestAnimationFrame(()=> stripEl.classList.remove('nosnap'));
-    }
+    };
 
-    const init = ()=>{ stripEl.classList.add('nosnap'); stripEl.scrollLeft = L.step * N; requestAnimationFrame(()=> stripEl.classList.remove('nosnap')); };
-    init();
-    window.addEventListener('resize', init);
+    const setStart = ()=>{
+      stripEl.classList.add('nosnap');
+      stripEl.scrollLeft = L.step * N;   // posicionar en el bloque original
+      requestAnimationFrame(()=> stripEl.classList.remove('nosnap'));
+    };
+    setStart();
+    window.addEventListener('resize', setStart);
 
+    // Teleports en bordes
     stripEl.addEventListener('scroll', ()=>{
       const min = L.step * (N - 1);
-      const max = L.step * (N + originals.length + 1);
-      if(stripEl.scrollLeft < min){ teleport(stripEl.scrollLeft + L.step * originals.length); }
-      else if(stripEl.scrollLeft > max){ teleport(stripEl.scrollLeft - L.step * originals.length); }
+      const max = L.step * (N + N + 1);
+      if (stripEl.scrollLeft < min){
+        teleport(stripEl.scrollLeft + L.step * N);
+      } else if (stripEl.scrollLeft > max){
+        teleport(stripEl.scrollLeft - L.step * N);
+      }
     }, {passive:true});
 
-    // Rueda desktop: salto de 1 tarjeta
+    // Rueda desktop: mueve 1 tarjeta (usa navigateBy; ignora durante lock)
     let wheelAcc = 0;
     stripEl.addEventListener('wheel', (e)=>{
-      if(e.target.closest('.readme')) return;
+      if (navLock) { e.preventDefault(); return; }
+      if (e.target.closest('.readme')) return;
       const vertical = Math.abs(e.deltaX) < Math.abs(e.deltaY);
-      if(!vertical) return;
+      if (!vertical) return;
       e.preventDefault();
       wheelAcc += e.deltaY;
       const threshold = 40;
-      if(Math.abs(wheelAcc) >= threshold){
-        const dir = wheelAcc > 0 ? +1 : -1;
-        scrollByCards(dir);
+      if (Math.abs(wheelAcc) >= threshold){
+        navigateBy(wheelAcc > 0 ? +1 : -1);
         wheelAcc = 0;
       }
     }, {passive:false});
 
-    // Gestos táctiles: vertical → página; horizontal → carrusel
-    let tx=0, ty=0, lastX=0, dragging=false, decided=null;
-    stripEl.addEventListener('touchstart', (e)=>{
-      if(e.target.closest('.readme')){ decided=true; return; }
-      const t = e.touches[0]; tx=t.clientX; ty=t.clientY; lastX=tx; dragging=true; decided=null;
-    }, {passive:true});
-
-    stripEl.addEventListener('touchmove', (e)=>{
-      if(!dragging) return;
-      const t = e.touches[0]; const dx = t.clientX - tx; const dy = t.clientY - ty;
-      if(decided===null){
-        if(Math.abs(dy) > Math.abs(dx)){ decided=true; /* vertical → dejar pasar */ return; }
-        decided=false; // horizontal
-      }
-      if(decided===false){
-        e.preventDefault(); // tomamos el gesto
-        const deltaX = t.clientX - lastX;
-        stripEl.scrollLeft -= deltaX;
-        lastX = t.clientX;
-      }
-    }, {passive:false});
-
-    stripEl.addEventListener('touchend', ()=>{ dragging=false; decided=null; }, {passive:true});
-
+    // Gestos touch: dejamos el vertical al documento gracias a touch-action: pan-y
     return { step: L.step, N };
   }
 
   let loop = setupInfinite(strip);
 
-  function scrollByCards(n){
-    strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
-  }
-  btnPrev.addEventListener('click', ()=>scrollByCards(-1));
-  btnNext.addEventListener('click', ()=>scrollByCards(+1));
+  let navLock = false;              // evita gestos mientras se cierra y se navega
+  const FLIP_MS = 600;              // debe coincidir con la transición del flip (.6s)
 
-  // Teclado
+  /** Cierra TODAS las tarjetas abiertas y espera el fin del flip */
+  async function ensureFront(){
+    const opened = strip.querySelectorAll('.repo-card.open');
+    if (!opened.length) return;
+    navLock = true;
+    opened.forEach(card => card.classList.remove('open'));
+    await new Promise(res=>{
+      // Esperamos el fin de al menos una transición; fallback por tiempo
+      let done = false;
+      const finish = ()=>{ if(done) return; done=true; res(); };
+      // si hay varias, escuchamos la primera que termine
+      opened[0].addEventListener('transitionend', finish, { once:true });
+      setTimeout(finish, FLIP_MS + 50);
+    });
+  }
+
+  /** Navega n tarjetas respetando el lock y cerrando antes si hace falta */
+  async function navigateBy(n){
+    if (navLock) return;
+    navLock = true;
+    await ensureFront();        // cierra todas si hay alguna abierta
+    strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
+    // liberar lock tras el scroll suave (heurística)
+    setTimeout(()=>{ navLock = false; }, 400);
+  }
+
+  btnPrev.addEventListener('click', ()=> navigateBy(-1));
+  btnNext.addEventListener('click', ()=> navigateBy(+1));
+
   stage.addEventListener('keydown', (e)=>{
-    if(e.key === 'ArrowLeft'){ e.preventDefault(); scrollByCards(-1); }
-    if(e.key === 'ArrowRight'){ e.preventDefault(); scrollByCards(+1); }
+    if(e.key === 'ArrowLeft'){ e.preventDefault(); navigateBy(-1); }
+    if(e.key === 'ArrowRight'){ e.preventDefault(); navigateBy(+1); }
   });
 
   /* ===== Apps ===== */
