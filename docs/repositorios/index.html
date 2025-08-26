@@ -77,7 +77,6 @@
     <div class="prose">
       
 <script>
-  // Datos desde YAML (_data/recursos.yml)
   window.TC_RESOURCES = {
     featuredRepos: [{"name":"TC2Lib---LTSPICE","title":"TCLib para LTSpice","desc":"Librerías listas para simular.","color":"#60a5fa","img":"/assets/img/repositorios/tc2lib-ltspice.webp"},{"name":"TC2Lib---KiCad","title":"TCLib para KiCad","desc":"Footprints y símbolos consistentes.","color":"#22c55e","img":"/assets/img/repositorios/tc2lib-kicad.webp"},{"name":"TC2-PlotTool","title":"PlotTool","desc":"Graficá y compará señales.","color":"#f97316","img":"/assets/img/repositorios/tc2-plottool.webp"},{"name":"Spice-a-PDF","title":"SPICE → PDF","desc":"Exportá simulaciones a informes.","color":"#8b5cf6","img":"/assets/img/repositorios/spice-a-pdf.webp"},{"name":"TC2-FilterTool","title":"FilterTool","desc":"Diseño y comparación de filtros.","color":"#14b8a6","img":"/assets/img/repositorios/tc2-filtertool.webp"},{"name":"L2-Recursos-Python","title":"Recursos Python","desc":"Snippets y utilidades para TC2.","color":"#38bdf8","img":"/assets/img/repositorios/l2-recursos-python.webp"}],
     apps: [{"title":"Calculadora de seno elíptico (Streamlit)","url":"https://tc2-sntool.streamlit.app","embed":true,"height":680}]
@@ -108,37 +107,24 @@
 .section-title{ margin:.25rem 0 1rem; letter-spacing:.2px }
 hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem 0 }
 
-/* ===== Carrusel: escenario acotado + máscara de fades ===== */
+/* ===== Escenario + máscara de fades ===== */
 .repos-stage{
-  --pad: 56px;                 /* padding lateral del escenario */
-  --fade: 72px;                /* ancho del fade */
+  --pad: 56px;
+  --fade: 72px;
   position:relative;
   overflow-x:hidden;
   padding-inline: var(--pad);
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 var(--fade),
-    #000 calc(100% - var(--fade)),
-    transparent 100%
-  );
-          mask-image: linear-gradient(
-    to right,
-    transparent 0,
-    #000 var(--fade),
-    #000 calc(100% - var(--fade)),
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
 }
-/* Mobile: menos padding/fade (no afecta carga) */
 @media (max-width:740px){
   .repos-stage{ --pad: 20px; --fade: 18px; }
 }
 
-/* Pista */
+/* ===== Pista ===== */
 .repos-strip{
-  --gap: 24px;                 /* gap entre tarjetas (se usa en JS también) */
-  --card-w: 360px;             /* se recalcula en JS */
+  --gap: 24px;
+  --card-w: 360px;
   display:grid; grid-auto-flow:column;
   grid-auto-columns: var(--card-w);
   gap: var(--gap);
@@ -147,11 +133,13 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
+  /* gestos por JS; permite ambos ejes hasta decidir */
+  touch-action: none;
 }
 .repos-strip::-webkit-scrollbar{ height:0 }
 .repos-strip.nosnap{ scroll-snap-type: none; }
 
-/* Navegación */
+/* ===== Flechas ===== */
 .repos-nav{
   position:absolute; top:50%; transform:translateY(-50%);
   width:42px; height:42px; border-radius:999px;
@@ -178,19 +166,25 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 }
 .repo-card:hover{ transform: scale(1.06); z-index: 4; box-shadow: var(--shadow-2); }
 
+/* En móvil la tarjeta ocupa 100% (sin “achicar”) */
+@media (max-width:740px){
+  .repo-card{ transform:none; }
+  .repo-card:hover{ transform:none; box-shadow: var(--shadow-1); }
+}
+
 .repo-inner{
   position:absolute; inset:0; transform-style:preserve-3d;
   transition: transform .6s cubic-bezier(.2,.8,.2,1);
 }
 .repo-card.open .repo-inner{ transform: rotateY(180deg); }
 
-/* Caras: NO traslucen en el flip (clave en mobile/Safari) */
+/* Caras: evitar “traslucir” en el flip */
 .repo-front, .repo-back{
   position:absolute; inset:0;
   border-radius: inherit; overflow: hidden;
-  background:#0f1115;                 /* fondo sólido */
+  background:#0f1115;
   backface-visibility:hidden;
-  -webkit-backface-visibility:hidden; /* iOS/Safari */
+  -webkit-backface-visibility:hidden;
   transform: translateZ(0);
 }
 .repo-front{ display:flex; flex-direction:column; justify-content:flex-end; padding:18px; }
@@ -272,7 +266,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .app-embed{ padding: 0 16px 16px 16px; background: rgba(255,255,255,.02) }
 .app-frame{ width:100%; height:680px; border:1px solid var(--stroke); border-radius: 10px }
 
-/* Botones */
 .btn{ appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
   padding:.46rem .8rem; border-radius:999px; font-weight:700; color:var(--fg);
   background: rgba(255,255,255,.06); border:1px solid var(--stroke);
@@ -410,12 +403,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   }
 
   function createCard(repo){
-    const cfg = Object.assign({
-      title: repo.name,
-      desc:  '',
-      color: getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#1690ff',
-      img:   null
-    }, byName.get(repo.name)||{});
+    const cfg = Object.assign({ title: repo.name, desc: '', color: getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#1690ff', img: null }, byName.get(repo.name)||{});
 
     const card = document.createElement('article');
     card.className = 'repo-card';
@@ -431,10 +419,10 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const fb    = document.createElement('div'); fb.className='cover-fallback'; fb.textContent=(repo.name||'R').slice(0,3).toUpperCase();
     cover.append(img, fb); front.append(cover);
 
-    const title = document.createElement('h3');   title.className='title'; title.textContent = cfg.title || titleByRepo[repo.name] || repo.name;
-    const desc  = document.createElement('p');    desc.className='desc';   desc.textContent  = cfg.desc || '';
-    const foot  = document.createElement('div');  foot.className='foot';
-    const lang  = document.createElement('span'); lang.className='pill';   lang.textContent  = repo.language || '—';
+    const title = document.createElement('h3'); title.className='title'; title.textContent = cfg.title || titleByRepo[repo.name] || repo.name;
+    const desc  = document.createElement('p');  desc.className='desc';  desc.textContent  = cfg.desc || '';
+    const foot  = document.createElement('div'); foot.className='foot';
+    const lang  = document.createElement('span'); lang.className='pill'; lang.textContent  = repo.language || '—';
     const meta  = document.createElement('span'); meta.className='pill';
     const d = new Date(repo.pushed_at).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
     meta.textContent = `${repo.stargazers_count}★ · ${d}`;
@@ -498,17 +486,17 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const inner = stage.clientWidth - padL - padR;
 
     const isMobile = window.matchMedia('(max-width: 740px)').matches;
-    const per   = isMobile ? 1 : 3;                       // SIEMPRE 1 en mobile
+    const per   = isMobile ? 1 : 3;
     const minW  = isMobile ? 300 : 320;
     const cardW = Math.max(minW, Math.floor((inner - gap*(per-1)) / per));
 
     strip.style.setProperty('--card-w', cardW + 'px');
-    return { step: cardW + gap, gap, cardW, per };
+    return { step: cardW + (per===1 ? gap : gap), gap, cardW, per };
   }
   let L = computeLayout();
   window.addEventListener('resize', ()=> { L = computeLayout(); });
 
-  /* ===== Loop infinito con teleport suave ===== */
+  /* ===== Loop infinito + controles ===== */
   const btnPrev = document.querySelector('.repos-nav.prev');
   const btnNext = document.querySelector('.repos-nav.next');
 
@@ -540,10 +528,10 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       else if(stripEl.scrollLeft > max){ teleport(stripEl.scrollLeft - L.step * originals.length); }
     }, {passive:true});
 
-    // Rueda: paso de 1 tarjeta (misma animación que flechas)
+    // Rueda desktop: salto de 1 tarjeta
     let wheelAcc = 0;
     stripEl.addEventListener('wheel', (e)=>{
-      if(e.target.closest('.readme')) return; // deja scrollear el README
+      if(e.target.closest('.readme')) return;
       const vertical = Math.abs(e.deltaX) < Math.abs(e.deltaY);
       if(!vertical) return;
       e.preventDefault();
@@ -556,6 +544,30 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       }
     }, {passive:false});
 
+    // Gestos táctiles: vertical → página; horizontal → carrusel
+    let tx=0, ty=0, lastX=0, dragging=false, decided=null;
+    stripEl.addEventListener('touchstart', (e)=>{
+      if(e.target.closest('.readme')){ decided=true; return; }
+      const t = e.touches[0]; tx=t.clientX; ty=t.clientY; lastX=tx; dragging=true; decided=null;
+    }, {passive:true});
+
+    stripEl.addEventListener('touchmove', (e)=>{
+      if(!dragging) return;
+      const t = e.touches[0]; const dx = t.clientX - tx; const dy = t.clientY - ty;
+      if(decided===null){
+        if(Math.abs(dy) > Math.abs(dx)){ decided=true; /* vertical → dejar pasar */ return; }
+        decided=false; // horizontal
+      }
+      if(decided===false){
+        e.preventDefault(); // tomamos el gesto
+        const deltaX = t.clientX - lastX;
+        stripEl.scrollLeft -= deltaX;
+        lastX = t.clientX;
+      }
+    }, {passive:false});
+
+    stripEl.addEventListener('touchend', ()=>{ dragging=false; decided=null; }, {passive:true});
+
     return { step: L.step, N };
   }
 
@@ -567,7 +579,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   btnPrev.addEventListener('click', ()=>scrollByCards(-1));
   btnNext.addEventListener('click', ()=>scrollByCards(+1));
 
-  // flechas del teclado (cuando el escenario tiene foco)
+  // Teclado
   stage.addEventListener('keydown', (e)=>{
     if(e.key === 'ArrowLeft'){ e.preventDefault(); scrollByCards(-1); }
     if(e.key === 'ArrowRight'){ e.preventDefault(); scrollByCards(+1); }
@@ -662,6 +674,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
 
     <!-- Script del menú móvil -->
-    <script src="/assets/js/nav.js?v=1756178154" defer></script>
+    <script src="/assets/js/nav.js?v=1756178795" defer></script>
   </body>
 </html>
