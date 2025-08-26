@@ -45,7 +45,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   position:relative;
   overflow-x:hidden;
   padding-inline: var(--pad);
-  /* Fades integrados que SÍ llegan al borde */
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0,
@@ -61,17 +60,21 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     transparent 100%
   );
 }
+/* Mobile: menos padding/fade (no afecta carga) */
+@media (max-width:740px){
+  .repos-stage{ --pad: 20px; --fade: 18px; }
+}
 
-/* Pista (3 tarjetas completas) */
+/* Pista */
 .repos-strip{
   --gap: 24px;                 /* gap entre tarjetas (se usa en JS también) */
-  --card-w: 360px;             /* se recalcula en JS para que quepan 3 exactas */
+  --card-w: 360px;             /* se recalcula en JS */
   display:grid; grid-auto-flow:column;
   grid-auto-columns: var(--card-w);
   gap: var(--gap);
-  padding-block: 26px;         /* solo vertical */
+  padding-block: 26px;
   overflow-x:auto; overflow-y:visible;
-  scroll-snap-type:x mandatory; 
+  scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
 }
@@ -93,7 +96,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .repos-nav.next svg{ transform: rotate(180deg); }
 
 /* ===== Tarjetas ===== */
-/* ===== Tarjetas ===== */
 .repo-card{
   position: relative; height: 520px;
   border-radius: var(--radius-xl); overflow: hidden;
@@ -104,17 +106,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   transition: transform .25s ease, box-shadow .25s ease;
   will-change: transform;
 }
-
-.repo-card:hover{
-  transform: scale(1.06);
-  z-index: 4;
-  /* sombra normal + halo de color limpio */
-  box-shadow:
-    var(--shadow-2),
-    0 0 0 1px var(--glow-1),
-    0 0 26px 2px var(--glow-1),
-    0 0 60px 10px var(--glow-2);
-}
+.repo-card:hover{ transform: scale(1.06); z-index: 4; box-shadow: var(--shadow-2); }
 
 .repo-inner{
   position:absolute; inset:0; transform-style:preserve-3d;
@@ -122,11 +114,18 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 }
 .repo-card.open .repo-inner{ transform: rotateY(180deg); }
 
+/* Caras: NO traslucen en el flip (clave en mobile/Safari) */
 .repo-front, .repo-back{
-  position:absolute; inset:0; backface-visibility:hidden;
+  position:absolute; inset:0;
   border-radius: inherit; overflow: hidden;
+  background:#0f1115;                 /* fondo sólido */
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden; /* iOS/Safari */
+  transform: translateZ(0);
 }
 .repo-front{ display:flex; flex-direction:column; justify-content:flex-end; padding:18px; }
+.repo-back{ transform: rotateY(180deg); }
+
 .repo-front .cover{ position:absolute; inset:0; z-index:0; }
 .repo-front .cover img{
   width:100%; height:100%; object-fit:cover; display:block; opacity:.9;
@@ -136,7 +135,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   content:""; position:absolute; inset:0;
   background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.45) 60%, rgba(0,0,0,.65));
 }
-/* CHIP REMOVIDA */
 
 /* info frente */
 .repo-front .title{ z-index:1; margin:0 0 .2rem 0; font-size:1.35rem; font-weight:900; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,.45) }
@@ -173,8 +171,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
 /* Dorso */
 .repo-back{
-  transform: rotateY(180deg);
-  background: linear-gradient(180deg, rgba(26,28,34,.95), rgba(18,20,26,.98));
+  background: linear-gradient(180deg, rgba(26,28,34,.98), rgba(18,20,26,.98));
   border: 1px solid var(--stroke); padding:14px; display:flex; flex-direction:column;
 }
 .repo-back .back-head{ display:flex; gap:10px; align-items:center; justify-content:space-between; margin-bottom:6px }
@@ -196,7 +193,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .markdown-body code{ background:rgba(110,118,129,.12); border-radius:6px; padding:.15em .35em }
 .markdown-body a{ color:#58a6ff; text-decoration:none } .markdown-body a:hover{ text-decoration:underline }
 
-/* ===== Apps (pill + flecha) ===== */
+/* ===== Apps ===== */
 .app{ border:1px solid var(--stroke); border-radius: 14px; background: rgba(255,255,255,.03); box-shadow: var(--shadow-1); overflow:hidden }
 .app-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px }
 .app-title{ margin:0; font-weight:800; font-size:1.12rem }
@@ -205,26 +202,19 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .app-embed{ padding: 0 16px 16px 16px; background: rgba(255,255,255,.02) }
 .app-frame{ width:100%; height:680px; border:1px solid var(--stroke); border-radius: 10px }
 
-.btn{ 
-  appearance:none; cursor:pointer;
-  display:inline-flex; align-items:center; gap:8px;
-  padding:.46rem .8rem; border-radius:999px;
-  font-weight:700; color:var(--fg);
-  background: rgba(255,255,255,.06);
-  border:1px solid var(--stroke);
-  transition: background .15s ease, border-color .15s ease, transform .08s ease;
-}
+/* Botones */
+.btn{ appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+  padding:.46rem .8rem; border-radius:999px; font-weight:700; color:var(--fg);
+  background: rgba(255,255,255,.06); border:1px solid var(--stroke);
+  transition: background .15s ease, border-color .15s ease, transform .08s ease; }
 .btn:hover{ background: rgba(255,255,255,.1); border-color: var(--stroke-2) }
 .btn:active{ transform: translateY(1px) }
 .btn-ghost{ background: transparent; border:1px solid var(--stroke) }
 .btn-ghost:hover{ background: rgba(255,255,255,.06); border-color: var(--stroke-2) }
 
-.btn-round{
-  width:36px; height:36px; border-radius:999px;
-  display:grid; place-items:center; color:var(--fg);
+.btn-round{ width:36px; height:36px; border-radius:999px; display:grid; place-items:center; color:var(--fg);
   background: rgba(255,255,255,.06); border:1px solid var(--stroke);
-  transition: background .15s ease, border-color .15s ease, transform .08s ease;
-}
+  transition: background .15s ease, border-color .15s ease, transform .08s ease; }
 .btn-round:hover{ background: rgba(255,255,255,.1); border-color: var(--stroke-2) }
 .btn-round:active{ transform: translateY(1px) }
 
@@ -236,7 +226,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   text-shadow: 0 2px 10px rgba(0,0,0,.35);
 }
 
-/* accesibilidad para flechas teclado */
+/* Accesibilidad */
 .repos-stage:focus{ outline: 2px solid var(--stroke-2); outline-offset: 4px; border-radius: 10px; }
 </style>
 
@@ -410,7 +400,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   repos.forEach(r => strip.appendChild(createCard(r)));
 
-  /* ===== flip + README (ignora click en GitHub) ===== */
+  /* ===== flip + README ===== */
   const loadedReadme = new Set();
   strip.addEventListener('click', async (ev)=>{
     if(ev.target.closest('.gh-btn')) return;
@@ -430,16 +420,20 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     }
   });
 
-  /* ===== Layout: 3 tarjetas exactas + step consistente ===== */
+  /* ===== Layout: 3 desktop / 1 mobile ===== */
   function computeLayout(){
-    const gap = parseFloat(getComputedStyle(strip).getPropertyValue('--gap')) || 24;
+    const gap  = parseFloat(getComputedStyle(strip).getPropertyValue('--gap')) || 24;
     const padL = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
     const padR = parseFloat(getComputedStyle(stage).paddingRight) || 0;
     const inner = stage.clientWidth - padL - padR;
-    const per = 3; // SIEMPRE 3 visibles
-    const cardW = Math.max(320, Math.floor((inner - gap*(per-1)) / per));
+
+    const isMobile = window.matchMedia('(max-width: 740px)').matches;
+    const per   = isMobile ? 1 : 3;                       // SIEMPRE 1 en mobile
+    const minW  = isMobile ? 300 : 320;
+    const cardW = Math.max(minW, Math.floor((inner - gap*(per-1)) / per));
+
     strip.style.setProperty('--card-w', cardW + 'px');
-    return { step: cardW + gap, gap, cardW };
+    return { step: cardW + gap, gap, cardW, per };
   }
   let L = computeLayout();
   window.addEventListener('resize', ()=> { L = computeLayout(); });
@@ -476,7 +470,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       else if(stripEl.scrollLeft > max){ teleport(stripEl.scrollLeft - L.step * originals.length); }
     }, {passive:true});
 
-    // === Rueda: misma animación que las flechas (paso de 1 tarjeta) ===
+    // Rueda: paso de 1 tarjeta (misma animación que flechas)
     let wheelAcc = 0;
     stripEl.addEventListener('wheel', (e)=>{
       if(e.target.closest('.readme')) return; // deja scrollear el README
@@ -484,10 +478,10 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       if(!vertical) return;
       e.preventDefault();
       wheelAcc += e.deltaY;
-      const threshold = 40; // evita disparos múltiples en trackpads sensibles
+      const threshold = 40;
       if(Math.abs(wheelAcc) >= threshold){
         const dir = wheelAcc > 0 ? +1 : -1;
-        scrollByCards(dir);    // usa el mismo smooth de las flechas
+        scrollByCards(dir);
         wheelAcc = 0;
       }
     }, {passive:false});
