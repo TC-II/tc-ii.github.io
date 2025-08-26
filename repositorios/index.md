@@ -80,11 +80,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .repos-strip::-webkit-scrollbar{ height:0 }
 .repos-strip.nosnap{ scroll-snap-type: none; }
 
-/* MOBILE: snap nativo, una tarjeta exacta. SIN transform en JS */
+/* MOBILE: snap nativo, una tarjeta exacta */
 @media (max-width:740px){
   .repos-strip{
     --gap: 0;
-    grid-auto-columns: calc(100% - 2*var(--pad)); /* coincide con el ancho útil del stage */
+    grid-auto-columns: calc(100% - 2*var(--pad));
     overflow-x:auto !important;
     scroll-snap-type:x mandatory;
   }
@@ -97,13 +97,14 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   width:42px; height:42px; border-radius:999px;
   border:1px solid var(--stroke); background:rgba(255,255,255,.06);
   color:var(--fg); display:grid; place-items:center; cursor:pointer;
-  z-index:5; transition:.15s ease background, .15s ease transform;
+  z-index:5; transition:.15s ease background, .15s ease transform, .15s ease opacity;
 }
 .repos-nav:hover{ background:rgba(255,255,255,.1) }
 .repos-nav:active{ transform:translateY(-50%) scale(.98) }
 .repos-nav.prev{ left:10px } .repos-nav.next{ right:10px }
 .repos-nav svg{ display:block }
 .repos-nav.next svg{ transform: rotate(180deg); }
+.repos-nav[disabled]{ opacity:.35; pointer-events:none; }
 
 /* ===== Tarjetas ===== */
 .repo-card{
@@ -118,7 +119,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 }
 .repo-card:hover{ transform: scale(1.06); z-index: 4; box-shadow: var(--shadow-2); }
 
-/* MOBILE: ocupa el ancho útil exacto del stage y sin hover-scale */
+/* MOBILE: ancho útil exacto y sin hover-scale */
 @media (max-width:740px){
   .repo-card{
     transform:none;
@@ -139,8 +140,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   position:absolute; inset:0;
   border-radius: inherit; overflow: hidden;
   background:#0f1115;
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden; -webkit-backface-visibility:hidden;
   transform: translateZ(0);
 }
 .repo-front{ display:flex; flex-direction:column; justify-content:flex-end; padding:18px; }
@@ -418,7 +418,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   repos.forEach(r => strip.appendChild(createCard(r)));
 
-  /* ===== flip + README ===== */
+  /* ===== flip + README (click para abrir/cerrar) ===== */
   const loadedReadme = new Set();
   let navLock = false;
   const FLIP_MS = 600;
@@ -427,6 +427,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     if (navLock) return;
     if (ev.target.closest('.gh-btn')) return;
     const card = ev.target.closest('.repo-card'); if(!card) return;
+    // toggle simple: abre o cierra la MISMA tarjeta
     card.classList.toggle('open');
     const name = card.dataset.repo;
     if(card.classList.contains('open') && !loadedReadme.has(name)){
@@ -442,7 +443,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     }
   });
 
-  /* ===== Layout ===== */
+  /* ===== Layout / Navegación ===== */
   const btnPrev = document.querySelector('.repos-nav.prev');
   const btnNext = document.querySelector('.repos-nav.next');
 
@@ -451,8 +452,9 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   let L = computeLayout();
   let infiniteReady = false;
-  let onInfiniteScrollRef = null; // <— nuevo: para remover listener
-  let wrapping = false;           // <— nuevo: evita rebotes durante teleports
+  let navArmed = false;       // evita pantallazo al principio en desktop infinito
+  let onInfiniteScrollRef = null;
+  let wrapping = false;
 
   function computeLayout(){
     const padL = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
@@ -468,24 +470,40 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     return { step: cardW + gap, gap, cardW, per };
   }
 
+  function setArrowsState(){
+    // Desktop infinito → siempre habilitadas (cuando está armado)
+    if (!isMobile() && L.per === 3 && infiniteReady){
+      btnPrev.removeAttribute('disabled');
+      btnNext.removeAttribute('disabled');
+      return;
+    }
+    // Mobile / Tablet / Desktop sin infinito → bordes
+    const atStart = strip.scrollLeft <= 1;
+    const atEnd   = strip.scrollLeft >= (strip.scrollWidth - strip.clientWidth - 1);
+    if (atStart) btnPrev.setAttribute('disabled','');
+    else btnPrev.removeAttribute('disabled');
+    if (atEnd) btnNext.setAttribute('disabled','');
+    else btnNext.removeAttribute('disabled');
+  }
+
   function clearClones(){
-    // elimina clones y listener (si existía)
     strip.querySelectorAll('[data-clone="1"]').forEach(n=> n.remove());
     if (onInfiniteScrollRef){
       strip.removeEventListener('scroll', onInfiniteScrollRef);
       onInfiniteScrollRef = null;
     }
     infiniteReady = false;
+    navArmed = false;
   }
 
   function setupInfiniteDesktop(){
-    if (infiniteReady) return;
-    if (L.per < 3) { clearClones(); return; }
+    if (L.per < 3) { clearClones(); setArrowsState(); return; }
 
     const originals = Array.from(strip.children).filter(n=>!n.dataset.clone);
     const N = originals.length;
-    if (N < 4) { clearClones(); return; }
+    if (N < 4) { clearClones(); setArrowsState(); return; }
 
+    // clonar
     const head = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
     const tail = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
     head.forEach(n=>strip.prepend(n));
@@ -494,7 +512,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const teleport = (to)=>{
       wrapping = true;
       strip.classList.add('nosnap');
-      strip.scrollLeft = to + 0.5; // evita quedar EXACTO en el borde
+      strip.scrollLeft = to + 0.5;
       requestAnimationFrame(()=>{
         strip.classList.remove('nosnap');
         setTimeout(()=>{ wrapping = false; }, 0);
@@ -503,23 +521,24 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
     const setStart = ()=>{
       strip.classList.add('nosnap');
-      strip.scrollLeft = L.step * N + 0.5; // centro con pequeño offset
-      requestAnimationFrame(()=> strip.classList.remove('nosnap'));
+      strip.scrollLeft = L.step * N + 0.5;
+      requestAnimationFrame(()=>{
+        strip.classList.remove('nosnap');
+        // *Ahora* habilitamos flechas (evita pantallazo si se aprieta muy rápido)
+        navArmed = true;
+        setArrowsState();
+      });
     };
     setStart();
 
-    const MARGIN = 2; // px de margen
+    const MARGIN = 2;
     onInfiniteScrollRef = function onInfiniteScroll(){
       if (wrapping) return;
       const min = L.step * (N - 1) + MARGIN;
       const max = L.step * (N + N + 1) - MARGIN;
       const x = strip.scrollLeft;
-
-      if (x < min){
-        teleport(x + L.step * N);
-      } else if (x > max){
-        teleport(x - L.step * N);
-      }
+      if (x < min) teleport(x + L.step * N);
+      else if (x > max) teleport(x - L.step * N);
     };
 
     strip.addEventListener('scroll', onInfiniteScrollRef, {passive:true});
@@ -528,23 +547,30 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   // init
   if (!isMobile()) setupInfiniteDesktop();
+  setArrowsState();
 
   window.addEventListener('resize', ()=>{
     const prevPer = L.per;
     L = computeLayout();
 
     if (isMobile()){
-      // pasar a mobile: limpiar clones y usar snap nativo
       clearClones();
       strip.style.transform = '';
     }else{
-      // tablet/grande: reconfigurar infinito si cambió la grilla
       if (prevPer !== L.per) { clearClones(); }
       setupInfiniteDesktop();
     }
+    setArrowsState();
   });
 
-  /* ===== Cerrar tarjetas abiertas antes de navegar ===== */
+  // actualizar flechas al hacer scroll (mobile/tablet)
+  strip.addEventListener('scroll', ()=>{
+    if (isMobile() || L.per !== 3 || !infiniteReady){
+      setArrowsState();
+    }
+  }, {passive:true});
+
+  /* ===== Cerrar tarjetas abiertas antes de navegar con flechas ===== */
   async function ensureFront(){
     const opened = strip.querySelectorAll('.repo-card.open');
     if (!opened.length) return;
@@ -559,29 +585,34 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   }
 
   /* ===== Navegar (flechas/teclado) ===== */
-  function currentIndex(){
-    // índice “a ojo” por scrollLeft
-    return Math.round(strip.scrollLeft / (L.step || 1));
-  }
+  const atStart = () => strip.scrollLeft <= 1;
+  const atEnd   = () => strip.scrollLeft >= (strip.scrollWidth - strip.clientWidth - 1);
 
   async function navigateBy(n){
     if (navLock) return;
+
+    // en desktop infinito: evitar input hasta armar posición inicial
+    if (!isMobile() && L.per === 3 && !navArmed) return;
+
+    // bordes en mobile/tablet/desktop sin infinito
+    if ((isMobile() || L.per !== 3 || !infiniteReady) && ((n<0 && atStart()) || (n>0 && atEnd()))){
+      return;
+    }
+
     navLock = true;
     await ensureFront();
 
     if (isMobile()){
-      const maxIdx = strip.children.length - 1;
-      const next = Math.max(0, Math.min(currentIndex() + n, maxIdx));
-      strip.scrollTo({ left: next * (L.step||0), behavior:'smooth' });
-      setTimeout(()=>{ navLock = false; }, 380);
+      strip.scrollBy({ left: n * (L.step || 0), behavior:'smooth' });
+      setTimeout(()=>{ navLock = false; setArrowsState(); }, 380);
     }else{
       strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
       setTimeout(()=>{ navLock = false; }, 400);
     }
   }
 
-  document.querySelector('.repos-nav.prev').addEventListener('click', ()=> navigateBy(-1));
-  document.querySelector('.repos-nav.next').addEventListener('click', ()=> navigateBy(+1));
+  btnPrev.addEventListener('click', ()=> navigateBy(-1));
+  btnNext.addEventListener('click', ()=> navigateBy(+1));
   stage.addEventListener('keydown', (e)=>{
     if(e.key === 'ArrowLeft'){ e.preventDefault(); navigateBy(-1); }
     if(e.key === 'ArrowRight'){ e.preventDefault(); navigateBy(+1); }
