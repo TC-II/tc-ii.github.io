@@ -118,7 +118,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
           mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
 }
 
-/* MOBILE: una tarjeta exacta por vista; sin máscara para no comer bordes */
+/* MOBILE */
 @media (max-width:740px){
   .repos-stage{
     --pad: 12px;
@@ -127,7 +127,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   }
 }
 
-/* TABLET: dos por vista */
+/* TABLET */
 @media (min-width:741px) and (max-width:1100px){
   .repos-stage{ --pad: 28px; }
 }
@@ -189,7 +189,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 }
 .repo-card:hover{ transform: scale(1.06); z-index: 4; box-shadow: var(--shadow-2); }
 
-/* MOBILE: ancho útil exacto y sin hover-scale */
+/* MOBILE */
 @media (max-width:740px){
   .repo-card{
     transform:none;
@@ -497,7 +497,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     if (navLock) return;
     if (ev.target.closest('.gh-btn')) return;
     const card = ev.target.closest('.repo-card'); if(!card) return;
-    // toggle simple: abre o cierra la MISMA tarjeta
     card.classList.toggle('open');
     const name = card.dataset.repo;
     if(card.classList.contains('open') && !loadedReadme.has(name)){
@@ -522,7 +521,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   let L = computeLayout();
   let infiniteReady = false;
-  let navArmed = false;       // evita pantallazo al principio en desktop infinito
+  let navArmed = false;
   let onInfiniteScrollRef = null;
   let wrapping = false;
 
@@ -540,20 +539,37 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     return { step: cardW + gap, gap, cardW, per };
   }
 
+  // ancho real de tarjeta (evita errores de redondeo en mobile)
+  function stepWidth(){
+    const first = strip.querySelector('.repo-card');
+    return first ? Math.round(first.getBoundingClientRect().width) : L.cardW;
+  }
+
+  function countCards(){ return strip.children.length; }
+
+  function currentIndex(){
+    const w = stepWidth();
+    return w ? Math.round(strip.scrollLeft / w) : 0;
+  }
+
   function setArrowsState(){
-    // Desktop infinito → siempre habilitadas (cuando está armado)
+    // Desktop infinito → siempre visibles cuando está armado
     if (!isMobile() && L.per === 3 && infiniteReady){
+      btnPrev.style.display = '';
+      btnNext.style.display = '';
       btnPrev.removeAttribute('disabled');
       btnNext.removeAttribute('disabled');
       return;
     }
-    // Mobile / Tablet / Desktop sin infinito → bordes
-    const atStart = strip.scrollLeft <= 1;
-    const atEnd   = strip.scrollLeft >= (strip.scrollWidth - strip.clientWidth - 1);
-    if (atStart) btnPrev.setAttribute('disabled','');
-    else btnPrev.removeAttribute('disabled');
-    if (atEnd) btnNext.setAttribute('disabled','');
-    else btnNext.removeAttribute('disabled');
+    // Mobile/Tablet/No-infinito → ocultar en bordes por índice
+    const i = currentIndex();
+    const n = countCards();
+    // izquierda
+    if (i <= 0){ btnPrev.style.display = 'none'; }
+    else { btnPrev.style.display = ''; btnPrev.removeAttribute('disabled'); }
+    // derecha
+    if (i >= n - 1){ btnNext.style.display = 'none'; }
+    else { btnNext.style.display = ''; btnNext.removeAttribute('disabled'); }
   }
 
   function clearClones(){
@@ -573,7 +589,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const N = originals.length;
     if (N < 4) { clearClones(); setArrowsState(); return; }
 
-    // clonar
     const head = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
     const tail = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
     head.forEach(n=>strip.prepend(n));
@@ -594,8 +609,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       strip.scrollLeft = L.step * N + 0.5;
       requestAnimationFrame(()=>{
         strip.classList.remove('nosnap');
-        // *Ahora* habilitamos flechas (evita pantallazo si se aprieta muy rápido)
-        navArmed = true;
+        navArmed = true; // listo para usar flechas
         setArrowsState();
       });
     };
@@ -640,7 +654,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     }
   }, {passive:true});
 
-  /* ===== Cerrar tarjetas abiertas antes de navegar con flechas ===== */
+  /* ===== Cerrar tarjetas abiertas antes de navegar ===== */
   async function ensureFront(){
     const opened = strip.querySelectorAll('.repo-card.open');
     if (!opened.length) return;
@@ -655,34 +669,33 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   }
 
   /* ===== Navegar (flechas/teclado) ===== */
-  const atStart = () => strip.scrollLeft <= 1;
-  const atEnd   = () => strip.scrollLeft >= (strip.scrollWidth - strip.clientWidth - 1);
-
   async function navigateBy(n){
     if (navLock) return;
 
-    // en desktop infinito: evitar input hasta armar posición inicial
+    // Desktop infinito: no aceptar inputs hasta armar
+    if (!isMobile() && L.per === 3 && !infiniteReady) return;
     if (!isMobile() && L.per === 3 && !navArmed) return;
-
-    // bordes en mobile/tablet/desktop sin infinito
-    if ((isMobile() || L.per !== 3 || !infiniteReady) && ((n<0 && atStart()) || (n>0 && atEnd()))){
-      return;
-    }
 
     navLock = true;
     await ensureFront();
 
-    if (isMobile()){
-      strip.scrollBy({ left: n * (L.step || 0), behavior:'smooth' });
+    if (isMobile() || (L.per !== 3 || !infiniteReady)){
+      // MOBILE/TABLET (o desktop sin infinito) → usar índice exacto
+      const w = stepWidth();
+      const total = countCards();
+      const iNow = currentIndex();
+      const iNext = Math.max(0, Math.min(iNow + n, total - 1));
+      strip.scrollTo({ left: iNext * w, behavior:'smooth' });
       setTimeout(()=>{ navLock = false; setArrowsState(); }, 380);
     }else{
+      // DESKTOP infinito
       strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
       setTimeout(()=>{ navLock = false; }, 400);
     }
   }
 
-  btnPrev.addEventListener('click', ()=> navigateBy(-1));
-  btnNext.addEventListener('click', ()=> navigateBy(+1));
+  document.querySelector('.repos-nav.prev').addEventListener('click', ()=> navigateBy(-1));
+  document.querySelector('.repos-nav.next').addEventListener('click', ()=> navigateBy(+1));
   stage.addEventListener('keydown', (e)=>{
     if(e.key === 'ArrowLeft'){ e.preventDefault(); navigateBy(-1); }
     if(e.key === 'ArrowRight'){ e.preventDefault(); navigateBy(+1); }
@@ -777,6 +790,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
 
     <!-- Script del menú móvil -->
-    <script src="/assets/js/nav.js?v=1756234226" defer></script>
+    <script src="/assets/js/nav.js?v=1756235463" defer></script>
   </body>
 </html>
