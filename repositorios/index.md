@@ -37,7 +37,7 @@ permalink: /repositorios/
 .section-title{ margin:.25rem 0 1rem; letter-spacing:.2px }
 hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem 0 }
 
-/* ===== Escenario + máscara de fades ===== */
+/* ===== Escenario ===== */
 .repos-stage{
   --pad: 56px;
   --fade: 72px;
@@ -47,10 +47,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
           mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
 }
-/* En mobile: SIN difuminado y con gutters propios del stage */
+
+/* MOBILE: sin difuminado ni padding lateral, tarjeta a ancho completo y sin scroll lateral */
 @media (max-width:740px){
   .repos-stage{
-    --pad: 20px;
+    --pad: 0;
     -webkit-mask-image: none;
             mask-image: none;
   }
@@ -68,11 +69,19 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   scroll-snap-type:x mandatory;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
-  /* MUY IMPORTANTE: permitir el gesto vertical nativo */
-  touch-action: pan-y;
+  touch-action: pan-y; /* gesto vertical nativo */
+  will-change: transform;
 }
 .repos-strip::-webkit-scrollbar{ height:0 }
 .repos-strip.nosnap{ scroll-snap-type: none; }
+
+/* MOBILE: sin scroll lateral; se mueve con transform */
+@media (max-width:740px){
+  .repos-strip{
+    overflow-x: hidden !important;
+    scroll-snap-type: none;
+  }
+}
 
 /* ===== Flechas ===== */
 .repos-nav{
@@ -101,7 +110,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 }
 .repo-card:hover{ transform: scale(1.06); z-index: 4; box-shadow: var(--shadow-2); }
 
-/* En móvil la tarjeta ocupa 100% (sin “achicar”) */
+/* MOBILE: sin “achicar” */
 @media (max-width:740px){
   .repo-card{ transform:none; }
   .repo-card:hover{ transform:none; box-shadow: var(--shadow-1); }
@@ -113,7 +122,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 }
 .repo-card.open .repo-inner{ transform: rotateY(180deg); }
 
-/* Caras: evitar “traslucir” en el flip */
+/* Caras */
 .repo-front, .repo-back{
   position:absolute; inset:0;
   border-radius: inherit; overflow: hidden;
@@ -393,10 +402,13 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   repos.forEach(r => strip.appendChild(createCard(r)));
 
-  /* ===== flip + README (ignora clicks si hay navegación en curso) ===== */
+  /* ===== flip + README (ignora clicks si hay navegación/cierre en curso) ===== */
   const loadedReadme = new Set();
+  let navLock = false;               // evita gestos mientras se cierra y se navega
+  const FLIP_MS = 600;               // debe coincidir con CSS
+
   strip.addEventListener('click', async (ev)=>{
-    if (navLock) return;                      // bloquear flip durante navegación/cierre
+    if (navLock) return;
     if (ev.target.closest('.gh-btn')) return;
     const card = ev.target.closest('.repo-card'); if(!card) return;
     card.classList.toggle('open');
@@ -414,41 +426,85 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     }
   });
 
-  /* ===== Layout: 3 desktop / 1 mobile (tarjeta completa con gutters) ===== */
+  /* ===== Layout ===== */
+  function isMobile(){ return window.matchMedia('(max-width: 740px)').matches; }
+
   function computeLayout(){
     const gap  = parseFloat(getComputedStyle(strip).getPropertyValue('--gap')) || 24;
     const padL = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
     const padR = parseFloat(getComputedStyle(stage).paddingRight) || 0;
     const inner = stage.clientWidth - padL - padR;
 
-    const isMobile = window.matchMedia('(max-width: 740px)').matches;
-    const per   = isMobile ? 1 : 3;
-
-    let cardW;
-    if (isMobile) {
-      // 1 tarjeta exacta, gutters = padding del stage
-      cardW = Math.max(300, inner);
-    } else {
-      cardW = Math.max(320, Math.floor((inner - gap*(per-1)) / per));
-    }
+    const per   = isMobile() ? 1 : 3;
+    const cardW = Math.max(isMobile()? 300 : 320, Math.floor(isMobile()? inner : (inner - gap*(per-1)) / per));
 
     strip.style.setProperty('--card-w', cardW + 'px');
     return { step: cardW + gap, gap, cardW, per };
   }
 
   let L = computeLayout();
-  window.addEventListener('resize', ()=> { L = computeLayout(); });
+  window.addEventListener('resize', ()=> { 
+    L = computeLayout(); 
+    setupMode(); 
+  });
 
-  /* ===== Loop infinito + controles ===== */
+  /* ===== Desktop: loop infinito; Mobile: paginado por transform ===== */
   const btnPrev = document.querySelector('.repos-nav.prev');
   const btnNext = document.querySelector('.repos-nav.next');
 
+  let loopState = null;      // desktop
+  let idx = 0;               // mobile index
+
+  function teardownDesktop(){
+    if(!loopState) return;
+    // quitar listeners de wheel/scroll agregados en desktop
+    strip.replaceWith(strip.cloneNode(true)); // hard reset de listeners en strip
+    // re-vinculamos referencia y reconstruimos contenido
+    const newStrip = document.getElementById('reposStrip');
+    newStrip.innerHTML = strip.innerHTML;
+    strip = newStrip;
+    // reenganchar click flip
+    strip.addEventListener('click', flipHandler);
+    loopState = null;
+  }
+
+  // guardo handler para poder re-enganchar tras teardown
+  const flipHandler = strip.onclick;
+
+  function setupDesktop(){
+    // reconstruir handlers necesarios para desktop
+    loopState = setupInfinite(strip);
+  }
+
+  function applyMobileTransform(){
+    strip.style.transition = 'transform .35s ease';
+    strip.style.transform = `translateX(${-idx * (L.cardW + L.gap)}px)`;
+  }
+
+  function setupMobile(){
+    // sin scroll lateral; una tarjeta por “página”
+    idx = Math.max(0, Math.min(idx, strip.children.length - 1));
+    strip.style.transform = 'translateX(0)';
+    strip.style.transition = 'none';
+    requestAnimationFrame(applyMobileTransform);
+  }
+
+  function setupMode(){
+    if(isMobile()){
+      // quitar modo desktop si estaba
+      if(loopState){ /* no re-creamos DOM, sólo dejamos de usar wheel */ }
+      setupMobile();
+    }else{
+      setupDesktop();
+    }
+  }
+
+  /* ===== Infinite desktop ===== */
   function setupInfinite(stripEl){
     const originals = Array.from(stripEl.children);
     const N = originals.length;
     if (!N) return { step: L.step, N: 0 };
 
-    // Si hay pocos ítems no hacemos clones, pero dejamos wheel funcional
     if (N < 4){
       const init = ()=>{
         stripEl.classList.add('nosnap');
@@ -458,7 +514,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       init();
       window.addEventListener('resize', init);
 
-      // Rueda desktop: salto de 1 tarjeta
       let wheelAcc = 0;
       stripEl.addEventListener('wheel', (e)=>{
         if (navLock) { e.preventDefault(); return; }
@@ -469,8 +524,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
         wheelAcc += e.deltaY;
         const threshold = 40;
         if(Math.abs(wheelAcc) >= threshold){
-          const dir = wheelAcc > 0 ? +1 : -1;
-          navigateBy(dir);
+          navigateBy(wheelAcc > 0 ? +1 : -1);
           wheelAcc = 0;
         }
       }, {passive:false});
@@ -478,7 +532,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       return { step: L.step, N: 0 };
     }
 
-    // Clonado cabeza/cola para loop infinito
+    // clones para loop
     const head = originals.map(n=>n.cloneNode(true));
     const tail = originals.map(n=>n.cloneNode(true));
     head.forEach(n=>stripEl.prepend(n));
@@ -492,13 +546,12 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
     const setStart = ()=>{
       stripEl.classList.add('nosnap');
-      stripEl.scrollLeft = L.step * N;   // posicionar en el bloque original
+      stripEl.scrollLeft = L.step * N;
       requestAnimationFrame(()=> stripEl.classList.remove('nosnap'));
     };
     setStart();
     window.addEventListener('resize', setStart);
 
-    // Teleports en bordes
     stripEl.addEventListener('scroll', ()=>{
       const min = L.step * (N - 1);
       const max = L.step * (N + N + 1);
@@ -509,7 +562,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       }
     }, {passive:true});
 
-    // Rueda desktop: mueve 1 tarjeta (usa navigateBy; ignora durante lock)
     let wheelAcc = 0;
     stripEl.addEventListener('wheel', (e)=>{
       if (navLock) { e.preventDefault(); return; }
@@ -525,48 +577,53 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       }
     }, {passive:false});
 
-    // Gestos touch: dejamos el vertical al documento gracias a touch-action: pan-y
     return { step: L.step, N };
   }
 
-  let loop = setupInfinite(strip);
-
-  let navLock = false;              // evita gestos mientras se cierra y se navega
-  const FLIP_MS = 600;              // debe coincidir con la transición del flip (.6s)
-
-  /** Cierra TODAS las tarjetas abiertas y espera el fin del flip */
+  /* ===== Cerrar todas las tarjetas abiertas ===== */
   async function ensureFront(){
     const opened = strip.querySelectorAll('.repo-card.open');
     if (!opened.length) return;
     navLock = true;
     opened.forEach(card => card.classList.remove('open'));
     await new Promise(res=>{
-      // Esperamos el fin de al menos una transición; fallback por tiempo
       let done = false;
       const finish = ()=>{ if(done) return; done=true; res(); };
-      // si hay varias, escuchamos la primera que termine
       opened[0].addEventListener('transitionend', finish, { once:true });
       setTimeout(finish, FLIP_MS + 50);
     });
   }
 
-  /** Navega n tarjetas respetando el lock y cerrando antes si hace falta */
+  /* ===== Navegar ===== */
   async function navigateBy(n){
     if (navLock) return;
     navLock = true;
-    await ensureFront();        // cierra todas si hay alguna abierta
-    strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
-    // liberar lock tras el scroll suave (heurística)
-    setTimeout(()=>{ navLock = false; }, 400);
+    await ensureFront();
+
+    if (isMobile()){
+      // paginado por índice + transform
+      const maxIdx = strip.children.length - 1;
+      idx = Math.max(0, Math.min(idx + n, maxIdx));
+      applyMobileTransform();
+      setTimeout(()=>{ navLock = false; }, 380);
+    }else{
+      // desktop: scroll suave
+      strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
+      setTimeout(()=>{ navLock = false; }, 400);
+    }
   }
 
+  // Botones / teclado
   btnPrev.addEventListener('click', ()=> navigateBy(-1));
   btnNext.addEventListener('click', ()=> navigateBy(+1));
-
   stage.addEventListener('keydown', (e)=>{
     if(e.key === 'ArrowLeft'){ e.preventDefault(); navigateBy(-1); }
     if(e.key === 'ArrowRight'){ e.preventDefault(); navigateBy(+1); }
   });
+
+  // Inicializar modo
+  function initFlipHandler(){ /* no-op, ya asignado arriba */ }
+  setupMode();
 
   /* ===== Apps ===== */
   const appsList = document.getElementById('appsList');
