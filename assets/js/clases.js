@@ -36,17 +36,34 @@
   }
 
   // ---- WebApp que lista archivos de una carpeta de Drive
-  async function listFolderFiles(folderId) {
-    const url = `${LIST}?folderId=${encodeURIComponent(folderId)}&depth=6`;
-    const r = await fetch(url, { cache: "no-store", credentials: "omit" });
-    const text = await r.text();
-    let json;
-    try { json = JSON.parse(text); }
-    catch { throw new Error("Respuesta no-JSON del Web App:\n" + text.slice(0,400)); }
-    if (json.ok === false) throw new Error(json.error || "ok:false");
-    if (!Array.isArray(json.files)) throw new Error("Sin 'files' en respuesta");
+async function listFolderFiles(folderId) {
+  const url = `${LIST}?folderId=${encodeURIComponent(folderId)}&depth=6`;
+  const r = await fetch(url, { cache: "no-store", credentials: "omit" });
+  const text = await r.text();
+
+  let json;
+  try { 
+    json = JSON.parse(text); 
+  } catch { 
+    throw new Error("Respuesta no-JSON del Web App:\n" + text.slice(0,400)); 
+  }
+
+  // 👇 Soporta array plano
+  if (Array.isArray(json)) {
+    return json;
+  }
+
+  // 👇 Soporta objeto { ok:true, files:[] }
+  if (json.ok === false) {
+    throw new Error(json.error || "ok:false");
+  }
+
+  if (Array.isArray(json.files)) {
     return json.files;
   }
+
+  throw new Error("Formato de respuesta desconocido");
+}
 
   // ========= Caché de archivos (folderId -> files[]) =========
   const fileCache = new Map();
