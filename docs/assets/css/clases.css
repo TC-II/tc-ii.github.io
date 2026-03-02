@@ -220,14 +220,15 @@
   animation: fadeIn .15s ease;
 }
 .clase-modal{
-  width:min(1100px, 92vw);
+  width: min(1100px, 92vw);
+  height: 90vh;            /* 👈 esto faltaba */
   max-height: 90vh;
   background: var(--elev);
-  border:1px solid var(--bd);
+  border: 1px solid var(--bd);
   border-radius: 14px;
   box-shadow: var(--sh);
-  display:flex; flex-direction:column;
-  contain: layout; /* performance + aislar efectos de overflow */
+  display: flex;
+  flex-direction: column;
 }
 .clase-modal-header{
   display:flex; align-items:center; justify-content:space-between;
