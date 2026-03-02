@@ -215,6 +215,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .markdown-body a{ color:#58a6ff; text-decoration:none } .markdown-body a:hover{ text-decoration:underline }
 
 /* ===== Apps (formato viejo) ===== */
+#appsList{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 .app{ border:1px solid var(--stroke); border-radius: 14px; background: rgba(255,255,255,.03); box-shadow: var(--shadow-1); overflow:hidden }
 .app-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 16px }
 .app-title{ margin:0; font-weight:800; font-size:1.12rem }
