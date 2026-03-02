@@ -37,7 +37,7 @@ permalink: /material-didactico/
   };
 
   /* Para listar archivos de una carpeta, el JS usa ?folderId=... sobre el mismo Web App */
-  window.DRIVE_LIST_APP_URL = APP_URL;
+  window.DRIVE_LIST_APP_URL = 'https://script.google.com/macros/s/AKfycbzfwP0ojC3KGsvREcSCZScvD6B0raYNAIqf4rpinyu3_ne-7O4yNk2LA-A82KQsRQR-/exec';
 </script>
 
 <link rel="stylesheet" href="{{ '/assets/css/clases.css' | relative_url }}">
