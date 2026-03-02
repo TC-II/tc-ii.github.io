@@ -41,4 +41,9 @@ apps:
     embed: true
     height: 680
 
+  - title: Cheby game
+    url: https://nicobeade.github.io/chebygame/
+    embed: true
+    height: 680
+
 links: []
