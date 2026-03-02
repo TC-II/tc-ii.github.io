@@ -107,135 +107,146 @@ async function listFolderFiles(folderId) {
     unlockScroll();
   }
 
-  function openModal({ title, iframeSrc, description, openUrl }) {
-    const isMobile = IS_MOBILE();
+function openModal({ title, iframeSrc, description, openUrl }) {
+  const isMobile = IS_MOBILE();
 
-    // evita overlays duplicados
-    closeAnyOpenModal();
+  closeAnyOpenModal();
 
-    const overlay = document.createElement('div');
-    overlay.className = 'clase-modal-overlay';
+  const overlay = document.createElement('div');
+  overlay.className = 'clase-modal-overlay';
 
-    let onKey;
+  let onKey;
 
-    if (isMobile) {
-      // ----- Mobile: modal fullscreen minimal -----
-      overlay.innerHTML = `
-        <div class="clase-modal clase-modal--mobile" role="dialog" aria-modal="true" aria-label="${title || 'Vista rápida'}">
-          <div class="clase-modal-header">
-            <h3 class="clase-modal-title">${title || 'Vista rápida'}</h3>
-            <div class="clase-modal-tools">
-              ${openUrl ? `<a class="tool-btn" href="${openUrl}" target="_blank" rel="noopener" title="Abrir en Drive">Abrir</a>` : ""}
-              <button class="clase-modal-close" aria-label="Cerrar">×</button>
-            </div>
-          </div>
-          <div class="clase-modal-viewer clase-modal-viewer--fill">
-            <iframe src="${iframeSrc || ''}" loading="lazy" allow="autoplay"></iframe>
-          </div>
-        </div>
-      `;
-
-      const close = () => {
-        // corta video / visor en iOS para evitar leaks y glitches
-        overlay.querySelectorAll('iframe').forEach(fr => { try { fr.src = ''; } catch {} });
-        unlockScroll();
-        window.removeEventListener('keydown', onKey);
-        overlay.remove();
-      };
-      onKey = (e) => { if (e.key === 'Escape' || e.key === 'Esc') close(); };
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay || e.target.classList.contains('clase-modal-close')) close();
-      });
-      window.addEventListener('keydown', onKey);
-
-      // Bloqueo de scroll robusto
-      lockScroll();
-      document.body.appendChild(overlay);
-      return;
-    }
-
-    // ----- Desktop: con herramientas (zoom / fit / abrir / full) -----
+  // ================= MOBILE =================
+  if (isMobile) {
     overlay.innerHTML = `
-      <div class="clase-modal" role="dialog" aria-modal="true" aria-label="${title || 'Vista rápida'}">
+      <div class="clase-modal clase-modal--mobile" role="dialog" aria-modal="true">
         <div class="clase-modal-header">
           <h3 class="clase-modal-title">${title || 'Vista rápida'}</h3>
           <div class="clase-modal-tools">
-            <button class="tool-btn tool-zoom-out" title="Zoom -">−</button>
-            <button class="tool-btn tool-zoom-reset" title="Zoom 100%">100%</button>
-            <button class="tool-btn tool-zoom-in" title="Zoom +">+</button>
-            <span class="tool-sep"></span>
-            <button class="tool-btn tool-fit-w" title="Ajustar ancho">⇱⇲</button>
-            <button class="tool-btn tool-fit-h" title="Ajustar alto">↕</button>
-            <span class="tool-sep"></span>
-            ${openUrl ? `<a class="tool-btn" href="${openUrl}" target="_blank" rel="noopener" title="Abrir en Drive">Abrir</a>` : ""}
-            <button class="tool-btn tool-full" title="Pantalla completa">⛶</button>
-            <button class="clase-modal-close" aria-label="Cerrar">×</button>
+            ${openUrl ? `<a class="tool-btn" href="${openUrl}" target="_blank" rel="noopener">Abrir</a>` : ""}
+            <button class="clase-modal-close">×</button>
           </div>
         </div>
-        ${description ? `<p class="clase-modal-desc">${description}</p>` : ''}
-        <div class="clase-modal-viewer">
-          <div class="iframe-viewport">
-            <div class="iframe-scaler">
-              <iframe src="${iframeSrc || ''}" loading="lazy" allow="autoplay"></iframe>
-            </div>
-          </div>
+        <div class="clase-modal-viewer clase-modal-viewer--fill">
+          <iframe src="${iframeSrc || ''}" loading="lazy" allow="autoplay"></iframe>
         </div>
       </div>
     `;
 
-    const modal   = overlay.querySelector('.clase-modal');
-    const scaler  = overlay.querySelector('.iframe-scaler');
-    const viewport= overlay.querySelector('.iframe-viewport');
-
-    let scale = 1;
-    const apply = () => {
-      scaler.style.transform       = `scale(${scale})`;
-      scaler.style.transformOrigin = 'top left';
-      scaler.style.width           = `${100/scale}%`;
-      scaler.style.height          = 'auto';
-    };
-    function fitWidth()  { scale = 1; apply(); }
-    function fitHeight() {
-      const viewH = viewport.clientHeight;
-      const base  = 800;
-      scale = Math.max(0.5, Math.min(1.6, viewH / base));
-      apply();
-    }
-    function zoom(delta){ scale = Math.max(0.5, Math.min(2, +(scale+delta).toFixed(2))); apply(); }
-    function zoomReset(){ scale = 1; apply(); }
-
-    overlay.querySelector('.tool-zoom-in')   ?.addEventListener('click', () => zoom(+0.1));
-    overlay.querySelector('.tool-zoom-out')  ?.addEventListener('click', () => zoom(-0.1));
-    overlay.querySelector('.tool-zoom-reset')?.addEventListener('click', zoomReset);
-    overlay.querySelector('.tool-fit-w')     ?.addEventListener('click', fitWidth);
-    overlay.querySelector('.tool-fit-h')     ?.addEventListener('click', fitHeight);
-    overlay.querySelector('.tool-full')      ?.addEventListener('click', () => {
-      if (modal.requestFullscreen) modal.requestFullscreen().catch(()=>{});
-    });
-
     const close = () => {
       overlay.querySelectorAll('iframe').forEach(fr => { try { fr.src = ''; } catch {} });
-      document.body.classList.remove('clase-modal-open');
+      unlockScroll();
       window.removeEventListener('keydown', onKey);
       overlay.remove();
     };
-    onKey = (e) => {
-      if (e.key === 'Escape' || e.key === 'Esc') close();
-      if (e.ctrlKey && e.key === '+') { e.preventDefault(); zoom(+0.1); }
-      if (e.ctrlKey && e.key === '-') { e.preventDefault(); zoom(-0.1); }
-      if (e.ctrlKey && (e.key === '0' || e.key === 'º')) { e.preventDefault(); zoomReset(); }
-    };
+
+    onKey = (e) => { if (e.key === 'Escape') close(); };
 
     overlay.addEventListener('click', (e) => {
       if (e.target === overlay || e.target.classList.contains('clase-modal-close')) close();
     });
+
     window.addEventListener('keydown', onKey);
 
-    document.body.classList.add('clase-modal-open');
+    lockScroll();
     document.body.appendChild(overlay);
-
-    fitWidth();
+    return;
   }
+
+  // ================= DESKTOP =================
+  overlay.innerHTML = `
+    <div class="clase-modal" role="dialog" aria-modal="true">
+      <div class="clase-modal-header">
+        <h3 class="clase-modal-title">${title || 'Vista rápida'}</h3>
+        <div class="clase-modal-tools">
+          <button class="tool-btn tool-zoom-out">−</button>
+          <button class="tool-btn tool-zoom-reset">100%</button>
+          <button class="tool-btn tool-zoom-in">+</button>
+          <span class="tool-sep"></span>
+          <button class="tool-btn tool-fit-w">⇱⇲</button>
+          <button class="tool-btn tool-fit-h">↕</button>
+          <span class="tool-sep"></span>
+          ${openUrl ? `<a class="tool-btn" href="${openUrl}" target="_blank" rel="noopener">Abrir</a>` : ""}
+          <button class="tool-btn tool-full">⛶</button>
+          <button class="clase-modal-close">×</button>
+        </div>
+      </div>
+      ${description ? `<p class="clase-modal-desc">${description}</p>` : ''}
+      <div class="clase-modal-viewer">
+        <iframe class="clase-iframe" src="${iframeSrc || ''}" loading="lazy" allow="autoplay"></iframe>
+      </div>
+    </div>
+  `;
+
+  const modal = overlay.querySelector('.clase-modal');
+  const iframe = overlay.querySelector('.clase-iframe');
+  const viewer = overlay.querySelector('.clase-modal-viewer');
+
+  let scale = 1;
+
+  function applyZoom() {
+    iframe.style.width = `${100 * scale}%`;
+    iframe.style.height = `${800 * scale}px`;
+  }
+
+  function zoom(delta) {
+    scale = Math.max(0.5, Math.min(2, +(scale + delta).toFixed(2)));
+    applyZoom();
+  }
+
+  function zoomReset() {
+    scale = 1;
+    applyZoom();
+  }
+
+  function fitWidth() {
+    scale = 1;
+    applyZoom();
+  }
+
+  function fitHeight() {
+    const viewH = viewer.clientHeight;
+    const base = 800;
+    scale = Math.max(0.5, Math.min(1.6, viewH / base));
+    applyZoom();
+  }
+
+  overlay.querySelector('.tool-zoom-in')?.addEventListener('click', () => zoom(+0.1));
+  overlay.querySelector('.tool-zoom-out')?.addEventListener('click', () => zoom(-0.1));
+  overlay.querySelector('.tool-zoom-reset')?.addEventListener('click', zoomReset);
+  overlay.querySelector('.tool-fit-w')?.addEventListener('click', fitWidth);
+  overlay.querySelector('.tool-fit-h')?.addEventListener('click', fitHeight);
+
+  overlay.querySelector('.tool-full')?.addEventListener('click', () => {
+    if (modal.requestFullscreen) modal.requestFullscreen().catch(()=>{});
+  });
+
+  const close = () => {
+    overlay.querySelectorAll('iframe').forEach(fr => { try { fr.src = ''; } catch {} });
+    document.body.classList.remove('clase-modal-open');
+    window.removeEventListener('keydown', onKey);
+    overlay.remove();
+  };
+
+  onKey = (e) => {
+    if (e.key === 'Escape') close();
+    if (e.ctrlKey && e.key === '+') { e.preventDefault(); zoom(+0.1); }
+    if (e.ctrlKey && e.key === '-') { e.preventDefault(); zoom(-0.1); }
+    if (e.ctrlKey && e.key === '0') { e.preventDefault(); zoomReset(); }
+  };
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('clase-modal-close')) close();
+  });
+
+  window.addEventListener('keydown', onKey);
+
+  document.body.classList.add('clase-modal-open');
+  document.body.appendChild(overlay);
+
+  applyZoom();
+}
 
   // ========= Animación para clases (expansión suave) =========
   const EASE = 'cubic-bezier(.22,.61,.36,1)';
