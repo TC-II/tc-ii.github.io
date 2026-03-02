@@ -227,7 +227,7 @@
   border-radius: 14px;
   box-shadow: var(--sh);
   display:flex; flex-direction:column;
-  contain: layout paint size; /* performance + aislar efectos de overflow */
+  contain: layout; /* performance + aislar efectos de overflow */
 }
 .clase-modal-header{
   display:flex; align-items:center; justify-content:space-between;
