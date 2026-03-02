@@ -25,10 +25,10 @@ permalink: /material-didactico/
 
 <script>
   /* MISMO Web App para datos y para listar carpetas */
-  const APP_URL = 'https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec';
+  const APP_URL = 'https://script.google.com/macros/s/AKfycbw49ZlEtPRnBaUcK-yTzRgRgkRpqCiCG7ntG0SBCWgrbJzhSxSec9rNBJWHZW0a8XBM/exec';
   /*URL PARA EJECUTAR EL SCRIPT "Clases" */
 
-
+//https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec
   /* JSON maestro (el mismo de TPs/Guías) */
   window.LIST_CONFIG = {
     APP_URL:  APP_URL,
