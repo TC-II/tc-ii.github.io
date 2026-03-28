@@ -36,6 +36,11 @@ featured_repos:
     img:   "/assets/img/repositorios/l2-recursos-python.png"
 
 apps:
+  - title: ASC Parser
+    url: https://javierpetrucci.github.io/ASC-Parser/
+    embed: true
+    height: 680
+
   - title: Calculadora de seno elíptico (Streamlit)
     url: https://tc2-sntool.streamlit.app
     embed: true
@@ -43,11 +48,6 @@ apps:
 
   - title: Cheby game
     url: https://nicobeade.github.io/chebygame/
-    embed: true
-    height: 680
-
-  - title: ASC Parser
-    url: https://javierpetrucci.github.io/ASC-Parser/
     embed: true
     height: 680
 
