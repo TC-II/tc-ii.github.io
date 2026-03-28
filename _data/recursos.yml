@@ -46,4 +46,11 @@ apps:
     embed: true
     height: 680
 
-links: []
+  - title: ASC Parser
+    url: https://javierpetrucci.github.io/ASC-Parser/
+    embed: true
+    height: 680
+
+links:
+  - title: Descargar LTSpice to PDF (Windows x64)
+    url: https://github.com/javierpetrucci/ASC-Parser/raw/main/dist/LTSpice_to_PDF/LTSpice_to_PDF-win_x64.exe
