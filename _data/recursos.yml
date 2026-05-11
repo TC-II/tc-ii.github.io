@@ -46,8 +46,8 @@ apps:
     embed: true
     height: 680
 
-  - title: Cheby game
-    url: https://nicobeade.github.io/chebygame/
+  - title: Neandertool
+    url: https://tc-ii.github.io/neandertool/
     embed: true
     height: 680
 
