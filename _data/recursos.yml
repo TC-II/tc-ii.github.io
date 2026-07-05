@@ -17,11 +17,39 @@ featured_repos:
     color: "#f97316"
     img:   "/assets/img/repositorios/tc2-plottool.png"
 
-  - name: "Spice-a-PDF"
+  - name: "ASC-Parser"
     title: "SPICE → PDF"
-    desc:  "Exportá simulaciones a informes."
+    desc:  "Herramienta para convertir esquemáticos LTSpice a figuras en PDF."
     color: "#8b5cf6"
     img:   "/assets/img/repositorios/spice-a-pdf.png"
+    url:   "https://github.com/javierpetrucci/ASC-Parser"
+    readme: |
+      <p><strong><a href="https://javierpetrucci.github.io/ASC-Parser/" target="_blank">Try it online →</a></strong></p>
+      <h1>LTSpice to PDF</h1>
+      <p><strong>High-fidelity vector PDF export for LTSpice schematics</strong></p>
+      <p>Convert <code>.asc</code> schematic files to clean, print-ready vector PDFs — directly in your browser or as a standalone desktop app.</p>
+      <h2>What it does</h2>
+      <p>LTSpice saves schematics as plain-text <code>.asc</code> files with no official export format. This tool parses them and renders a pixel-accurate vector PDF — preserving component symbols, wire routing, text labels, and all orientations.</p>
+      <ul>
+        <li>Drag &amp; drop an <code>.asc</code> file → instant PDF preview in the browser</li>
+        <li>Download the PDF or batch-convert entire folders (desktop app)</li>
+        <li>Switchable skin profiles for different visual styles</li>
+        <li>No server, no upload — everything runs locally</li>
+      </ul>
+      <h2>How it works</h2>
+      <pre><code>.asc file  →  Parser  →  Scene graph  →  PDF Renderer  →  vector PDF
+                ↑
+           .asy files (component symbol definitions, fetched on demand)</code></pre>
+      <p>The engine is pure JavaScript with no build step. It runs identically in the browser and in the Neutralino desktop wrapper.</p>
+      <h2>Running locally (Web)</h2>
+      <pre><code>python -m http.server 8000</code></pre>
+      <p>Then open <code>http://localhost:8000</code>.</p>
+      <h2>Desktop app</h2>
+      <p><strong>Dev mode:</strong></p>
+      <pre><code>npx @neutralinojs/neu run</code></pre>
+      <p><strong>Build standalone .exe:</strong></p>
+      <pre><code>npm run build</code></pre>
+      <p>Output lands in <code>dist/</code>.</p>
 
   - name: "TC2-FilterTool"
     title: "FilterTool"
@@ -43,6 +71,11 @@ apps:
 
   - title: Calculadora de seno elíptico (Streamlit)
     url: https://tc2-sntool.streamlit.app
+    embed: true
+    height: 680
+
+  - title: Plotter Racional Elíptica 2
+    url: https://tc-ii.github.io/plotter-racional-eliptica-2/
     embed: true
     height: 680
 

@@ -37,96 +37,36 @@ permalink: /repositorios/
 .section-title{ margin:.25rem 0 1rem; letter-spacing:.2px }
 hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem 0 }
 
-/* ===== Escenario ===== */
-.repos-stage{
-  --pad: 56px;
-  --fade: 72px;
-  position:relative;
-  overflow-x:hidden;
-  padding-inline: var(--pad);
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0, #000 var(--fade), #000 calc(100% - var(--fade)), transparent 100%);
+/* ===== Grilla de repositorios ===== */
+.repos-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-block: 26px;
+}
+
+/* TABLET */
+@media (max-width:1100px){
+  .repos-grid{
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* MOBILE */
 @media (max-width:740px){
-  .repos-stage{
-    --pad: 12px;
-    -webkit-mask-image: none;
-            mask-image: none;
+  .repos-grid{
+    grid-template-columns: 1fr;
   }
 }
-
-/* TABLET */
-@media (min-width:741px) and (max-width:1100px){
-  .repos-stage{ --pad: 28px; }
-}
-
-/* ===== Pista ===== */
-.repos-strip{
-  --gap: 24px;
-  --card-w: 360px;
-  display:grid; grid-auto-flow:column;
-  grid-auto-columns: var(--card-w);
-  gap: var(--gap);
-  padding-block: 26px;
-  overflow-x:auto; overflow-y:visible;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  touch-action: pan-y;
-  width:100%;
-}
-.repos-strip::-webkit-scrollbar{ height:0 }
-.repos-strip.nosnap{ scroll-snap-type: none; }
-
-/* MOBILE: snap nativo, una tarjeta exacta */
-@media (max-width:740px){
-  .repos-strip{
-    --gap: 0;
-    grid-auto-columns: calc(100% - 2*var(--pad));
-    overflow-x:auto !important;
-    scroll-snap-type:x mandatory;
-  }
-  .repo-card{ scroll-snap-align: start; }
-}
-
-/* ===== Flechas ===== */
-.repos-nav{
-  position:absolute; top:50%; transform:translateY(-50%);
-  width:42px; height:42px; border-radius:999px;
-  border:1px solid var(--stroke); background:rgba(255,255,255,.06);
-  color:var(--fg); display:grid; place-items:center; cursor:pointer;
-  z-index:5; transition:.15s ease background, .15s ease transform, .15s ease opacity;
-}
-.repos-nav:hover{ background:rgba(255,255,255,.1) }
-.repos-nav:active{ transform:translateY(-50%) scale(.98) }
-.repos-nav.prev{ left:10px } .repos-nav.next{ right:10px }
-.repos-nav svg{ display:block }
-.repos-nav.next svg{ transform: rotate(180deg); }
-.repos-nav[disabled]{ opacity:.35; pointer-events:none; }
 
 /* ===== Tarjetas ===== */
 .repo-card{
   position: relative; height: 520px;
   border-radius: var(--radius-xl); overflow: hidden;
-  scroll-snap-align: center; perspective: 1000px;
+  perspective: 1000px;
   box-shadow: var(--shadow-1); border: 1px solid var(--stroke);
   background: #0f1115; --accent-card: var(--accent);
-  transform: scale(.96);
-  transition: transform .25s ease, box-shadow .25s ease;
-  will-change: transform;
-}
-.repo-card:hover{ transform: scale(1.06); z-index: 4; box-shadow: var(--shadow-2); }
-
-/* MOBILE */
-@media (max-width:740px){
-  .repo-card{
-    transform:none;
-    width:100%;
-    box-sizing:border-box;
-  }
-  .repo-card:hover{ transform:none; box-shadow: var(--shadow-1); }
+  transition: box-shadow .25s ease;
 }
 
 .repo-inner{
@@ -214,7 +154,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .markdown-body code{ background:rgba(110,118,129,.12); border-radius:6px; padding:.15em .35em }
 .markdown-body a{ color:#58a6ff; text-decoration:none } .markdown-body a:hover{ text-decoration:underline }
 
-/* ===== Apps (formato viejo) ===== */
+/* ===== Apps ===== */
 #appsList{
   display: flex;
   flex-direction: column;
@@ -228,7 +168,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 .app-embed{ padding: 0 16px 16px 16px; background: rgba(255,255,255,.02) }
 .app-frame{ width:100%; height:680px; border:1px solid var(--stroke); border-radius: 10px }
 
-/* Botones (formato viejo) */
+/* Botones */
 .btn{ appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:8px;
   padding:.46rem .8rem; border-radius:999px; font-weight:700; color:var(--fg);
   background: rgba(255,255,255,.06); border:1px solid var(--stroke);
@@ -243,25 +183,12 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   transition: background .15s ease, border-color .15s ease, transform .08s ease; }
 .btn-round:hover{ background: rgba(255,255,255,.1); border-color: var(--stroke-2) }
 .btn-round:active{ transform: translateY(1px) }
-
-/* Accesibilidad */
-.repos-stage:focus{ outline: 2px solid var(--stroke-2); outline-offset: 4px; border-radius: 10px; }
 </style>
 
 <div class="rec-wrap">
   <h2 class="section-title">Repositorios</h2>
 
-  <div class="repos-stage" id="reposStage" tabindex="0" aria-label="Carrusel de repositorios (flechas para navegar)">
-    <button class="repos-nav prev" aria-label="Anterior">
-      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-    </button>
-
-    <div id="reposStrip" class="repos-strip" aria-label="Repositorios TC2 (scroll horizontal)"></div>
-
-    <button class="repos-nav next" aria-label="Siguiente">
-      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
-    </button>
-  </div>
+  <div class="repos-grid" id="reposGrid" aria-label="Repositorios TC2"></div>
 
   <hr class="soft">
 
@@ -285,7 +212,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   const cacheKeyRepos = "tdc2_repos_cache_v3";
   const readmeKey = (name)=>`tdc2_readme_html_${name}`;
-  const titleKey  = (name)=>`tdc2_readme_title_${name}`;
 
   async function fetchReposOrg(){
     const cached = sessionStorage.getItem(cacheKeyRepos);
@@ -310,26 +236,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     return html;
   }
 
-  async function fetchReadmeTitle(repoName){
-    const tk = titleKey(repoName);
-    const c = sessionStorage.getItem(tk);
-    if(c!==null) return c;
-    try{
-      let html = sessionStorage.getItem(readmeKey(repoName));
-      if(!html){
-        const u = `https://api.github.com/repos/${ORG}/${repoName}/readme`;
-        const r = await fetch(u, { headers: { 'Accept': 'application/vnd.github.html+json' }});
-        if(!r.ok) throw new Error("README API " + r.status);
-        html = await r.text(); sessionStorage.setItem(readmeKey(repoName), html);
-      }
-      const tmp = document.createElement('div'); tmp.innerHTML = html;
-      const h1 = tmp.querySelector('h1');
-      const t = (h1 && h1.textContent.trim()) ? h1.textContent.trim() : '';
-      sessionStorage.setItem(tk, t);
-      return t;
-    }catch(_){
-      sessionStorage.setItem(tk, ''); return '';
-    }
+  async function fetchRepoMetadata(ownerRepo){
+    const url = `https://api.github.com/repos/${ownerRepo}`;
+    const r = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' }});
+    if(!r.ok) throw new Error("Repo API " + r.status);
+    return await r.json();
   }
 
   function guessLocalImage(cfgName){
@@ -338,22 +249,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   }
 
   /* ===== Montaje ===== */
-  const stage = document.getElementById('reposStage');
-  const strip = document.getElementById('reposStrip');
-
-  const allRepos = await fetchReposOrg();
-
-  const missing = FEATURED.map(x => x.name)
-    .filter(n => !allRepos.some(r => normalize(r.name) === normalize(n)));
-  if(missing.length) console.warn("Repos no encontrados (revisar nombres en featured_repos):", missing);
-
-  const repos = allRepos.filter(r => want.has(normalize(r.name)));
-
-  const titleByRepo = Object.create(null);
-  await Promise.all(repos.map(async r=>{
-    const t = await fetchReadmeTitle(r.name);
-    if(t) titleByRepo[r.name] = t;
-  }));
+  const grid = document.getElementById('reposGrid');
 
   function octocatSVG(size=18){
     return `<svg viewBox="0 0 16 16" width="${size}" height="${size}" aria-hidden="true" fill="currentColor">
@@ -385,17 +281,21 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const fb    = document.createElement('div'); fb.className='cover-fallback'; fb.textContent=(repo.name||'R').slice(0,3).toUpperCase();
     cover.append(img, fb); front.append(cover);
 
-    const title = document.createElement('h3'); title.className='title'; title.textContent = cfg.title || titleByRepo[repo.name] || repo.name;
+    const title = document.createElement('h3'); title.className='title'; title.textContent = cfg.title || repo.name;
     const desc  = document.createElement('p');  desc.className='desc';  desc.textContent  = cfg.desc || '';
     const foot  = document.createElement('div'); foot.className='foot';
     const lang  = document.createElement('span'); lang.className='pill'; lang.textContent  = repo.language || '—';
     const meta  = document.createElement('span'); meta.className='pill';
-    const d = new Date(repo.pushed_at).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
-    meta.textContent = `${repo.stargazers_count}★ · ${d}`;
+    if (repo.pushed_at) {
+      const d = new Date(repo.pushed_at).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
+      meta.textContent = `${repo.stargazers_count}★ · ${d}`;
+    } else {
+      meta.textContent = 'Ver en GitHub';
+    }
     foot.append(lang, meta);
 
     const gh = document.createElement('a');
-    gh.className='gh-btn'; gh.href=repo.html_url; gh.target='_blank'; gh.rel='noopener'; gh.innerHTML = octocatSVG(18);
+    gh.className='gh-btn'; gh.href=cfg.url || repo.html_url; gh.target='_blank'; gh.rel='noopener'; gh.innerHTML = octocatSVG(18);
 
     front.append(title, desc, foot, gh);
 
@@ -410,7 +310,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const back = document.createElement('div'); back.className='repo-back';
     const backHead = document.createElement('div'); backHead.className='back-head';
     const backTitle = document.createElement('h4'); backTitle.className='back-title'; backTitle.textContent = cfg.title || repo.name;
-    const openBtn = document.createElement('a'); openBtn.className='btn-link'; openBtn.href=repo.html_url; openBtn.target='_blank'; openBtn.rel='noopener'; openBtn.textContent='Abrir en GitHub';
+    const openBtn = document.createElement('a'); openBtn.className='btn-link'; openBtn.href=cfg.url || repo.html_url; openBtn.target='_blank'; openBtn.rel='noopener'; openBtn.textContent='Abrir en GitHub';
     backHead.append(backTitle, openBtn);
 
     const readme = document.createElement('div'); readme.className='readme';
@@ -421,222 +321,104 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     return card;
   }
 
-  repos.forEach(r => strip.appendChild(createCard(r)));
+  let repos = [];
+  try {
+    const allRepos = await fetchReposOrg();
+
+    const missing = FEATURED.map(x => x.name)
+      .filter(n => !allRepos.some(r => normalize(r.name) === normalize(n)));
+    if(missing.length) console.warn("Repos no encontrados (revisar nombres en featured_repos):", missing);
+
+    repos = allRepos.filter(r => want.has(normalize(r.name)));
+
+    // Add synthetic entries for featured repos with a custom url that weren't found in the org
+    const foundNames = new Set(repos.map(r => normalize(r.name)));
+    const customRepos = [];
+    FEATURED.forEach(cfg => {
+      if (cfg.url && !foundNames.has(normalize(cfg.name))) {
+        const match = cfg.url.match(/github\.com\/([^/]+)\/([^/]+)\/?$/);
+        if (match) {
+          customRepos.push({ cfg, ownerRepo: `${match[1]}/${match[2]}` });
+        } else {
+          repos.push({
+            name: cfg.name,
+            html_url: cfg.url,
+            language: null,
+            stargazers_count: 0,
+            pushed_at: null,
+            _external: true
+          });
+        }
+      }
+    });
+
+    // Fetch metadata for custom GitHub repos
+    for (const item of customRepos) {
+      try {
+        const meta = await fetchRepoMetadata(item.ownerRepo);
+        repos.push({
+          name: item.cfg.name,
+          html_url: item.cfg.url,
+          language: meta.language,
+          stargazers_count: meta.stargazers_count || 0,
+          pushed_at: meta.pushed_at,
+          _external: true
+        });
+      } catch {
+        repos.push({
+          name: item.cfg.name,
+          html_url: item.cfg.url,
+          language: null,
+          stargazers_count: 0,
+          pushed_at: null,
+          _external: true
+        });
+      }
+    }
+  } catch(err) {
+    console.warn("No se pudo consultar la API de GitHub (posible límite de tasa). Se muestran los repositorios sin datos en vivo.", err);
+    repos = FEATURED.map(cfg => ({
+      name: cfg.name,
+      html_url: cfg.url || `https://github.com/${ORG}/${cfg.name}`,
+      language: null,
+      stargazers_count: 0,
+      pushed_at: null,
+      _external: true
+    }));
+  }
+
+  repos.forEach(r => grid.appendChild(createCard(r)));
 
   /* ===== flip + README (click para abrir/cerrar) ===== */
   const loadedReadme = new Set();
-  let navLock = false;
-  const FLIP_MS = 600;
 
-  strip.addEventListener('click', async (ev)=>{
-    if (navLock) return;
+  grid.addEventListener('click', async (ev)=>{
     if (ev.target.closest('.gh-btn')) return;
     const card = ev.target.closest('.repo-card'); if(!card) return;
     card.classList.toggle('open');
     const name = card.dataset.repo;
     if(card.classList.contains('open') && !loadedReadme.has(name)){
-      try{
-        const html = await fetchReadmeHTML(name);
+      const cfg = byName.get(normalize(name));
+      if (cfg && cfg.readme) {
         const target = card.querySelector('.readme');
-        const box = document.createElement('div'); box.className='markdown-body'; box.innerHTML = html;
+        const box = document.createElement('div'); box.className='markdown-body'; box.innerHTML = cfg.readme;
         target.innerHTML=''; target.appendChild(box);
         loadedReadme.add(name);
-      }catch{
-        card.querySelector('.readme').innerHTML = `<div class="markdown-body"><p>No se pudo cargar el README.</p></div>`;
+      } else {
+        try{
+          const html = await fetchReadmeHTML(name);
+          const target = card.querySelector('.readme');
+          const box = document.createElement('div'); box.className='markdown-body'; box.innerHTML = html;
+          target.innerHTML=''; target.appendChild(box);
+          loadedReadme.add(name);
+        }catch{
+          card.querySelector('.readme').innerHTML = `<div class="markdown-body"><p>No se pudo cargar el README.</p></div>`;
+        }
       }
     }
   });
 
-  /* ===== Layout / Navegación ===== */
-  const btnPrev = document.querySelector('.repos-nav.prev');
-  const btnNext = document.querySelector('.repos-nav.next');
-
-  const isMobile = ()=> window.matchMedia('(max-width: 740px)').matches;
-  const isTablet = ()=> window.matchMedia('(min-width: 741px) and (max-width: 1100px)').matches;
-
-  let L = computeLayout();
-  let infiniteReady = false;
-  let navArmed = false;
-  let onInfiniteScrollRef = null;
-  let wrapping = false;
-
-  function computeLayout(){
-    const padL = parseFloat(getComputedStyle(stage).paddingLeft) || 0;
-    const padR = parseFloat(getComputedStyle(stage).paddingRight) || 0;
-    const inner = stage.clientWidth - padL - padR;
-
-    const per = isMobile() ? 1 : (isTablet() ? 2 : 3);
-    const gap = isMobile() ? 0 : (parseFloat(getComputedStyle(strip).getPropertyValue('--gap')) || 24);
-    const rawW  = (inner - gap*(per-1)) / per;
-    const cardW = Math.max(280, Math.round(rawW));
-
-    strip.style.setProperty('--card-w', cardW + 'px');
-    return { step: cardW + gap, gap, cardW, per };
-  }
-
-  // ancho real de tarjeta (evita errores de redondeo en mobile)
-  function stepWidth(){
-    const first = strip.querySelector('.repo-card');
-    return first ? Math.round(first.getBoundingClientRect().width) : L.cardW;
-  }
-
-  function countCards(){ return strip.children.length; }
-
-  function currentIndex(){
-    const w = stepWidth();
-    return w ? Math.round(strip.scrollLeft / w) : 0;
-  }
-
-  function setArrowsState(){
-    // Desktop infinito → siempre visibles cuando está armado
-    if (!isMobile() && L.per === 3 && infiniteReady){
-      btnPrev.style.display = '';
-      btnNext.style.display = '';
-      btnPrev.removeAttribute('disabled');
-      btnNext.removeAttribute('disabled');
-      return;
-    }
-    // Mobile/Tablet/No-infinito → ocultar en bordes por índice
-    const i = currentIndex();
-    const n = countCards();
-    // izquierda
-    if (i <= 0){ btnPrev.style.display = 'none'; }
-    else { btnPrev.style.display = ''; btnPrev.removeAttribute('disabled'); }
-    // derecha
-    if (i >= n - 1){ btnNext.style.display = 'none'; }
-    else { btnNext.style.display = ''; btnNext.removeAttribute('disabled'); }
-  }
-
-  function clearClones(){
-    strip.querySelectorAll('[data-clone="1"]').forEach(n=> n.remove());
-    if (onInfiniteScrollRef){
-      strip.removeEventListener('scroll', onInfiniteScrollRef);
-      onInfiniteScrollRef = null;
-    }
-    infiniteReady = false;
-    navArmed = false;
-  }
-
-  function setupInfiniteDesktop(){
-    if (L.per < 3) { clearClones(); setArrowsState(); return; }
-
-    const originals = Array.from(strip.children).filter(n=>!n.dataset.clone);
-    const N = originals.length;
-    if (N < 4) { clearClones(); setArrowsState(); return; }
-
-    const head = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
-    const tail = originals.map(n=>{ const c=n.cloneNode(true); c.dataset.clone="1"; return c; });
-    head.forEach(n=>strip.prepend(n));
-    tail.forEach(n=>strip.append(n));
-
-    const teleport = (to)=>{
-      wrapping = true;
-      strip.classList.add('nosnap');
-      strip.scrollLeft = to + 0.5;
-      requestAnimationFrame(()=>{
-        strip.classList.remove('nosnap');
-        setTimeout(()=>{ wrapping = false; }, 0);
-      });
-    };
-
-    const setStart = ()=>{
-      strip.classList.add('nosnap');
-      strip.scrollLeft = L.step * N + 0.5;
-      requestAnimationFrame(()=>{
-        strip.classList.remove('nosnap');
-        navArmed = true; // listo para usar flechas
-        setArrowsState();
-      });
-    };
-    setStart();
-
-    const MARGIN = 2;
-    onInfiniteScrollRef = function onInfiniteScroll(){
-      if (wrapping) return;
-      const min = L.step * (N - 1) + MARGIN;
-      const max = L.step * (N + N + 1) - MARGIN;
-      const x = strip.scrollLeft;
-      if (x < min) teleport(x + L.step * N);
-      else if (x > max) teleport(x - L.step * N);
-    };
-
-    strip.addEventListener('scroll', onInfiniteScrollRef, {passive:true});
-    infiniteReady = true;
-  }
-
-  // init
-  if (!isMobile()) setupInfiniteDesktop();
-  setArrowsState();
-
-  window.addEventListener('resize', ()=>{
-    const prevPer = L.per;
-    L = computeLayout();
-
-    if (isMobile()){
-      clearClones();
-      strip.style.transform = '';
-    }else{
-      if (prevPer !== L.per) { clearClones(); }
-      setupInfiniteDesktop();
-    }
-    setArrowsState();
-  });
-
-  // actualizar flechas al hacer scroll (mobile/tablet)
-  strip.addEventListener('scroll', ()=>{
-    if (isMobile() || L.per !== 3 || !infiniteReady){
-      setArrowsState();
-    }
-  }, {passive:true});
-
-  /* ===== Cerrar tarjetas abiertas antes de navegar ===== */
-  async function ensureFront(){
-    const opened = strip.querySelectorAll('.repo-card.open');
-    if (!opened.length) return;
-    navLock = true;
-    opened.forEach(card => card.classList.remove('open'));
-    await new Promise(res=>{
-      let done = false;
-      const finish = ()=>{ if(done) return; done=true; res(); };
-      opened[0].addEventListener('transitionend', finish, { once:true });
-      setTimeout(finish, FLIP_MS + 50);
-    });
-  }
-
-  /* ===== Navegar (flechas/teclado) ===== */
-  async function navigateBy(n){
-    if (navLock) return;
-
-    // Desktop infinito: no aceptar inputs hasta armar
-    if (!isMobile() && L.per === 3 && !infiniteReady) return;
-    if (!isMobile() && L.per === 3 && !navArmed) return;
-
-    navLock = true;
-    await ensureFront();
-
-    if (isMobile() || (L.per !== 3 || !infiniteReady)){
-      // MOBILE/TABLET (o desktop sin infinito) → usar índice exacto
-      const w = stepWidth();
-      const total = countCards();
-      const iNow = currentIndex();
-      const iNext = Math.max(0, Math.min(iNow + n, total - 1));
-      strip.scrollTo({ left: iNext * w, behavior:'smooth' });
-      setTimeout(()=>{ navLock = false; setArrowsState(); }, 380);
-    }else{
-      // DESKTOP infinito
-      strip.scrollBy({ left: n * (L.step || 340), behavior:'smooth' });
-      setTimeout(()=>{ navLock = false; }, 400);
-    }
-  }
-
-  document.querySelector('.repos-nav.prev').addEventListener('click', ()=> navigateBy(-1));
-  document.querySelector('.repos-nav.next').addEventListener('click', ()=> navigateBy(+1));
-  stage.addEventListener('keydown', (e)=>{
-    if(e.key === 'ArrowLeft'){ e.preventDefault(); navigateBy(-1); }
-    if(e.key === 'ArrowRight'){ e.preventDefault(); navigateBy(+1); }
-  });
-
-  /* ===== Apps (formato viejo) ===== */
+  /* ===== Apps ===== */
   const appsList = document.getElementById('appsList');
   (APPS||[]).forEach(app=>{
     const card = document.createElement('article'); card.className='app';
