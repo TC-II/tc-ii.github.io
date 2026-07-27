@@ -1,0 +1,53 @@
+name: Sync Drive data & rebuild site
+
+on:
+  schedule:
+    # Cada 10 minutos. GitHub puede demorar la ejecución en horas de alta carga,
+    # pero en la práctica corre cerca de ese intervalo.
+    - cron: '*/10 * * * *'
+  workflow_dispatch: {}
+
+concurrency:
+  group: sync-drive
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch latest data from Google Drive
+        run: node scripts/sync-drive-data.js
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Build Jekyll site (producción)
+        run: |
+          bundle exec jekyll clean
+          bundle exec jekyll build --config _config.yml,_config_prod.yml -d docs
+
+      - name: Commit & push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/data/clases-cache.json docs
+          if git diff --cached --quiet; then
+            echo "Sin cambios en Drive, nada que publicar."
+          else
+            git commit -m "Sync material didactico desde Drive [skip ci]"
+            git push
+          fi

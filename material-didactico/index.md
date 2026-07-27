@@ -23,21 +23,20 @@ permalink: /material-didactico/
   <div id="clases-list" class="classes-list"></div>
 </div>
 
+{% assign DC = site.data.drive_config %}
 <script>
-  /* MISMO Web App para datos y para listar carpetas */
-  const APP_URL = 'https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec';
-  /*URL PARA EJECUTAR EL SCRIPT "Clases" */
-
-//https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec
-  /* JSON maestro (el mismo de TPs/Guías) */
+  /* MISMO Web App para datos y para listar carpetas (fallback en vivo si no hay cache) */
   window.LIST_CONFIG = {
-    APP_URL:  APP_URL,
-    FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',
+    APP_URL:  '{{ DC.app_url }}',
+    FILE_ID:  '{{ DC.file_id }}',
     FILE_TYPE:'json'
   };
 
-  /* Para listar archivos de una carpeta, el JS usa ?folderId=... sobre el mismo Web App */
-  window.DRIVE_LIST_APP_URL = 'https://script.google.com/macros/s/AKfycbzfwP0ojC3KGsvREcSCZScvD6B0raYNAIqf4rpinyu3_ne-7O4yNk2LA-A82KQsRQR-/exec';
+  /* Para listar archivos de una carpeta cuando no está en la cache */
+  window.DRIVE_LIST_APP_URL = '{{ DC.list_app_url }}';
+
+  /* Cache estática generada por GitHub Actions a partir de Drive (ver /scripts/sync-drive-data.js) */
+  window.DRIVE_CACHE_URL = '{{ "/assets/data/clases-cache.json" | relative_url }}';
 </script>
 
 <link rel="stylesheet" href="{{ '/assets/css/clases.css' | relative_url }}">
