@@ -210,7 +210,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   const byName = new Map(FEATURED.map(x=>[normalize(x.name), x]));
   const want = new Set([...byName.keys()]);
 
-  const cacheKeyRepos = "tdc2_repos_cache_v3";
+  const cacheKeyRepos = "tdc2_repos_cache_v4";
   const readmeKey = (name)=>`tdc2_readme_html_${name}`;
 
   async function fetchReposOrg(){
@@ -310,7 +310,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const back = document.createElement('div'); back.className='repo-back';
     const backHead = document.createElement('div'); backHead.className='back-head';
     const backTitle = document.createElement('h4'); backTitle.className='back-title'; backTitle.textContent = cfg.title || repo.name;
-    const openBtn = document.createElement('a'); openBtn.className='btn-link'; openBtn.href=cfg.url || repo.html_url; openBtn.target='_blank'; openBtn.rel='noopener'; openBtn.textContent='Abrir en GitHub';
+    const openBtn = document.createElement('a'); openBtn.className='btn-link'; openBtn.href=cfg.url || repo.html_url; openBtn.target='_blank'; openBtn.rel='noopener'; openBtn.textContent=cfg.button_text || 'Abrir en GitHub';
     backHead.append(backTitle, openBtn);
 
     const readme = document.createElement('div'); readme.className='readme';
@@ -329,18 +329,20 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
       .filter(n => !allRepos.some(r => normalize(r.name) === normalize(n)));
     if(missing.length) console.warn("Repos no encontrados (revisar nombres en featured_repos):", missing);
 
-    repos = allRepos.filter(r => want.has(normalize(r.name)));
-
-    // Add synthetic entries for featured repos with a custom url that weren't found in the org
-    const foundNames = new Set(repos.map(r => normalize(r.name)));
+    // Build a map of all repos from GitHub API
+    const allReposMap = new Map(allRepos.map(r => [normalize(r.name), r]));
+    
+    // Collect external/custom repos
+    const externalRepos = new Map();
     const customRepos = [];
-    FEATURED.forEach(cfg => {
-      if (cfg.url && !foundNames.has(normalize(cfg.name))) {
+    
+    for (const cfg of FEATURED) {
+      if (cfg.url && !allReposMap.has(normalize(cfg.name))) {
         const match = cfg.url.match(/github\.com\/([^/]+)\/([^/]+)\/?$/);
         if (match) {
           customRepos.push({ cfg, ownerRepo: `${match[1]}/${match[2]}` });
         } else {
-          repos.push({
+          externalRepos.set(normalize(cfg.name), {
             name: cfg.name,
             html_url: cfg.url,
             language: null,
@@ -350,13 +352,13 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
           });
         }
       }
-    });
-
+    }
+    
     // Fetch metadata for custom GitHub repos
     for (const item of customRepos) {
       try {
         const meta = await fetchRepoMetadata(item.ownerRepo);
-        repos.push({
+        externalRepos.set(normalize(item.cfg.name), {
           name: item.cfg.name,
           html_url: item.cfg.url,
           language: meta.language,
@@ -365,7 +367,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
           _external: true
         });
       } catch {
-        repos.push({
+        externalRepos.set(normalize(item.cfg.name), {
           name: item.cfg.name,
           html_url: item.cfg.url,
           language: null,
@@ -374,6 +376,14 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
           _external: true
         });
       }
+    }
+    
+    // Build final repos array in FEATURED order
+    repos = [];
+    for (const feat of FEATURED) {
+      const normalized = normalize(feat.name);
+      const repo = allReposMap.get(normalized) || externalRepos.get(normalized);
+      if (repo) repos.push(repo);
     }
   } catch(err) {
     console.warn("No se pudo consultar la API de GitHub (posible límite de tasa). Se muestran los repositorios sin datos en vivo.", err);

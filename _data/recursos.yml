@@ -1,28 +1,11 @@
 featured_repos:
-  - name: "TC2Lib---LTSPICE"
-    title: "TCLib para LTSpice"
-    desc:  "Librerías listas para simular."
-    color: "#D42500"
-    img:   "/assets/img/repositorios/tc2lib-ltspice.png"
-
-  - name: "TC2Lib---KiCad"
-    title: "TCLib para KiCad"
-    desc:  "Footprints y símbolos consistentes."
-    color: "#22c55e"
-    img:   "/assets/img/repositorios/tc2lib-kicad.png"
-
-  - name: "TC2-PlotTool"
-    title: "PlotTool"
-    desc:  "Graficá y compará señales."
-    color: "#f97316"
-    img:   "/assets/img/repositorios/tc2-plottool.png"
-
   - name: "ASC-Parser"
     title: "SPICE → PDF"
     desc:  "Herramienta para convertir esquemáticos LTSpice a figuras en PDF."
     color: "#8b5cf6"
     img:   "/assets/img/repositorios/spice-a-pdf.png"
-    url:   "https://github.com/javierpetrucci/ASC-Parser"
+    url:   "https://javierpetrucci.github.io/ASC-Parser/"
+    button_text: "Abrir"
     readme: |
       <p><strong><a href="https://javierpetrucci.github.io/ASC-Parser/" target="_blank">Try it online →</a></strong></p>
       <h1>LTSpice to PDF</h1>
@@ -51,11 +34,29 @@ featured_repos:
       <pre><code>npm run build</code></pre>
       <p>Output lands in <code>dist/</code>.</p>
 
+  - name: "TC2Lib--LTSPICE"
+    title: "TCLib para LTSpice"
+    desc:  "Librerías listas para simular."
+    color: "#D42500"
+    img:   "/assets/img/repositorios/tc2lib-ltspice.png"
+
+  - name: "TC2Lib--KiCad"
+    title: "TCLib para KiCad"
+    desc:  "Footprints y símbolos consistentes."
+    color: "#22c55e"
+    img:   "/assets/img/repositorios/tc2lib-kicad.png"
+
   - name: "TC2-FilterTool"
     title: "FilterTool"
     desc:  "Diseño y comparación de filtros."
     color: "#ec4899"
     img:   "/assets/img/repositorios/tc2-filtertool.png"
+
+  - name: "TC2-PlotTool"
+    title: "PlotTool"
+    desc:  "Graficá y compará señales."
+    color: "#f97316"
+    img:   "/assets/img/repositorios/tc2-plottool.png"
 
   - name: "L2-Recursos-Python"
     title: "Recursos Python"
