@@ -42,6 +42,18 @@ async function fetchFolderFiles(config, folderId) {
   throw new Error('Formato de respuesta desconocido');
 }
 
+async function fetchExamFiles(config) {
+  if (!config.exam_app_url || !config.exam_folder_id) return null;
+  const url = `${config.exam_app_url}?folderId=${encodeURIComponent(config.exam_folder_id)}&onlyPublic=false`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Exams fetch failed: HTTP ${res.status}`);
+  const data = await res.json();
+  const raw = Array.isArray(data.files) ? data.files
+            : Array.isArray(data.items) ? data.items
+            : [];
+  return raw.map(f => ({ id: f.id, title: (f.name || f.title || '').trim() }));
+}
+
 function isReleasedClass(item) {
   if (String(item.kind).toLowerCase() !== 'clase') return false;
   if (!item.folder_id || !item.release) return false;
@@ -54,13 +66,29 @@ async function main() {
   const outPath = path.join(ROOT, config.cache_path);
 
   let previousFiles = {};
+  let previousExamenes = [];
   if (fs.existsSync(outPath)) {
-    try { previousFiles = JSON.parse(fs.readFileSync(outPath, 'utf8')).files || {}; }
-    catch { /* ignore corrupt previous cache */ }
+    try {
+      const previous = JSON.parse(fs.readFileSync(outPath, 'utf8'));
+      previousFiles = previous.files || {};
+      previousExamenes = previous.examenes || [];
+    } catch { /* ignore corrupt previous cache */ }
   }
 
   const items = await fetchItems(config);
   const releasedClasses = items.filter(isReleasedClass);
+
+  let examenes = previousExamenes;
+  try {
+    const fetched = await fetchExamFiles(config);
+    if (fetched) {
+      examenes = fetched;
+      console.log(`OK   Examenes -> ${examenes.length} archivo(s)`);
+    }
+  } catch (e) {
+    console.error(`FAIL Examenes: ${e.message}`);
+    console.warn('  -> se conserva la cache anterior de examenes');
+  }
 
   const files = {};
   for (const cls of releasedClasses) {
@@ -80,12 +108,13 @@ async function main() {
   const output = {
     generatedAt: new Date().toISOString(),
     items,
-    files
+    files,
+    examenes
   };
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(output, null, 2) + '\n', 'utf8');
-  console.log(`\nEscrito ${config.cache_path} (${items.length} items, ${Object.keys(files).length} carpetas cacheadas)`);
+  console.log(`\nEscrito ${config.cache_path} (${items.length} items, ${Object.keys(files).length} carpetas cacheadas, ${examenes.length} examenes)`);
 }
 
 main().catch((err) => {

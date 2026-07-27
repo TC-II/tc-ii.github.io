@@ -54,10 +54,27 @@
     return u.toString();
   }
 
-  async function loadRows() {
+  async function loadFromWebApp() {
     const res = await fetch(buildUrl(), { cache: "no-store", credentials: "omit" });
     if (!res.ok) throw new Error("HTTP "+res.status);
     return normalize(await res.json());
+  }
+
+  // Cache estática generada por GitHub Actions (mismo JSON maestro que /material-didactico/).
+  // Si falla o no existe, cae al Web App en vivo.
+  async function loadRows() {
+    if (!USE_NEW) return loadFromWebApp();
+    const cacheUrl = window.DRIVE_CACHE_URL || '/assets/data/clases-cache.json';
+    try {
+      const r = await fetch(cacheUrl, { cache: "no-store" });
+      if (r.ok) {
+        const data = await r.json();
+        if (data && Array.isArray(data.items)) return normalize(data.items);
+      }
+    } catch (e) {
+      console.warn('[Guías] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
+    }
+    return loadFromWebApp();
   }
 
   // ---- Render

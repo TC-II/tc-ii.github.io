@@ -194,12 +194,28 @@
     return normalize(data);
   }
 
+  // Cache estática generada por GitHub Actions (mismo JSON maestro que /material-didactico/).
+  // Si falla o no existe, cae al Web App en vivo.
+  async function loadItems() {
+    const cacheUrl = window.DRIVE_CACHE_URL || '/assets/data/clases-cache.json';
+    try {
+      const r = await fetch(cacheUrl, { cache: "no-store" });
+      if (r.ok) {
+        const data = await r.json();
+        if (data && Array.isArray(data.items)) return normalize(data.items);
+      }
+    } catch (e) {
+      console.warn('[TPs] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
+    }
+    return loadFromWebApp();
+  }
+
   // ---- Init (min cambio: filtro por kind='tp' si está configurado)
   document.addEventListener("DOMContentLoaded", async () => {
     try {
       if (!USE_NEW && !CFG_OLD.jsonUrl) throw new Error("Falta LIST_CONFIG (APP_URL/FILE_ID) o TPS_CONFIG.jsonUrl.");
 
-      const items = await loadFromWebApp();
+      const items = USE_NEW ? await loadItems() : await loadFromWebApp();
 
       // Filtrar por kind (si hay config nueva). Default 'tp'.
       const wantedKind = (CFG_NEW.KIND || 'tp').toLowerCase().trim();

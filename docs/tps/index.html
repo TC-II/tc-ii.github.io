@@ -103,14 +103,16 @@
 
 <script>
   // Config centralizada: un SOLO archivo en Drive con TPs + Guías
-  // y el mismo Apps Script (Web App) que ya usás.
-  /*URL PARA EJECUTAR EL SCRIPT "Manejo de TPs y Guías" */
+  // y el mismo Apps Script (Web App) que ya usás. Se usa solo como
+  // fallback en vivo; la carga normal lee la cache estática (ver
+  // /scripts/sync-drive-data.js).
   window.LIST_CONFIG = {
-    APP_URL:  'https://script.google.com/macros/s/AKfycbxMzey-vhPiX5CMU4VIDQgGheYS6WYgJCPGtZuQxeA8U_ARoCaaV2eYc6QWhqrw7HxE/exec',
-    FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',  // JSON con TPs + Guías
+    APP_URL:  'https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec',
+    FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',
     FILE_TYPE:'json',
     KIND:     'tp'
   };
+  window.DRIVE_CACHE_URL = '/assets/data/clases-cache.json';
 </script>
 
 <link rel="stylesheet" href="/assets/css/tps.css" />
@@ -166,6 +168,6 @@
 
 
     <!-- Script del menú móvil -->
-    <script src="/assets/js/nav.js?v=1785159664" defer></script>
+    <script src="/assets/js/nav.js?v=1785167535" defer></script>
   </body>
 </html>

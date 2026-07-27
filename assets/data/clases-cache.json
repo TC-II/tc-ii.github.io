@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-27T13:40:57.872Z",
+  "generatedAt": "2026-07-27T15:52:04.540Z",
   "items": [
     {
       "kind": "elemental",
@@ -686,5 +686,603 @@
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1YIamSshOiCFm0U7VNk4X4KTvwg--sfVA"
       }
     ]
-  }
+  },
+  "examenes": [
+    {
+      "id": "1I__MaRJpnxnZ4nWRAaL7eHyHm12Ql4RD",
+      "title": "2023 Final Teoría de Circuitos 2 - Jul II.pdf"
+    },
+    {
+      "id": "1eW0qjXREIp3NKU9nQSjAVW27UypPZLNi",
+      "title": "2023 Final Teoría de Circuitos 2 - Jul I.pdf"
+    },
+    {
+      "id": "1xtXzZ1xo5tK4AIGVvi9XcAQwdEHw7aBq",
+      "title": "2025 1P Teoría de Circuitos 2 I.pdf"
+    },
+    {
+      "id": "1HR98O_4ikHlBp-hcfOJ3uNxvXsKkqPhm",
+      "title": "2025 2P Teoría de Circuitos 2 I.pdf"
+    },
+    {
+      "id": "1whyEYusZ3fvhrs7rfNsECSUkHTvykx8f",
+      "title": "2025 2P Teoría de Circuitos 2 II.pdf"
+    },
+    {
+      "id": "1Zi_h6epW0Sgow_X3mKpg1x3na_JmhH-m",
+      "title": "2025 1P Teoría de Circuitos 2 II.pdf"
+    },
+    {
+      "id": "1n32rUsQxGamAO66zzbt6Dgo95V7b69eS",
+      "title": "2024 Final Teoría de Circuitos 2 - Dic I.pdf"
+    },
+    {
+      "id": "11vdL6-9dVAwg6Wfh1kSh5nkalzsyJVfr",
+      "title": "2025 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1k-Tb62zkeLN1O-HeClJZ1KXMPBfyQJ8g",
+      "title": "2024 Final Teoría de Circuitos - Jul.pdf"
+    },
+    {
+      "id": "18inVs8GoPkHjdbrfknNyHHZnk5OhmqtT",
+      "title": "2024 1P Teoría de Circuitos 2 II.pdf"
+    },
+    {
+      "id": "1-SBubbaRa9eoVgJUyOoa2V0kzRnEkSpD",
+      "title": "2024 1P Teoría de Circuitos 2 I.pdf"
+    },
+    {
+      "id": "1WeRiX99PVNrgIJx18Bx8f0RyhIGzawTS",
+      "title": "2024 Final Teoría de Circuitos 2 - Dic II.pdf"
+    },
+    {
+      "id": "1Y33BlnW2B1x8j4v857kNoBIuFGh0PYIi",
+      "title": "2019 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "16LS4tZoaJVN4WMaouA26LDfXXLBZFk10",
+      "title": "2019 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1ccc80F1ej3dGhhS6O96bIWJpVqOyeXo2",
+      "title": "2018 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1-hp3M7PFBoa8vcVJkpHrfg3C_9zwoZN0",
+      "title": "2021 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1Y1n2PB3HmmSUyRuD16D8vFKPXA0pyXyg",
+      "title": "2017 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1XDnvKpa3bvs0cmqb1wyHfd0pRZZ36UmC",
+      "title": "2012 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1eVY2aWTCI87mJPMvbfGldPlR8DGWRCIv",
+      "title": "2012 Final Teoría de Circuitos 2 - DicB.pdf"
+    },
+    {
+      "id": "17GIeqtyvKxF_txlJjF57C01RhMycVYwL",
+      "title": "2012 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1FoQOJVraOsHG3AFE2DHdNRrfDlwgDtfH",
+      "title": "2012 2P Teoría de Circuitos 2B.pdf"
+    },
+    {
+      "id": "1h2bOOibPNai6ufmjVBAp6d5ETRP_VUXp",
+      "title": "2012 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "13lt__529cxWteEZ0JNC3nDutP8iC5yBX",
+      "title": "2012 2P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1tZh9pEq6Zi86CnB-4ffxNjFNZ-v075Y-",
+      "title": "2012 2P Teoría de Circuitos 2 - Recu.pdf"
+    },
+    {
+      "id": "1lPUdDGhrFkeMjeM4ufAKOm1ct_Ryl7DZ",
+      "title": "2012 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1iHKmy0wzlkapwoI1TQ0YSrFYq0BU4jw4",
+      "title": "2012 1P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1scI6D0LyLs2ieqY0uqjevC4yaKJDBBtP",
+      "title": "2011 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1UM0WBscUzunwdFqbG8Ef12LFAtzX9vWQ",
+      "title": "2011 Final Teoría de Circuitos 2 - FebB.pdf"
+    },
+    {
+      "id": "1QytmVJ_ELk6Xf7aNlzd_SPx7qYqsXlgj",
+      "title": "2011 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1-vu7dBomgnUP8P4CI_0JEzqVSO68OLlp",
+      "title": "2011 Final Teoría de Circuitos 2 - DicB.pdf"
+    },
+    {
+      "id": "1FtbOS-Ngu-bg7IFVwIV7GM6_WoMGAlg8",
+      "title": "2011 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1pNoLgcHh4f4hpUcalnwTUEHcXcwURLCC",
+      "title": "2011 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1U2WhTUP4uTqUizk_mhRj5Nhj1yXTgYCj",
+      "title": "2011 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1DI_pS_gkcV8pk1ftN9J8OaOQFmmg_bmE",
+      "title": "2010 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1OAa_4ZVUPsXFDu403RpC8aNPt4qDY770",
+      "title": "2010 Final Teoría de Circuitos 2 - DicC.pdf"
+    },
+    {
+      "id": "1t_ZwqKkzo4aI1Bzmie8_vNLqmP5obVnv",
+      "title": "2010 Final Teoría de Circuitos 2 - DicB.pdf"
+    },
+    {
+      "id": "1bFwEDIoqZFNEO8HVI7sRcUnib-R3fxwZ",
+      "title": "2010 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1cYEv8xnERIYkXxe6bOpNI1j8wGeTEn9L",
+      "title": "2010 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1NY2UD8d5QXHqbiwCddGzsUj-GK_FuLVc",
+      "title": "2010 2P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1eHYNNiOyoIHHSjVD1qp4JfZMMQpC2QNk",
+      "title": "2010 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "14ZJQnNQtJRCysVukfMFV7AIgtrQP1xa1",
+      "title": "2009 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1XPRba5WAr2pMFTCS1_GJwzl0J5qXoo8E",
+      "title": "2009 Final Teoría de Circuitos 2 - DicB.pdf"
+    },
+    {
+      "id": "1cNn5NgPtofsQoZIBJY0H_P_qmnXpZTd0",
+      "title": "2009 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "111i1qv5PNuEmUefRJIYkmm7Kumu8CfC2",
+      "title": "2009 2P Teoría de Circuitos 2C.pdf"
+    },
+    {
+      "id": "1dKkxG381gWchoBTmtJvBo-PlTAf-0oM2",
+      "title": "2009 2P Teoría de Circuitos 2B.pdf"
+    },
+    {
+      "id": "1JAPNsYb_5gyvvnc7g13OsJXW7DQmlQSA",
+      "title": "2009 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1GVgzwr0rRbredi4DV9GxatWN6K3MFE42",
+      "title": "2009 2P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1MQdv9wt9u7ytuVbzXyWHxLNwtGvC7Sxn",
+      "title": "2009 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1q3jJe2LSFAhn1xzST9LSF3V6PSABvQFc",
+      "title": "2008 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1j-BXsiRpzLbJ9NTRpdLxNXrvmxL_BYMF",
+      "title": "2008 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "17knkI0qoPdL4AY25R-8M4W9j55E2U55o",
+      "title": "2008 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1-1l8jtx9FY24IIBIV5M2R1S5nrKTZ27g",
+      "title": "2008 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1_ct8Y1TVro2hp6qT_41x-NcAY1YQbxj2",
+      "title": "2008 1P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1rVQBYu_-i2HPdeX8sfTGb1jN3Yo63Zdd",
+      "title": "2007 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "10mswah0d7D3sP1IjfPzFqAT1FW8LlUiH",
+      "title": "2007 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "19dQ29eT6G-7L7ZGZp7L3B_5X_Yptzc_h",
+      "title": "2007 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1t25DAAN8Xq5Tx0SuTJ2WZccM3aZw_UvL",
+      "title": "2007 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1FLi0IGNCLw7MpOzgU_-wp2mxM4aJ4pjR",
+      "title": "2006 Final Teoría de Circuitos 2 - Mar.pdf"
+    },
+    {
+      "id": "1OQ_zbmQf5qJK64ZIQDR-dZodcYcDbH5u",
+      "title": "2006 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "13shHDpJIYOJQzLw5ykVTAr2SXbxSadsz",
+      "title": "2006 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1IrXRAQ-3c6NSQyttrGs9nXUVZwUbm7SI",
+      "title": "2006 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1xx_P2tlw0cYm_kRP0OEHW-z58WJx3tkk",
+      "title": "2006 2P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1EirOVPZ22S2bXv0pLDXep-L9W42pbwRC",
+      "title": "2006 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1XFaMhuhK2giJrPyJm4gif_XR5iifbrxB",
+      "title": "2005 Final Teoría de Circuitos 2 - Mar.pdf"
+    },
+    {
+      "id": "1ZnSTNnA6SIsFUWCiL1Y97JmJTKfJtcj3",
+      "title": "2005 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "12bwFQW5AwzAeGrIGld3LeUu1iwphtXhp",
+      "title": "2005 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1-u-HBi8C4Xnq7yU1t1hpkjYOWLjig3pb",
+      "title": "2005 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1e6lmCXZRT8fPoHgQbORQibWbrdVv1CLE",
+      "title": "2005 2P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1pjlimS3NTJxSIwUvJnZVWyBdAbweg_aq",
+      "title": "2005 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1dON7pAarouyYCNRomtDJYlF4MGvxCm2P",
+      "title": "2004 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1_SCTbqxd2pTLAvIQzGEdJc_APv6ossZi",
+      "title": "2004 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1LFGVRwBVnHMWv1nbP6zON6Ge9CqaMXMl",
+      "title": "2004 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1Du84KRLKF7IX1DPhKLohJo4Bb7BMy1-2",
+      "title": "2004 1P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1YIaiC4E4_F9fsmh7Zu52yWdR0dPo87Tk",
+      "title": "2003 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1bzgMoIQ14HGbZWfsg6gxiBBoaRI1SUn1",
+      "title": "2003 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1VMvFZIR1eSEwZncm5I5kTMkrYmZRoxUS",
+      "title": "2003 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1F5oj5bQuHuXZyJ0R-PQjqMiJpgadpZcV",
+      "title": "2003 2P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1wnP4ZL82UtEE8WJOFCtcwxDUr2zx8gtT",
+      "title": "2003 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1K6Z-VAdqw4ZMIEtesujNzuznIW6rpqVz",
+      "title": "2002 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1kxAgu6yHNBg8u1wdOjZhJ3NuewickZt1",
+      "title": "2002 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1EFguNe1G3bHC5jdKKsVCfAErIm5FgGUv",
+      "title": "2002 2P Teoría de Circuitos 2 - Repaso.pdf"
+    },
+    {
+      "id": "1yK2bXOWF_4gueKXVdrIKn_DlYAwkU3BE",
+      "title": "2001 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1zZGbuV6KJqhL571VRwiAstU7YNY2gJuo",
+      "title": "2001 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1CzLvU1j2s1RRrMTgSNQsglR01aCkQFLO",
+      "title": "2001 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1UHxX5zAw2hOhkaqR0pry1hf9Syn4VtCV",
+      "title": "2000 Final Teoría de Circuitos 2 - Mar.pdf"
+    },
+    {
+      "id": "13DmEb3sFyaKurkJ3c-9ZCwIT0vna8MFH",
+      "title": "2000 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1TJ-f__10mNTmAa3eLgEPnuRTi9-VmQQ9",
+      "title": "2000 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "14VUroLWZtk7JY2RXB686sSkUNgQNnfDR",
+      "title": "1999 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1LnyQwNJP0DSVEx7vFJWQdLAtDnQuUvRm",
+      "title": "1999 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1KCaNaXp83vbSaIMO9EkSURAUvGCznpqN",
+      "title": "1999 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1YiJSROWvtcOJb8jM2ilFppC-HMFkYr-1",
+      "title": "1999 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1ci6f6O585FVsox9UIHVWf1h5SkHIfz7w",
+      "title": "1998 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1mDFzke3uiKnKwAre0OqvTkgG0Z0AYn0P",
+      "title": "1998 Final Teoría de Circuitos 2 - FebB.pdf"
+    },
+    {
+      "id": "17MKdhXIlwxBhc9nbVaLviURb-p6hIWuE",
+      "title": "1998 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1a5gCmxHPugjM_wAb3qy0zhiTJK8q0K6X",
+      "title": "1998 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1AcvoTeacecn365XWaRHfdf9APxz4bQbK",
+      "title": "1998 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1JscqDcwbWIFfGfn2W_mASgBD-X21NyUy",
+      "title": "1997 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1A0jXBmoD9b0eW5-md4X-ZkgGcsbdOhqN",
+      "title": "1997 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1BYyJvn4MfNP_GBEvw7yGxqjUiphI2Enz",
+      "title": "1997 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1gZfiHtlFjb9meO4vZeQdwQ9NTCZrHulK",
+      "title": "1996 Final Teoría de Circuitos 2 - Jul.pdf"
+    },
+    {
+      "id": "1Nsr5rvCR-U9MTTh9myB5pEwMsFw9eo5L",
+      "title": "1996 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1B09A5q8-AIMD-NTfEmCmdPbx2SIntwGE",
+      "title": "1996 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "11MSQO42EphJ1xCS9F8KzLjkVba5zVDUw",
+      "title": "1993 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "12_OhoH1Hpz5sHum89wNSS2oMMNi2cNy8",
+      "title": "2014 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1LeVSpi7tj1w5Ua8nJHSrHDr7I95jLCSL",
+      "title": "2014 2P Teoría de Circuitos 2 - Recu.pdf"
+    },
+    {
+      "id": "1_6ImyZYlRz4Iwjt88C4ajRtfbH-j0y1h",
+      "title": "2014 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1-XVbuJdjHZTm6mGPNo6Kos7Lpqey3Gmq",
+      "title": "2013 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1FhvhgJJTnEWIKfStytDGJxNj2KghZXzO",
+      "title": "2013 Final Teoría de Circuitos 2 - Feb B.pdf"
+    },
+    {
+      "id": "118T7JORzdgKgUHQJ8Eke3qOQZH2Kq50O",
+      "title": "2013 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1CIqkx2G9ImCUqayFEsY--_DI1ND8RVIf",
+      "title": "2013 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "17Y7fqPS54rzgN77DE9xACPv094nwV4yN",
+      "title": "2013 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "16XLq2_6uNJ1HNXe4e3ulltmJ4_1F6orc",
+      "title": "2015 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1pf1XoCh_flH8ZNnsXXegFIYBaG7KHkJu",
+      "title": "2019 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1cMp-i2FNN8ygrR_EsSjPViKo_sR4mpCk",
+      "title": "2021 Final Teoría de Circuitos 2 - Dic B.pdf"
+    },
+    {
+      "id": "13vQbUNyyIbJwG1pbPA7v571w2DET26-g",
+      "title": "2015 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1uiHC3noiHwDOxI353zMh_YzNb6EMTlHX",
+      "title": "2021 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "12kkqiYJiliJ6YUqd8urWO7B-ODkcnM1f",
+      "title": "2020 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1oSbRNwPdDRr08iVtYsVQAE2e2R0u619h",
+      "title": "2020 Final Teoría de Circuitos 2 - Dic B.pdf"
+    },
+    {
+      "id": "1yiYBudhMooORjHslLrduV-MU3cq10k0g",
+      "title": "2021 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1pGXBqGMplY4HkNCxrEh8-pNutjxaCUqf",
+      "title": "2015 Final Teoría de Circuitos 2 - Feb B.pdf"
+    },
+    {
+      "id": "1_4N-Y0ldOw2-Sb9J6ogrd68-_2BH6b2x",
+      "title": "2021 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1aqDUEl5FLrDSoaEdbaPvpiGFWMF9CpcT",
+      "title": "2020 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1gjgZA5Mi-CTtxqJrHHIPaVGsZzgLMB_f",
+      "title": "2015 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1La0UdBj9DuTKVaj2wbH_1JETM_gdLc-6",
+      "title": "2014 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1Ihv6Ib4gtlJYc83ZsbMFFEFbcizf6DPd",
+      "title": "2015 2P Teoría de Circuitos 2 - Recu.pdf"
+    },
+    {
+      "id": "1alaiclZDyN-TjKVzIhI4IuEp1pz6XRT3",
+      "title": "2024 2P Teoría de Circuitos 2 - Recu.pdf"
+    },
+    {
+      "id": "1gmGylGtZJPfsrrkJdZ3-1YzU5QAuysYg",
+      "title": "2024 1P Teoría de Circuitos 2 - Recu.pdf"
+    },
+    {
+      "id": "1vi4zwUuI1gd_u7_bx002w9fUvUphK5ae",
+      "title": "2024 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1abny_-6c1XNBqfAUmt4hEQgk8Gp0l2Yy",
+      "title": "2024 2P Teoría de Circuitos 2 - Simulacro.pdf"
+    },
+    {
+      "id": "1X_OIZgQHJrC7LTir2VjWrsaLSFBAvAdG",
+      "title": "2024 Final Teoría de Circuitos 2 - Feb.pdf"
+    },
+    {
+      "id": "1aCLbse4SIlvlSkyzM_JCXGbmXbuM6lU4",
+      "title": "2023 Final Teoría de Circuitos 2 - Dic II.pdf"
+    },
+    {
+      "id": "1BdveDE4GlYyIF3Hn528SM21F4YO8_m66",
+      "title": "2023 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1ZHcoycffNdqNXOuwrmSaccfOUAPt7a1A",
+      "title": "2023 2P Teoría de Circuitos 2 - Recu.pdf"
+    },
+    {
+      "id": "1e8QZMbbKGn5hU1VM_zcDQk_mAMAGfLgh",
+      "title": "2023 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1H61y0j1rlsXMTPj3Mnr5gX4kUx3j7wmT",
+      "title": "2023 2P Teoría de Circuitos 2 - Simulacro II.pdf"
+    },
+    {
+      "id": "1F41btJf92E-Ts-MXd1EFJ5b1IdcHEdXq",
+      "title": "2023 2P Teoría de Circuitos 2 - Simulacro.pdf"
+    },
+    {
+      "id": "1FljZ8r2WdIY2f7l7l0ofHCp1WTtSA-FK",
+      "title": "2023 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "193CFGGsl_iWylGODz-5jWzlpKC9uI7fW",
+      "title": "2022 Final Teoría de Circuitos 2 - Dic II.pdf"
+    },
+    {
+      "id": "17JLtP_b3UQjswdjUJfuEJ2DiopLPnO90",
+      "title": "2022 Final Teoría de Circuitos 2 - Dic.pdf"
+    },
+    {
+      "id": "1QzUGpIULdVVqIHk10MH0sspJb4AlBqAU",
+      "title": "2022 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1rLk3u4Pema4j2d5c438kxpGeGDgVqgjN",
+      "title": "2022 2P Teoría de Circuitos 2 - Simulacro II.pdf"
+    },
+    {
+      "id": "1AubyxzZ8mSLxnePoGSZ-KffkNeIQGzZn",
+      "title": "2022 2P Teoría de Circuitos 2 - Simulacro.pdf"
+    },
+    {
+      "id": "1UyiwN6D0Krjlix1WyxhyeFM7HzM5lWam",
+      "title": "2022 1P Teoría de Circuitos 2 - Simulacro.pdf"
+    },
+    {
+      "id": "1VEhL15jKWD71Hq7wGeZy3u4C11TeTOxw",
+      "title": "2022 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1yPMbiINniADRzWfQ3IGkw7DFYylekgzR",
+      "title": "2018 2P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1LRAmLiEKQeUujQh17TNpe9u2Ylpu0mEm",
+      "title": "2018 1P Teoría de Circuitos 2.pdf"
+    },
+    {
+      "id": "1tdYCSJl2BRWNdjmknrLpO2rtn2U6RyVp",
+      "title": "2017 2P Teoría de Circuitos 2 B.pdf"
+    },
+    {
+      "id": "1sPGPl6x2XYRQZxZeIBGEUK7CoMerR20y",
+      "title": "2017 2P Teoría de Circuitos 2 A.pdf"
+    },
+    {
+      "id": "1OujvviU5s7eW6qS4yJ8-1TYNPn6Im5Ci",
+      "title": "2016 2P Teoría de Circuitos 2.pdf"
+    }
+  ]
 }

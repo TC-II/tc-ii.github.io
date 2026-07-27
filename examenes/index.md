@@ -168,11 +168,12 @@ permalink: /examenes/
 .exams-page .viewer iframe{ width:100%; height:80vh; border:0; }
 </style>
 
+{% assign DC = site.data.drive_config %}
 <script>
-/*URL PARA EJECUTAR EL SCRIPT "Examenes" */
-const APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbw_lzGrgMdH4mtB1tXRg6QIPm0ulEuWx9_qRJiz6AFERY_urAzqJQJ63QuQMucPcvN3DA/exec";
-/*ID DE LA CARPETA DE DRIVE DONDE ESTAN LOS EXAMENES */
-const DRIVE_FOLDER_ID="1w8S--7_W_Tr1DqjTSs2MFHavYgc_LoGd";
+/* Fallback en vivo si la cache estática no está disponible (ver /scripts/sync-drive-data.js) */
+const APPS_SCRIPT_URL="{{ DC.exam_app_url }}";
+const DRIVE_FOLDER_ID="{{ DC.exam_folder_id }}";
+const DRIVE_CACHE_URL="{{ '/assets/data/clases-cache.json' | relative_url }}";
 
 const $ = (q)=>document.querySelector(q);
 const $$= (q)=>document.querySelectorAll(q);
@@ -287,14 +288,32 @@ function setMaxHeightToFive(){
 }
 
 let ALL=[];
+
+async function loadFromCache(){
+  const r = await fetch(DRIVE_CACHE_URL, {cache:'no-store'});
+  if(!r.ok) return null;
+  const data = await r.json();
+  if(!data || !Array.isArray(data.examenes) || !data.examenes.length) return null;
+  return data.examenes;
+}
+
+async function loadFromWebApp(){
+  const url=`${APPS_SCRIPT_URL}?folderId=${encodeURIComponent(DRIVE_FOLDER_ID)}&onlyPublic=false`;
+  const res=await fetch(url,{cache:'no-store'});
+  if(!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data=await res.json();
+  const raw=Array.isArray(data.files)?data.files:Array.isArray(data.items)?data.items:[];
+  return raw.map(f=>({id:f.id,title:(f.name||f.title||'').trim()})); // sin fechas
+}
+
 async function loadExams(){
   try{
-    const url=`${APPS_SCRIPT_URL}?folderId=${encodeURIComponent(DRIVE_FOLDER_ID)}&onlyPublic=false`;
-    const res=await fetch(url,{cache:'no-store'});
-    if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data=await res.json();
-    const raw=Array.isArray(data.files)?data.files:Array.isArray(data.items)?data.items:[];
-    ALL=raw.map(f=>({id:f.id,title:(f.name||f.title||'').trim()})); // sin fechas
+    // Cache estática generada por GitHub Actions; si falla o está vacía, cae al Web App en vivo.
+    let items = null;
+    try { items = await loadFromCache(); }
+    catch (e) { console.warn('[Exámenes] No se pudo leer la cache estática, se usa el Web App en vivo.', e); }
+
+    ALL = items || await loadFromWebApp();
     render(ALL);
   }catch(err){
     console.error(err);

@@ -11,13 +11,17 @@ permalink: /guias/
   <div id="guias-list" class="guias-list"></div>
 </div>
 
+{% assign DC = site.data.drive_config %}
 <script>
+  // Se usa solo como fallback en vivo; la carga normal lee la cache
+  // estática (ver /scripts/sync-drive-data.js).
   window.LIST_CONFIG = {
-    APP_URL:  'https://script.google.com/macros/s/AKfycbxMzey-vhPiX5CMU4VIDQgGheYS6WYgJCPGtZuQxeA8U_ARoCaaV2eYc6QWhqrw7HxE/exec',
-    FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',  // mismo JSON unificado
+    APP_URL:  '{{ DC.app_url }}',
+    FILE_ID:  '{{ DC.file_id }}',  // mismo JSON unificado
     FILE_TYPE:'json',
     KIND:     'guia'
   };
+  window.DRIVE_CACHE_URL = '{{ "/assets/data/clases-cache.json" | relative_url }}';
 </script>
 
 <link rel="stylesheet" href="{{ '/assets/css/guias.css' | relative_url }}">
