@@ -95,4 +95,9 @@ exclude:
   - "Gemfile"
   - "Gemfile.lock"
   - "README.md"
+  - "scripts"
+  - "docs"
+  - "build_only.ps1"
+  - "build_prod.ps1"
+  - ".github"
 
