@@ -9,6 +9,10 @@
   const FID  = CFG.FILE_ID;
   const FTY  = CFG.FILE_TYPE || 'json';
   const LIST = window.DRIVE_LIST_APP_URL || APP;
+  const CACHE_URL = window.DRIVE_CACHE_URL || '/assets/data/clases-cache.json';
+
+  // Archivos por carpeta precargados por el sync de GitHub Actions (folderId -> files[])
+  let cachedFiles = {};
 
   const elElem   = $("#elementales");
   const elList   = $("#clases-list");
@@ -29,23 +33,46 @@
     const q = new URLSearchParams({ id: FID, type: FTY, _: Date.now() });
     return `${APP}?${q.toString()}`;
   }
-  async function loadAllItems() {
+
+  async function loadFromLiveDrive() {
     const res = await fetch(buildDataUrl(), { cache: "no-store", credentials: "omit" });
     if (!res.ok) throw new Error("HTTP "+res.status);
     return res.json();
   }
 
-  // ---- WebApp que lista archivos de una carpeta de Drive
+  // ---- Cache estática generada por GitHub Actions (ver /scripts/sync-drive-data.js)
+  // Se sincroniza periódicamente desde Drive; si falla o no existe, cae al Web App en vivo.
+  async function loadAllItems() {
+    try {
+      const r = await fetch(CACHE_URL, { cache: "no-store" });
+      if (r.ok) {
+        const data = await r.json();
+        if (data && Array.isArray(data.items)) {
+          cachedFiles = data.files || {};
+          return data.items;
+        }
+      }
+    } catch (e) {
+      console.warn('[Clases] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
+    }
+    return loadFromLiveDrive();
+  }
+
+  // ---- WebApp que lista archivos de una carpeta de Drive (fallback si no está en la cache)
 async function listFolderFiles(folderId) {
+  if (cachedFiles && cachedFiles[folderId]) {
+    return cachedFiles[folderId];
+  }
+
   const url = `${LIST}?folderId=${encodeURIComponent(folderId)}&depth=6`;
   const r = await fetch(url, { cache: "no-store", credentials: "omit" });
   const text = await r.text();
 
   let json;
-  try { 
-    json = JSON.parse(text); 
-  } catch { 
-    throw new Error("Respuesta no-JSON del Web App:\n" + text.slice(0,400)); 
+  try {
+    json = JSON.parse(text);
+  } catch {
+    throw new Error("Respuesta no-JSON del Web App:\n" + text.slice(0,400));
   }
 
   // 👇 Soporta array plano

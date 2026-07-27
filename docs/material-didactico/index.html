@@ -95,20 +95,18 @@
 </div>
 
 <script>
-  /* MISMO Web App para datos y para listar carpetas */
-  const APP_URL = 'https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec';
-  /*URL PARA EJECUTAR EL SCRIPT "Clases" */
-
-//https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec
-  /* JSON maestro (el mismo de TPs/Guías) */
+  /* MISMO Web App para datos y para listar carpetas (fallback en vivo si no hay cache) */
   window.LIST_CONFIG = {
-    APP_URL:  APP_URL,
+    APP_URL:  'https://script.google.com/macros/s/AKfycbwryYW_geqinlH5YZVx7QD5uV5-a_vVTXPj9KTXRMVGjTiD262UiO130D1IFlhE1c6k/exec',
     FILE_ID:  '1uWoOFG4sKfvmX_RxcK8z0Mhrwn9rpmba',
     FILE_TYPE:'json'
   };
 
-  /* Para listar archivos de una carpeta, el JS usa ?folderId=... sobre el mismo Web App */
+  /* Para listar archivos de una carpeta cuando no está en la cache */
   window.DRIVE_LIST_APP_URL = 'https://script.google.com/macros/s/AKfycbzfwP0ojC3KGsvREcSCZScvD6B0raYNAIqf4rpinyu3_ne-7O4yNk2LA-A82KQsRQR-/exec';
+
+  /* Cache estática generada por GitHub Actions a partir de Drive (ver /scripts/sync-drive-data.js) */
+  window.DRIVE_CACHE_URL = '/assets/data/clases-cache.json';
 </script>
 
 <link rel="stylesheet" href="/assets/css/clases.css" />
@@ -164,6 +162,6 @@
 
 
     <!-- Script del menú móvil -->
-    <script src="/assets/js/nav.js?v=1783220037" defer></script>
+    <script src="/assets/js/nav.js?v=1785136143" defer></script>
   </body>
 </html>

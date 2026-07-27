@@ -78,7 +78,7 @@
       
 <script>
   window.TC_RESOURCES = {
-    featuredRepos: [{"name":"TC2Lib---LTSPICE","title":"TCLib para LTSpice","desc":"Librerías listas para simular.","color":"#D42500","img":"/assets/img/repositorios/tc2lib-ltspice.png"},{"name":"TC2Lib---KiCad","title":"TCLib para KiCad","desc":"Footprints y símbolos consistentes.","color":"#22c55e","img":"/assets/img/repositorios/tc2lib-kicad.png"},{"name":"TC2-PlotTool","title":"PlotTool","desc":"Graficá y compará señales.","color":"#f97316","img":"/assets/img/repositorios/tc2-plottool.png"},{"name":"Spice-a-PDF","title":"SPICE → PDF","desc":"Exportá simulaciones a informes.","color":"#8b5cf6","img":"/assets/img/repositorios/spice-a-pdf.png","url":"https://github.com/javierpetrucci/ASC-Parser","readme":"<h1>ASC Parser</h1>\n<p>Herramienta para convertir circuitos esquemáticos de LTSpice a figuras en pdf.</p>\n<h2>Utilización</h2>\n<ol>\n  <li>Clonar el repositorio.</li>\n  <li>Agregar los esquemáticos que se desea convertir a <code>ASC_Files/</code>, garantizando que se encuentren dentro de un rectángulo (ver <code>ASC_Files/ejemplo.asc</code>).</li>\n  <li>Ejecutar el programa (comando <code>python main.py</code>). Este paso instala las librerías necesarias en el entorno desde el que se ejecute.</li>\n  <li>En la carpeta <code>PDFs/</code> se encuentran las figuras, con el mismo nombre que el archivo <code>.asc</code> correspondiente.</li>\n</ol>\n"},{"name":"TC2-FilterTool","title":"FilterTool","desc":"Diseño y comparación de filtros.","color":"#ec4899","img":"/assets/img/repositorios/tc2-filtertool.png"},{"name":"L2-Recursos-Python","title":"Recursos Python","desc":"Snippets y utilidades para TC2.","color":"#38bdf8","img":"/assets/img/repositorios/l2-recursos-python.png"}],
+    featuredRepos: [{"name":"ASC-Parser","title":"SPICE → PDF","desc":"Herramienta para convertir esquemáticos LTSpice a figuras en PDF.","color":"#8b5cf6","img":"/assets/img/repositorios/spice-a-pdf.png","url":"https://javierpetrucci.github.io/ASC-Parser/","button_text":"Abrir","readme":"<p><strong><a href=\"https://javierpetrucci.github.io/ASC-Parser/\" target=\"_blank\">Try it online →</a></strong></p>\n<h1>LTSpice to PDF</h1>\n<p><strong>High-fidelity vector PDF export for LTSpice schematics</strong></p>\n<p>Convert <code>.asc</code> schematic files to clean, print-ready vector PDFs — directly in your browser or as a standalone desktop app.</p>\n<h2>What it does</h2>\n<p>LTSpice saves schematics as plain-text <code>.asc</code> files with no official export format. This tool parses them and renders a pixel-accurate vector PDF — preserving component symbols, wire routing, text labels, and all orientations.</p>\n<ul>\n  <li>Drag &amp; drop an <code>.asc</code> file → instant PDF preview in the browser</li>\n  <li>Download the PDF or batch-convert entire folders (desktop app)</li>\n  <li>Switchable skin profiles for different visual styles</li>\n  <li>No server, no upload — everything runs locally</li>\n</ul>\n<h2>How it works</h2>\n<pre><code>.asc file  →  Parser  →  Scene graph  →  PDF Renderer  →  vector PDF\n          ↑\n     .asy files (component symbol definitions, fetched on demand)</code></pre>\n<p>The engine is pure JavaScript with no build step. It runs identically in the browser and in the Neutralino desktop wrapper.</p>\n<h2>Running locally (Web)</h2>\n<pre><code>python -m http.server 8000</code></pre>\n<p>Then open <code>http://localhost:8000</code>.</p>\n<h2>Desktop app</h2>\n<p><strong>Dev mode:</strong></p>\n<pre><code>npx @neutralinojs/neu run</code></pre>\n<p><strong>Build standalone .exe:</strong></p>\n<pre><code>npm run build</code></pre>\n<p>Output lands in <code>dist/</code>.</p>\n"},{"name":"TC2Lib--LTSPICE","title":"TCLib para LTSpice","desc":"Librerías listas para simular.","color":"#D42500","img":"/assets/img/repositorios/tc2lib-ltspice.png"},{"name":"TC2Lib--KiCad","title":"TCLib para KiCad","desc":"Footprints y símbolos consistentes.","color":"#22c55e","img":"/assets/img/repositorios/tc2lib-kicad.png"},{"name":"TC2-FilterTool","title":"FilterTool","desc":"Diseño y comparación de filtros.","color":"#ec4899","img":"/assets/img/repositorios/tc2-filtertool.png"},{"name":"TC2-PlotTool","title":"PlotTool","desc":"Graficá y compará señales.","color":"#f97316","img":"/assets/img/repositorios/tc2-plottool.png"},{"name":"L2-Recursos-Python","title":"Recursos Python","desc":"Snippets y utilidades para TC2.","color":"#38bdf8","img":"/assets/img/repositorios/l2-recursos-python.png"}],
     apps: [{"title":"ASC Parser","url":"https://javierpetrucci.github.io/ASC-Parser/","embed":true,"height":680},{"title":"Calculadora de seno elíptico (Streamlit)","url":"https://tc2-sntool.streamlit.app","embed":true,"height":680},{"title":"Plotter Racional Elíptica 2","url":"https://tc-ii.github.io/plotter-racional-eliptica-2/","embed":true,"height":680},{"title":"Neandertool","url":"https://tc-ii.github.io/neandertool/","embed":true,"height":680},{"title":"FSK Terminal","url":"https://tc-ii.github.io/PLL-Tool/","embed":true,"height":680}]
   };
 </script>
@@ -280,9 +280,8 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
   const byName = new Map(FEATURED.map(x=>[normalize(x.name), x]));
   const want = new Set([...byName.keys()]);
 
-  const cacheKeyRepos = "tdc2_repos_cache_v3";
+  const cacheKeyRepos = "tdc2_repos_cache_v4";
   const readmeKey = (name)=>`tdc2_readme_html_${name}`;
-  const titleKey  = (name)=>`tdc2_readme_title_${name}`;
 
   async function fetchReposOrg(){
     const cached = sessionStorage.getItem(cacheKeyRepos);
@@ -307,26 +306,11 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     return html;
   }
 
-  async function fetchReadmeTitle(repoName){
-    const tk = titleKey(repoName);
-    const c = sessionStorage.getItem(tk);
-    if(c!==null) return c;
-    try{
-      let html = sessionStorage.getItem(readmeKey(repoName));
-      if(!html){
-        const u = `https://api.github.com/repos/${ORG}/${repoName}/readme`;
-        const r = await fetch(u, { headers: { 'Accept': 'application/vnd.github.html+json' }});
-        if(!r.ok) throw new Error("README API " + r.status);
-        html = await r.text(); sessionStorage.setItem(readmeKey(repoName), html);
-      }
-      const tmp = document.createElement('div'); tmp.innerHTML = html;
-      const h1 = tmp.querySelector('h1');
-      const t = (h1 && h1.textContent.trim()) ? h1.textContent.trim() : '';
-      sessionStorage.setItem(tk, t);
-      return t;
-    }catch(_){
-      sessionStorage.setItem(tk, ''); return '';
-    }
+  async function fetchRepoMetadata(ownerRepo){
+    const url = `https://api.github.com/repos/${ownerRepo}`;
+    const r = await fetch(url, { headers: { 'Accept': 'application/vnd.github+json' }});
+    if(!r.ok) throw new Error("Repo API " + r.status);
+    return await r.json();
   }
 
   function guessLocalImage(cfgName){
@@ -336,36 +320,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
   /* ===== Montaje ===== */
   const grid = document.getElementById('reposGrid');
-
-  const allRepos = await fetchReposOrg();
-
-  const missing = FEATURED.map(x => x.name)
-    .filter(n => !allRepos.some(r => normalize(r.name) === normalize(n)));
-  if(missing.length) console.warn("Repos no encontrados (revisar nombres en featured_repos):", missing);
-
-  const repos = allRepos.filter(r => want.has(normalize(r.name)));
-
-  // Add synthetic entries for featured repos with a custom url that weren't found in the org
-  const foundNames = new Set(repos.map(r => normalize(r.name)));
-  FEATURED.forEach(cfg => {
-    if (cfg.url && !foundNames.has(normalize(cfg.name))) {
-      repos.push({
-        name: cfg.name,
-        html_url: cfg.url,
-        language: null,
-        stargazers_count: 0,
-        pushed_at: new Date().toISOString(),
-        _external: true
-      });
-    }
-  });
-
-  const titleByRepo = Object.create(null);
-  await Promise.all(repos.map(async r=>{
-    if (r._external) return;
-    const t = await fetchReadmeTitle(r.name);
-    if(t) titleByRepo[r.name] = t;
-  }));
 
   function octocatSVG(size=18){
     return `<svg viewBox="0 0 16 16" width="${size}" height="${size}" aria-hidden="true" fill="currentColor">
@@ -397,13 +351,17 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const fb    = document.createElement('div'); fb.className='cover-fallback'; fb.textContent=(repo.name||'R').slice(0,3).toUpperCase();
     cover.append(img, fb); front.append(cover);
 
-    const title = document.createElement('h3'); title.className='title'; title.textContent = cfg.title || titleByRepo[repo.name] || repo.name;
+    const title = document.createElement('h3'); title.className='title'; title.textContent = cfg.title || repo.name;
     const desc  = document.createElement('p');  desc.className='desc';  desc.textContent  = cfg.desc || '';
     const foot  = document.createElement('div'); foot.className='foot';
     const lang  = document.createElement('span'); lang.className='pill'; lang.textContent  = repo.language || '—';
     const meta  = document.createElement('span'); meta.className='pill';
-    const d = new Date(repo.pushed_at).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
-    meta.textContent = `${repo.stargazers_count}★ · ${d}`;
+    if (repo.pushed_at) {
+      const d = new Date(repo.pushed_at).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
+      meta.textContent = `${repo.stargazers_count}★ · ${d}`;
+    } else {
+      meta.textContent = 'Ver en GitHub';
+    }
     foot.append(lang, meta);
 
     const gh = document.createElement('a');
@@ -422,7 +380,7 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
     const back = document.createElement('div'); back.className='repo-back';
     const backHead = document.createElement('div'); backHead.className='back-head';
     const backTitle = document.createElement('h4'); backTitle.className='back-title'; backTitle.textContent = cfg.title || repo.name;
-    const openBtn = document.createElement('a'); openBtn.className='btn-link'; openBtn.href=cfg.url || repo.html_url; openBtn.target='_blank'; openBtn.rel='noopener'; openBtn.textContent='Abrir en GitHub';
+    const openBtn = document.createElement('a'); openBtn.className='btn-link'; openBtn.href=cfg.url || repo.html_url; openBtn.target='_blank'; openBtn.rel='noopener'; openBtn.textContent=cfg.button_text || 'Abrir en GitHub';
     backHead.append(backTitle, openBtn);
 
     const readme = document.createElement('div'); readme.className='readme';
@@ -431,6 +389,82 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
     inner.append(front, back); card.append(inner);
     return card;
+  }
+
+  let repos = [];
+  try {
+    const allRepos = await fetchReposOrg();
+
+    const missing = FEATURED.map(x => x.name)
+      .filter(n => !allRepos.some(r => normalize(r.name) === normalize(n)));
+    if(missing.length) console.warn("Repos no encontrados (revisar nombres en featured_repos):", missing);
+
+    // Build a map of all repos from GitHub API
+    const allReposMap = new Map(allRepos.map(r => [normalize(r.name), r]));
+    
+    // Collect external/custom repos
+    const externalRepos = new Map();
+    const customRepos = [];
+    
+    for (const cfg of FEATURED) {
+      if (cfg.url && !allReposMap.has(normalize(cfg.name))) {
+        const match = cfg.url.match(/github\.com\/([^/]+)\/([^/]+)\/?$/);
+        if (match) {
+          customRepos.push({ cfg, ownerRepo: `${match[1]}/${match[2]}` });
+        } else {
+          externalRepos.set(normalize(cfg.name), {
+            name: cfg.name,
+            html_url: cfg.url,
+            language: null,
+            stargazers_count: 0,
+            pushed_at: null,
+            _external: true
+          });
+        }
+      }
+    }
+    
+    // Fetch metadata for custom GitHub repos
+    for (const item of customRepos) {
+      try {
+        const meta = await fetchRepoMetadata(item.ownerRepo);
+        externalRepos.set(normalize(item.cfg.name), {
+          name: item.cfg.name,
+          html_url: item.cfg.url,
+          language: meta.language,
+          stargazers_count: meta.stargazers_count || 0,
+          pushed_at: meta.pushed_at,
+          _external: true
+        });
+      } catch {
+        externalRepos.set(normalize(item.cfg.name), {
+          name: item.cfg.name,
+          html_url: item.cfg.url,
+          language: null,
+          stargazers_count: 0,
+          pushed_at: null,
+          _external: true
+        });
+      }
+    }
+    
+    // Build final repos array in FEATURED order
+    repos = [];
+    for (const feat of FEATURED) {
+      const normalized = normalize(feat.name);
+      const repo = allReposMap.get(normalized) || externalRepos.get(normalized);
+      if (repo) repos.push(repo);
+    }
+  } catch(err) {
+    console.warn("No se pudo consultar la API de GitHub (posible límite de tasa). Se muestran los repositorios sin datos en vivo.", err);
+    repos = FEATURED.map(cfg => ({
+      name: cfg.name,
+      html_url: cfg.url || `https://github.com/${ORG}/${cfg.name}`,
+      language: null,
+      stargazers_count: 0,
+      pushed_at: null,
+      _external: true
+    }));
   }
 
   repos.forEach(r => grid.appendChild(createCard(r)));
@@ -553,6 +587,6 @@ hr.soft{ border:0; border-top:1px solid var(--stroke); opacity:.6; margin:1.2rem
 
 
     <!-- Script del menú móvil -->
-    <script src="/assets/js/nav.js?v=1783220037" defer></script>
+    <script src="/assets/js/nav.js?v=1785136143" defer></script>
   </body>
 </html>
