@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-08-02T23:10:46.267Z",
+  "generatedAt": "2026-08-03T01:36:23.353Z",
   "items": [
     {
       "kind": "elemental",
       "title": "Cronograma",
-      "pdf_id": "1QeSGi86J2gvZBONilR9n28cKcbc3yyjq",
+      "pdf_id": "1vDy9NNMjJhwpkx4XmoTRrj-eD3CfxKmZ",
       "emoji": "📅"
     },
     {
@@ -24,6 +24,12 @@
       "title": "Conceptos fundamentales",
       "pdf_id": "1tughN9rpb_lM2v66-H71Ir4llchD7--F",
       "emoji": "📘"
+    },
+    {
+      "kind": "elemental",
+      "title": "Fundamentales de 2do orden",
+      "pdf_id": "16rpkvrwf4jEkBEItnSk3QKRWt6fngvk7",
+      "emoji": "🪏"
     },
     {
       "kind": "tp",
@@ -66,635 +72,263 @@
       "deadline": "2026-11-15"
     },
     {
-      "kind": "tp",
-      "title": "TP6",
-      "description": "Conversión de impedancias. Sensado a lazo cerrado. Ecualización",
-      "pdf_id": "1RJJBqyD0uPBCW7NzVIZBM4oO1vGcAJth",
-      "release": "2026-10-27",
-      "deadline": "2026-11-15"
-    },
-    {
       "kind": "guia",
       "title": "Guía 1 - Amplificador operacional: circuitos elementales",
       "description": "Introducción a los circuitos elementales con amplificadores operacionales.",
       "pdf_id": "1cbK7IxNsnWU3ye0DADsNYNuZjIs4oC_s",
-      "release": "2026-03-03",
-      "deadline": "2026-03-30"
+      "release": "2026-08-04",
+      "deadline": "2026-08-31"
     },
     {
       "kind": "guia",
       "title": "Guía 2 - Circuitos Lineales Avanzados",
       "description": "Análisis y resolución de circuitos lineales avanzados. Síntesis de impedancias, celdas y comparadores.",
       "pdf_id": "1YS0h08to_FoaQKkum5HG-dsCNTHWxMlE",
-      "release": "2026-03-31",
-      "deadline": "2026-04-20"
+      "release": "2026-09-01",
+      "deadline": "2026-09-21"
     },
     {
       "kind": "guia",
       "title": "Guía 3 - Funciones de Aproximación: Síntesis de Filtros",
       "description": "Aplicación de la teoría de funciones de aproximación para síntesis de filtros.",
       "pdf_id": "1Mn5W9Jy24juZWKmp8ZNPTWhxTPp6Y1zd",
-      "release": "2026-04-21",
-      "deadline": "2026-06-01"
+      "release": "2026-09-22",
+      "deadline": "2026-11-02"
     },
     {
       "kind": "guia",
       "title": "Guía 4 - Circuitos Alineales, Osciladores & PLL",
       "description": "Análisis de circuitos alineales, osciladores de relajación y sinusoidales, cristal y PLL.",
       "pdf_id": "1wF1YpIWNqPc2P6BHaT5NSyQN5g899LFx",
-      "release": "2026-05-26",
-      "deadline": "2026-06-22"
+      "release": "2026-10-27",
+      "deadline": "2026-11-23"
     },
     {
       "kind": "clase",
       "number": 1,
       "title": "Clase 1 – Introducción, inversor, no inversor & límites",
       "folder_id": "150FGoSQ0rh1TgQxWtvESrZhR0D0TMmdM",
-      "release": "2026-03-03T12:00-03:00"
+      "release": "2026-08-04T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 2,
-      "title": "Clase 2 – Polo Dominante, GBWP & slew rate",
-      "folder_id": "1FtJ1-mKDjESrzVHQf3gTHyM-uU4hHN-X",
-      "release": "2026-03-10T15:00-03:00"
+      "title": "Clase 2 – Offset, Tensión y Corriente",
+      "folder_id": "1Bo-i0vzAHkbvLe9TcRhtMjEUsAwvWTgV",
+      "release": "2026-08-07T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 3,
-      "title": "Clase 3 – Fuentes de corriente, Howland & NIC",
-      "folder_id": "1pq9kpb8f7jI26WPhppnIc-o_-gfTX47e",
-      "release": "2026-03-17T15:00-03:00"
+      "title": "Clase 3 – Polo Dominante, GBWP & slew rate",
+      "folder_id": "1FtJ1-mKDjESrzVHQf3gTHyM-uU4hHN-X",
+      "release": "2026-08-11T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 4,
-      "title": "Clase 4 – Ec. de fase 2do orden , FDNR, GIC & Gyrator",
-      "folder_id": "1EJ2WDyvMOdE9_7zZGVFaT6EsLVDeIkjA",
-      "release": "2026-03-26T12:00-03:00"
+      "title": "Clase 4 – Zo,Zi, Derivador & Integrador, Sumador",
+      "folder_id": "19dUnkKanFYiyaIZpiBsBjJSkEICfYMCY",
+      "release": "2026-08-14T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 5,
-      "title": "Clase 5  - Celdas & Transformación complementaria",
-      "folder_id": "1dt1ULpvrUWuaykhAI3sDwLCju7wCMt-u",
-      "release": "2026-03-31T15:00-03:00"
+      "title": "Clase 5 – Fuentes de corriente, Howland & NIC",
+      "folder_id": "1pq9kpb8f7jI26WPhppnIc-o_-gfTX47e",
+      "release": "2026-08-18T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 6,
-      "title": "Clase 6  - Toroide, Carga Activa & simulacro",
-      "folder_id": "1LcfUsshqQfryacFnlyFZBRYZH84-3z_Z",
-      "release": "2026-04-07T15:00-03:00"
+      "title": "Clase 6 – Amplificador Dif, instrumentación, Bootstrap",
+      "folder_id": "1KEL0_78_TgxyUvcNYNooubKNruunqw-2",
+      "release": "2026-08-21T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 7,
-      "title": "Clase 7 -  Introducción a filtros & transformación a plantilla",
-      "folder_id": "11Gw-PCPVUheAtiOXog9M2jdaSdI50BMn",
-      "release": "2026-04-21T15:00-03:00"
+      "title": "Clase 7 – Gc, de fase 2do orden, FDNR, GIC & Gyrator",
+      "folder_id": "1EJ2WDyvMOdE9_7zZGVFaT6EsLVDeIkjA",
+      "release": "2026-08-25T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 8,
-      "title": "Clase 8 - Aproximación de Butterworth & Cheby I",
-      "folder_id": "1TOOdoOfewRtuQHvEckqiClUxc_BN0RPd",
-      "release": "2026-04-28T15:00-03:00"
+      "title": "Clase 8 – Megatabla, Practica miller, Sensibilidad",
+      "folder_id": "1kR94wCzJzAU9xVX0UZvR90ipNC1Y7snx",
+      "release": "2026-08-28T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 9,
-      "title": "Clase 9  - Cheby II & desnormalizaciones",
-      "folder_id": "1Wbeqonjngh7A7MnxnrpJfJEIcGrpyac3",
-      "release": "2026-04-30T12:00-03:00"
+      "title": "Clase 9 – Celdas & Transformación complementaria",
+      "folder_id": "1dt1ULpvrUWuaykhAI3sDwLCju7wCMt-u",
+      "release": "2026-09-01T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 10,
-      "title": "Clase 10  - Filtros Elípticos & Cauer",
-      "folder_id": "1Io8G-upFeGVoBLTeSl6C2WkbD3JQva6X",
-      "release": "2026-05-05T15:00-03:00"
+      "title": "Clase 10 – Comparadores",
+      "folder_id": "113vhycgEh-5tN_d1Rd--v_iET2dfLtsn",
+      "release": "2026-09-04T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 11,
-      "title": "Clase 11 - Cauer 2.0, Óptimo L & Desnormalización 2.0",
-      "folder_id": "1VjQ7XYHpUfp46VoDhwpeohhvAFhuuRy7",
-      "release": "2026-05-12T15:00-03:00"
+      "title": "Clase 11 – Raíces de sistemas realimentados & 1er simulacro",
+      "folder_id": "1LcfUsshqQfryacFnlyFZBRYZH84-3z_Z",
+      "release": "2026-09-08T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 12,
-      "title": "Clase 12 - Alineales, Cristal y Cuarzo",
-      "folder_id": "12h8wXefn55lG21GTmk5uPbPUGR1o1UCP",
-      "release": "2026-05-14T12:00-03:00"
+      "title": "Clase 12 – Segundo simulacro 1er Parcial",
+      "folder_id": "1xw2xKiORBdR6YFIL7B3V9Dfe3pfGf_ue",
+      "release": "2026-09-11T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 13,
-      "title": "Clase 13 - Óptimo L y Group Delay & ejercicios prácticos",
-      "folder_id": "1erAqKTF6WaXaoAgp5NOWlp2cUwI4rDjq",
-      "release": "2026-05-19T15:00-03:00"
+      "title": "Clase 13 – Schmitt Trigger, Osciladores Relajación",
+      "folder_id": "1WAA0lXWtWHak9mKHWbCjBT_fQUU6FzMg",
+      "release": "2026-09-18T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 14,
-      "title": "Clase 14 - Ejercicio práctico RD & Osciladores senoidales: Barkhaussen, Wien, cuadratura",
-      "folder_id": "1R5Dwmnnj9NJcVrIf5Nefjl6sruJck4Tj",
-      "release": "2026-05-26T15:00-03:00"
+      "title": "Clase 14 – Introducción a filtros & transformación a plantilla",
+      "folder_id": "11Gw-PCPVUheAtiOXog9M2jdaSdI50BMn",
+      "release": "2026-09-22T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 15,
-      "title": "Clase 15 - PLL y comparador de fase XOR",
-      "folder_id": "18_QVxEb8Az-pfU6SUeWt25EcVyMyDW7D",
-      "release": "2026-06-02T15:00-03:00"
+      "title": "Clase 15 – Schmitt trigger & comparaciones",
+      "folder_id": "1BGuIWC4w6OXzqB0p-9UsZiRNqLEjE8Fu",
+      "release": "2026-09-25T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 16,
-      "title": "Clase 16 - Schmitt trigger & comparadores",
-      "folder_id": "1BGuIWC4w6OXzqB0p-9UsZiRNqLEjE8Fu",
-      "release": "2026-06-04T12:00-03:00"
+      "title": "Clase 16 – Aproximación de Butterworth & Chebyl I",
+      "folder_id": "1TOOdoOfewRtuQHvEckqiClUxc_BN0RPd",
+      "release": "2026-09-29T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 17,
-      "title": "Clase 17 - Primer simulacro 2do parcial",
-      "folder_id": "16KKkjkw5aKiJfyrtcoih-3DWrqip3wxi",
-      "release": "2026-06-09T12:00-03:00"
+      "title": "Clase 17 – Cheby II & Introducción desnormalizaciones",
+      "folder_id": "1Wbeqonjngh7A7MnxnrpJfJEIcGrpyac3",
+      "release": "2026-10-02T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 18,
-      "title": "Clase 18 - Ejercicios PLL",
-      "folder_id": "1tVf9xONisIa-kBTcVL1GnJaqGYMxfen8",
-      "release": "2026-06-11T12:00-03:00"
+      "title": "Clase 18 – Desnormalizaciones",
+      "folder_id": "1PxUXjTTAf6QS43fzbGMktVwhVZnxH60v",
+      "release": "2026-10-06T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 19,
-      "title": "Clase 19 - Segundo simulacro 2do parcial",
+      "title": "Clase 19 – Barkhausen, Wien",
+      "folder_id": "1iZATu6LnPtUtrIt8CBpi4_hsG4x2FmHS",
+      "release": "2026-10-09T19:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 20,
+      "title": "Clase 20 – Filtros Elípticos & Cauer",
+      "folder_id": "1Io8G-upFeGVoBLTeSl6C2WkbD3JQva6X",
+      "release": "2026-10-13T16:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 21,
+      "title": "Clase 21 – Cauer 2.0",
+      "folder_id": "1VjQ7XYHpUfp46VoDhwpeohhvAFhuuRy7",
+      "release": "2026-10-16T19:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 22,
+      "title": "Clase 22 – Óptimo L, Group Delay, Bessel",
+      "folder_id": "1erAqKTF6WaXaoAgp5NOWlp2cUwI4rDjq",
+      "release": "2026-10-20T16:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 23,
+      "title": "Clase 23 – VCO y PLL",
+      "folder_id": "1Mw9Lp7jpcVhMd3IxiQ_Zw-OeW6EyfQui",
+      "release": "2026-10-23T19:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 24,
+      "title": "Clase 24 – Rango Dinámico, Repaso Barkhausen, Wien",
+      "folder_id": "1R5Dwmnnj9NJcVrIf5Nefjl6sruJck4Tj",
+      "release": "2026-10-27T16:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 25,
+      "title": "Clase 25 – Repaso: Desplazamiento de fase, Osciladores Piezoeléctricos",
+      "folder_id": "12h8wXefn55lG21GTmk5uPbPUGR1o1UCP",
+      "release": "2026-10-30T19:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 26,
+      "title": "Clase 26 – PLL y cálculo de parámetros",
+      "folder_id": "18_QVxEb8Az-pfU6SUeWt25EcVyMyDW7D",
+      "release": "2026-11-03T16:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 27,
+      "title": "Clase 27 – Ejercicios PLL",
+      "folder_id": "1tVf9xONisIa-kBTcVL1GnJaqGYMxfen8",
+      "release": "2026-11-06T19:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 28,
+      "title": "Clase 28 – Alineales",
+      "folder_id": "1tK--JA2B3OOKvZLeimJkEwz2b0HA5oPR",
+      "release": "2026-11-10T16:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 29,
+      "title": "Clase 29 – Primer simulacro 2do parcial",
+      "folder_id": "16KKkjkw5aKiJfyrtcoih-3DWrqip3wxi",
+      "release": "2026-11-13T19:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 30,
+      "title": "Clase 30 – Segundo simulacro 2do parcial",
       "folder_id": "1irE8joB0XKpprE9E1Hrs5zjWgvzpv-w3",
-      "release": "2026-06-16T12:00-03:00"
+      "release": "2026-11-17T16:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 31,
+      "title": "Clase 31 – Diseño PLL para TP",
+      "folder_id": "1BFRpln_1Xj1H4gXgdx0S56D-BjHBXiJy",
+      "release": "2026-11-20T19:00-03:00"
+    },
+    {
+      "kind": "clase",
+      "number": 32,
+      "title": "Clase 32 – Presentación PLL, Revisión 2do parcial",
+      "folder_id": "1wVWFpVL6HqPG93EZuxOhpIBfV7vzo2JG",
+      "release": "2026-11-27T19:00-03:00"
     }
   ],
-  "files": {
-    "150FGoSQ0rh1TgQxWtvESrZhR0D0TMmdM": [
-      {
-        "id": "1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL",
-        "name": "Cheatsheet LTSpice.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL"
-      },
-      {
-        "id": "1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H",
-        "name": "TL082.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H"
-      }
-    ],
-    "1FtJ1-mKDjESrzVHQf3gTHyM-uU4hHN-X": [
-      {
-        "id": "1gbslQw4EGQ7O3jHvRvBpfjtFnZiebN7C",
-        "name": "25_14___TC2___Ronda_de_preguntas_1.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1gbslQw4EGQ7O3jHvRvBpfjtFnZiebN7C/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1gbslQw4EGQ7O3jHvRvBpfjtFnZiebN7C/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1gbslQw4EGQ7O3jHvRvBpfjtFnZiebN7C"
-      },
-      {
-        "id": "1ZQZATw6b1h8gNmJcHHeV6Hrghwrmgv07",
-        "name": "TC99 - Buffer Gcia Pos Neg.asc",
-        "mimeType": "text/plain",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1ZQZATw6b1h8gNmJcHHeV6Hrghwrmgv07/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZQZATw6b1h8gNmJcHHeV6Hrghwrmgv07"
-      }
-    ],
-    "1pq9kpb8f7jI26WPhppnIc-o_-gfTX47e": [
-      {
-        "id": "1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k",
-        "name": "25.14 - NIC 1C 2026.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k"
-      },
-      {
-        "id": "1YoB9JXZUciz2EMClKyMlok-dwPgEGQmz",
-        "name": "25.14 TC2 Casos NIC.asc",
-        "mimeType": "text/plain",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1YoB9JXZUciz2EMClKyMlok-dwPgEGQmz/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1YoB9JXZUciz2EMClKyMlok-dwPgEGQmz"
-      },
-      {
-        "id": "12Nux9BxMULAMv4DZwm3nCnclHlBEZxDk",
-        "name": "25.14 TC2 Ecualiz Faze 1 Ord.asc",
-        "mimeType": "text/plain",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/12Nux9BxMULAMv4DZwm3nCnclHlBEZxDk/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=12Nux9BxMULAMv4DZwm3nCnclHlBEZxDk"
-      },
-      {
-        "id": "1Iiey6zBKDL1VUTFzsfSMzRkbUytRg_lv",
-        "name": "25.14 TC2 Howland Current Source.asc",
-        "mimeType": "text/plain",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1Iiey6zBKDL1VUTFzsfSMzRkbUytRg_lv/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Iiey6zBKDL1VUTFzsfSMzRkbUytRg_lv"
-      },
-      {
-        "id": "1ZRkafJ9DYUkjboahNLu8UY0MZyF7Ah9X",
-        "name": "25.14 TC2 Ronda de preguntas 2.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1ZRkafJ9DYUkjboahNLu8UY0MZyF7Ah9X/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1ZRkafJ9DYUkjboahNLu8UY0MZyF7Ah9X/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZRkafJ9DYUkjboahNLu8UY0MZyF7Ah9X"
-      },
-      {
-        "id": "1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60",
-        "name": "sboa437 Analysis of Improved Howland Current Pump.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60"
-      }
-    ],
-    "1EJ2WDyvMOdE9_7zZGVFaT6EsLVDeIkjA": [
-      {
-        "id": "1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW",
-        "name": "Analog Devices - mt-202-1.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW"
-      },
-      {
-        "id": "1yKwemCxkTJ6Li_YdfSKTN40Sr6mcATRu",
-        "name": "TC 13 - GIC Uncoupled - Coupled.asc",
-        "mimeType": "text/plain",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1yKwemCxkTJ6Li_YdfSKTN40Sr6mcATRu/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1yKwemCxkTJ6Li_YdfSKTN40Sr6mcATRu"
-      },
-      {
-        "id": "1ZCYz81_QyP-VefivXcLT-loLKmodKhHY",
-        "name": "Uncoupled GIC-1.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1ZCYz81_QyP-VefivXcLT-loLKmodKhHY/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1ZCYz81_QyP-VefivXcLT-loLKmodKhHY/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZCYz81_QyP-VefivXcLT-loLKmodKhHY"
-      }
-    ],
-    "1dt1ULpvrUWuaykhAI3sDwLCju7wCMt-u": [
-      {
-        "id": "1nLt0UUtr12LFeKFIRogDmR_ltcYgmE6Q",
-        "name": "deliyannis1968.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1nLt0UUtr12LFeKFIRogDmR_ltcYgmE6Q/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1nLt0UUtr12LFeKFIRogDmR_ltcYgmE6Q/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1nLt0UUtr12LFeKFIRogDmR_ltcYgmE6Q"
-      },
-      {
-        "id": "1GAtDpG0SdUtYkRiD5E5fZJLHCC7GJZJ7",
-        "name": "fliege1973 (paper Transformación complementaria).pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1GAtDpG0SdUtYkRiD5E5fZJLHCC7GJZJ7/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1GAtDpG0SdUtYkRiD5E5fZJLHCC7GJZJ7/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1GAtDpG0SdUtYkRiD5E5fZJLHCC7GJZJ7"
-      },
-      {
-        "id": "1RkqQJiBEtu2vGOV9IDOoG-534E879H-F",
-        "name": "friend1975.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1RkqQJiBEtu2vGOV9IDOoG-534E879H-F/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1RkqQJiBEtu2vGOV9IDOoG-534E879H-F/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1RkqQJiBEtu2vGOV9IDOoG-534E879H-F"
-      },
-      {
-        "id": "1ymqX-2ZPhjxELC4oEPsH2euqIJ0vmfRz",
-        "name": "Rauch P138 - Radio telemetry - 1956.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1ymqX-2ZPhjxELC4oEPsH2euqIJ0vmfRz/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1ymqX-2ZPhjxELC4oEPsH2euqIJ0vmfRz/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ymqX-2ZPhjxELC4oEPsH2euqIJ0vmfRz"
-      }
-    ],
-    "1LcfUsshqQfryacFnlyFZBRYZH84-3z_Z": [
-      {
-        "id": "1c_zXQfs9xUiu2OOPCgtiRn98ZL2gQLr7",
-        "name": "2026 1C 1P Simulacro.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1c_zXQfs9xUiu2OOPCgtiRn98ZL2gQLr7/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1c_zXQfs9xUiu2OOPCgtiRn98ZL2gQLr7/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1c_zXQfs9xUiu2OOPCgtiRn98ZL2gQLr7"
-      },
-      {
-        "id": "1xp2ibxWF-nKLDhwlCsxlHW-M-FXfnwSI",
-        "name": "25.14 TC2 Mega Tabla 1C 2026.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1xp2ibxWF-nKLDhwlCsxlHW-M-FXfnwSI/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1xp2ibxWF-nKLDhwlCsxlHW-M-FXfnwSI/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1xp2ibxWF-nKLDhwlCsxlHW-M-FXfnwSI"
-      },
-      {
-        "id": "1dJtAl6HHoOQBsOvB5u03IxenBlZMHc0p",
-        "name": "25.16 Lineamientos Preliminares TP3 TC2 2026 1C.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1dJtAl6HHoOQBsOvB5u03IxenBlZMHc0p/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1dJtAl6HHoOQBsOvB5u03IxenBlZMHc0p/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1dJtAl6HHoOQBsOvB5u03IxenBlZMHc0p"
-      },
-      {
-        "id": "1NBVgtkV_0S-V2kFQoQCxNTBUlpLhuN2E",
-        "name": "A1308-9-Datasheet.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1NBVgtkV_0S-V2kFQoQCxNTBUlpLhuN2E/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1NBVgtkV_0S-V2kFQoQCxNTBUlpLhuN2E/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1NBVgtkV_0S-V2kFQoQCxNTBUlpLhuN2E"
-      },
-      {
-        "id": "16rpkvrwf4jEkBEItnSk3QKRWt6fngvk7",
-        "name": "Fundamentals Sistemas de 2do orden.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/16rpkvrwf4jEkBEItnSk3QKRWt6fngvk7/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/16rpkvrwf4jEkBEItnSk3QKRWt6fngvk7/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=16rpkvrwf4jEkBEItnSk3QKRWt6fngvk7"
-      }
-    ],
-    "11Gw-PCPVUheAtiOXog9M2jdaSdI50BMn": [
-      {
-        "id": "1-xkh-NdcMhUm0tY2fu13wKMJHDHAD_Np",
-        "name": "00 - Síntesis a Carbón.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1-xkh-NdcMhUm0tY2fu13wKMJHDHAD_Np/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1-xkh-NdcMhUm0tY2fu13wKMJHDHAD_Np"
-      },
-      {
-        "id": "1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M",
-        "name": "Bildstein - Plantillas de Filtros (2017_09_28 21_32_55 UTC).pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M"
-      }
-    ],
-    "1TOOdoOfewRtuQHvEckqiClUxc_BN0RPd": [
-      {
-        "id": "1gp5kZW7lmh3Ctr7jtYE6IripHUBIuLMf",
-        "name": "01 - Butterworth.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1gp5kZW7lmh3Ctr7jtYE6IripHUBIuLMf/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1gp5kZW7lmh3Ctr7jtYE6IripHUBIuLMf"
-      },
-      {
-        "id": "1k32sBLHAcyqwdFNHzc6QueB1QFIU81VJ",
-        "name": "02 - Chebyshev.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1k32sBLHAcyqwdFNHzc6QueB1QFIU81VJ/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1k32sBLHAcyqwdFNHzc6QueB1QFIU81VJ"
-      },
-      {
-        "id": "1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS",
-        "name": "25.14 TC2 Lista de polinomios de Cheby.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS"
-      }
-    ],
-    "1Wbeqonjngh7A7MnxnrpJfJEIcGrpyac3": [
-      {
-        "id": "1ZbrUblLayZW0IKsFIauaDvU8gVN-6co9",
-        "name": "03 - Inverso Chebyshev.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1ZbrUblLayZW0IKsFIauaDvU8gVN-6co9/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZbrUblLayZW0IKsFIauaDvU8gVN-6co9"
-      }
-    ],
-    "1Io8G-upFeGVoBLTeSl6C2WkbD3JQva6X": [
-      {
-        "id": "1AP-X_HgWnZhlm_sI-YdCNoCqqEL2dU1G",
-        "name": "06 - Interpretacion Elipticas.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1AP-X_HgWnZhlm_sI-YdCNoCqqEL2dU1G/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1AP-X_HgWnZhlm_sI-YdCNoCqqEL2dU1G"
-      },
-      {
-        "id": "1A8WV794lZ26torgWqvdtPYWNm4ej_oWR",
-        "name": "10 - Cálculo de Cauer.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1A8WV794lZ26torgWqvdtPYWNm4ej_oWR/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1A8WV794lZ26torgWqvdtPYWNm4ej_oWR"
-      }
-    ],
-    "1VjQ7XYHpUfp46VoDhwpeohhvAFhuuRy7": [
-      {
-        "id": "1p44FrgsnLYPjXFHO6svKrgdpV3QbxjFL",
-        "name": "06 - Interpretacion Elipticas.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1p44FrgsnLYPjXFHO6svKrgdpV3QbxjFL/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1p44FrgsnLYPjXFHO6svKrgdpV3QbxjFL"
-      },
-      {
-        "id": "1dH27TaC5xxFT_w4XlAEZzwmDwLJfdFoK",
-        "name": "10 - Cálculo de Cauer.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1dH27TaC5xxFT_w4XlAEZzwmDwLJfdFoK/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1dH27TaC5xxFT_w4XlAEZzwmDwLJfdFoK"
-      }
-    ],
-    "12h8wXefn55lG21GTmk5uPbPUGR1o1UCP": [],
-    "1erAqKTF6WaXaoAgp5NOWlp2cUwI4rDjq": [
-      {
-        "id": "1uSco4i2P6GPyKlM_Q1uS6RVcD9mdXKra",
-        "name": "07-Group Delay Conceptos Elementales.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1uSco4i2P6GPyKlM_Q1uS6RVcD9mdXKra/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1uSco4i2P6GPyKlM_Q1uS6RVcD9mdXKra"
-      },
-      {
-        "id": "187CffQZt9JsAswiKhpCAv_5g4XpcQnEZ",
-        "name": "08-Group Delay.ipynb",
-        "mimeType": "application/octet-stream",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/187CffQZt9JsAswiKhpCAv_5g4XpcQnEZ/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=187CffQZt9JsAswiKhpCAv_5g4XpcQnEZ"
-      },
-      {
-        "id": "1A-Usuf6QtwboWMewCOVKf8gpjzdnxZBb",
-        "name": "09-Locus Band Pass.ipynb",
-        "mimeType": "application/json",
-        "kind": "code",
-        "webViewLink": "https://drive.google.com/file/d/1A-Usuf6QtwboWMewCOVKf8gpjzdnxZBb/view?usp=drivesdk",
-        "previewPdf": null,
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1A-Usuf6QtwboWMewCOVKf8gpjzdnxZBb"
-      },
-      {
-        "id": "1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m",
-        "name": "Papoulis, Athanasios (1958). Optimum Filters with Monotonic Response papoulis1958.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m"
-      }
-    ],
-    "1R5Dwmnnj9NJcVrIf5Nefjl6sruJck4Tj": [
-      {
-        "id": "1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f",
-        "name": "25.14 - TC2 Ejercicios de clase Rango Dinámico.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f"
-      },
-      {
-        "id": "1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN",
-        "name": "Bridge Circuits an43f.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN"
-      }
-    ],
-    "18_QVxEb8Az-pfU6SUeWt25EcVyMyDW7D": [],
-    "1BGuIWC4w6OXzqB0p-9UsZiRNqLEjE8Fu": [],
-    "16KKkjkw5aKiJfyrtcoih-3DWrqip3wxi": [
-      {
-        "id": "1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu",
-        "name": "25.14 - TC2 1er Simulacro 2do Parcial 1C 2026.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu"
-      }
-    ],
-    "1tVf9xONisIa-kBTcVL1GnJaqGYMxfen8": [],
-    "1irE8joB0XKpprE9E1Hrs5zjWgvzpv-w3": [
-      {
-        "id": "1wLiBLf7w13oKyVJWnAtlVOl3cwYJard2",
-        "name": "25.14 TC2 2do Simulacro 2do Parcial 2026 1C.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1wLiBLf7w13oKyVJWnAtlVOl3cwYJard2/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1wLiBLf7w13oKyVJWnAtlVOl3cwYJard2/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1wLiBLf7w13oKyVJWnAtlVOl3cwYJard2"
-      },
-      {
-        "id": "1hWSMBB3lpjxJR1n2qtOZuOSIODvpO_h3",
-        "name": "25.16 L2 Instancia de evaluación 2026 1C.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1hWSMBB3lpjxJR1n2qtOZuOSIODvpO_h3/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1hWSMBB3lpjxJR1n2qtOZuOSIODvpO_h3/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1hWSMBB3lpjxJR1n2qtOZuOSIODvpO_h3"
-      },
-      {
-        "id": "1YIamSshOiCFm0U7VNk4X4KTvwg--sfVA",
-        "name": "Datasheet PLL Reducida cd74hct4046a.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1YIamSshOiCFm0U7VNk4X4KTvwg--sfVA/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1YIamSshOiCFm0U7VNk4X4KTvwg--sfVA/preview",
-        "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1YIamSshOiCFm0U7VNk4X4KTvwg--sfVA"
-      }
-    ]
-  },
+  "files": {},
   "examenes": [
     {
       "id": "1I__MaRJpnxnZ4nWRAaL7eHyHm12Ql4RD",

@@ -65,11 +65,13 @@ async function main() {
   const config = loadConfig();
   const outPath = path.join(ROOT, config.cache_path);
 
+  let previousItems = [];
   let previousFiles = {};
   let previousExamenes = [];
   if (fs.existsSync(outPath)) {
     try {
       const previous = JSON.parse(fs.readFileSync(outPath, 'utf8'));
+      previousItems = previous.items || [];
       previousFiles = previous.files || {};
       previousExamenes = previous.examenes || [];
     } catch { /* ignore corrupt previous cache */ }
@@ -103,6 +105,19 @@ async function main() {
         console.warn(`  -> se conserva la cache anterior para esta carpeta`);
       }
     }
+  }
+
+  // Compara solo el contenido real (sin generatedAt) contra lo que ya está en disco.
+  // Si no cambió nada, no se reescribe el archivo: evita que cada corrida programada
+  // genere un commit vacío (el único cambio sería el timestamp).
+  const contentUnchanged =
+    JSON.stringify(items) === JSON.stringify(previousItems) &&
+    JSON.stringify(files) === JSON.stringify(previousFiles) &&
+    JSON.stringify(examenes) === JSON.stringify(previousExamenes);
+
+  if (contentUnchanged) {
+    console.log(`\nSin cambios respecto a la última sincronización; no se reescribe ${config.cache_path}.`);
+    return;
   }
 
   const output = {
