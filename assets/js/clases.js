@@ -11,6 +11,10 @@
   const LIST = window.DRIVE_LIST_APP_URL || APP;
   const CACHE_URL = window.DRIVE_CACHE_URL || '/assets/data/clases-cache.json';
 
+  // Testing: agregar ?live=1 a la URL para forzar la carga en vivo desde Drive,
+  // saltando la cache estática (útil para probar cambios recién hechos en Drive).
+  const FORCE_LIVE = new URLSearchParams(location.search).has('live');
+
   // Archivos por carpeta precargados por el sync de GitHub Actions (folderId -> files[])
   let cachedFiles = {};
 
@@ -43,17 +47,21 @@
   // ---- Cache estática generada por GitHub Actions (ver /scripts/sync-drive-data.js)
   // Se sincroniza periódicamente desde Drive; si falla o no existe, cae al Web App en vivo.
   async function loadAllItems() {
-    try {
-      const r = await fetch(CACHE_URL, { cache: "no-store" });
-      if (r.ok) {
-        const data = await r.json();
-        if (data && Array.isArray(data.items)) {
-          cachedFiles = data.files || {};
-          return data.items;
+    if (!FORCE_LIVE) {
+      try {
+        const r = await fetch(CACHE_URL, { cache: "no-store" });
+        if (r.ok) {
+          const data = await r.json();
+          if (data && Array.isArray(data.items)) {
+            cachedFiles = data.files || {};
+            return data.items;
+          }
         }
+      } catch (e) {
+        console.warn('[Clases] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
       }
-    } catch (e) {
-      console.warn('[Clases] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
+    } else {
+      console.info('[Clases] ?live=1 detectado: se omite la cache estática y se carga en vivo desde Drive.');
     }
     return loadFromLiveDrive();
   }

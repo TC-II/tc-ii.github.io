@@ -175,6 +175,10 @@ const APPS_SCRIPT_URL="{{ DC.exam_app_url }}";
 const DRIVE_FOLDER_ID="{{ DC.exam_folder_id }}";
 const DRIVE_CACHE_URL="{{ '/assets/data/clases-cache.json' | relative_url }}";
 
+/* Testing: agregar ?live=1 a la URL para forzar la carga en vivo desde Drive,
+   saltando la cache estática (útil para probar cambios recién hechos en Drive). */
+const FORCE_LIVE = new URLSearchParams(location.search).has('live');
+
 const $ = (q)=>document.querySelector(q);
 const $$= (q)=>document.querySelectorAll(q);
 const previewURL = (id)=>`https://drive.google.com/file/d/${id}/preview`;
@@ -309,9 +313,14 @@ async function loadFromWebApp(){
 async function loadExams(){
   try{
     // Cache estática generada por GitHub Actions; si falla o está vacía, cae al Web App en vivo.
+    // ?live=1 en la URL fuerza omitir la cache y pedir datos en vivo a Drive.
     let items = null;
-    try { items = await loadFromCache(); }
-    catch (e) { console.warn('[Exámenes] No se pudo leer la cache estática, se usa el Web App en vivo.', e); }
+    if (!FORCE_LIVE) {
+      try { items = await loadFromCache(); }
+      catch (e) { console.warn('[Exámenes] No se pudo leer la cache estática, se usa el Web App en vivo.', e); }
+    } else {
+      console.info('[Exámenes] ?live=1 detectado: se omite la cache estática y se carga en vivo desde Drive.');
+    }
 
     ALL = items || await loadFromWebApp();
     render(ALL);

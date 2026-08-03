@@ -8,6 +8,10 @@
   const CFG_OLD = window.TPS_CONFIG || {};
   const USE_NEW = !!(CFG_NEW.APP_URL && CFG_NEW.FILE_ID);
 
+  // Testing: agregar ?live=1 a la URL para forzar la carga en vivo desde Drive,
+  // saltando la cache estática (útil para probar cambios recién hechos en Drive).
+  const FORCE_LIVE = new URLSearchParams(location.search).has('live');
+
   const listEl   = $("#tps-list");
   const statusEl = $("#tps-status");
 
@@ -198,14 +202,18 @@
   // Si falla o no existe, cae al Web App en vivo.
   async function loadItems() {
     const cacheUrl = window.DRIVE_CACHE_URL || '/assets/data/clases-cache.json';
-    try {
-      const r = await fetch(cacheUrl, { cache: "no-store" });
-      if (r.ok) {
-        const data = await r.json();
-        if (data && Array.isArray(data.items)) return normalize(data.items);
+    if (!FORCE_LIVE) {
+      try {
+        const r = await fetch(cacheUrl, { cache: "no-store" });
+        if (r.ok) {
+          const data = await r.json();
+          if (data && Array.isArray(data.items)) return normalize(data.items);
+        }
+      } catch (e) {
+        console.warn('[TPs] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
       }
-    } catch (e) {
-      console.warn('[TPs] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
+    } else {
+      console.info('[TPs] ?live=1 detectado: se omite la cache estática y se carga en vivo desde Drive.');
     }
     return loadFromWebApp();
   }

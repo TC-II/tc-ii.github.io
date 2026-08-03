@@ -6,6 +6,10 @@
   const CFG = window.LIST_CONFIG || window.GUIAS_CONFIG || {};
   const USE_NEW = !!(CFG.APP_URL && CFG.FILE_ID);
 
+  // Testing: agregar ?live=1 a la URL para forzar la carga en vivo desde Drive,
+  // saltando la cache estática (útil para probar cambios recién hechos en Drive).
+  const FORCE_LIVE = new URLSearchParams(location.search).has('live');
+
   // IDs del HTML de /guias/
   const listEl   = $("#guias-list");
   const statusEl = $("#guias-status");
@@ -65,14 +69,18 @@
   async function loadRows() {
     if (!USE_NEW) return loadFromWebApp();
     const cacheUrl = window.DRIVE_CACHE_URL || '/assets/data/clases-cache.json';
-    try {
-      const r = await fetch(cacheUrl, { cache: "no-store" });
-      if (r.ok) {
-        const data = await r.json();
-        if (data && Array.isArray(data.items)) return normalize(data.items);
+    if (!FORCE_LIVE) {
+      try {
+        const r = await fetch(cacheUrl, { cache: "no-store" });
+        if (r.ok) {
+          const data = await r.json();
+          if (data && Array.isArray(data.items)) return normalize(data.items);
+        }
+      } catch (e) {
+        console.warn('[Guías] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
       }
-    } catch (e) {
-      console.warn('[Guías] No se pudo leer la cache estática, se usa el Web App en vivo.', e);
+    } else {
+      console.info('[Guías] ?live=1 detectado: se omite la cache estática y se carga en vivo desde Drive.');
     }
     return loadFromWebApp();
   }
