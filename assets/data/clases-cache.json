@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-03T01:36:23.353Z",
+  "generatedAt": "2026-08-04T20:15:16.671Z",
   "items": [
     {
       "kind": "elemental",
@@ -328,7 +328,30 @@
       "release": "2026-11-27T19:00-03:00"
     }
   ],
-  "files": {},
+  "files": {
+    "150FGoSQ0rh1TgQxWtvESrZhR0D0TMmdM": [
+      {
+        "id": "1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL",
+        "name": "Cheatsheet LTSpice.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1CGTeGN6eg3Q4Tbz70NFd2Mbm_Gmi32TL"
+      },
+      {
+        "id": "1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H",
+        "name": "TL082.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H"
+      }
+    ]
+  },
   "examenes": [
     {
       "id": "1I__MaRJpnxnZ4nWRAaL7eHyHm12Ql4RD",
