@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-07T22:38:05.975Z",
+  "generatedAt": "2026-08-10T01:56:57.736Z",
   "items": [
     {
       "kind": "elemental",
@@ -351,7 +351,28 @@
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1vfN_9c4PpvjKheDG-TX52iH6oOA89C7H"
       }
     ],
-    "1Bo-i0vzAHkbvLe9TcRhtMjEUsAwvWTgV": []
+    "1Bo-i0vzAHkbvLe9TcRhtMjEUsAwvWTgV": [
+      {
+        "id": "1JJT9-7npAIHGpaoRN7gijDUtEUMbfwKE",
+        "name": "Offset.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1JJT9-7npAIHGpaoRN7gijDUtEUMbfwKE/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1JJT9-7npAIHGpaoRN7gijDUtEUMbfwKE/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1JJT9-7npAIHGpaoRN7gijDUtEUMbfwKE"
+      },
+      {
+        "id": "1rdvafHJrFG9C72FZec86w8MSyrxUOwlJ",
+        "name": "simple-op-amp-measurements.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1rdvafHJrFG9C72FZec86w8MSyrxUOwlJ/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1rdvafHJrFG9C72FZec86w8MSyrxUOwlJ/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1rdvafHJrFG9C72FZec86w8MSyrxUOwlJ"
+      }
+    ]
   },
   "examenes": [
     {
