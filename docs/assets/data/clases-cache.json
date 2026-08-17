@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T18:44:51.905Z",
+  "generatedAt": "2026-08-17T01:21:29.465Z",
   "items": [
     {
       "kind": "elemental",
@@ -409,6 +409,14 @@
     ]
   },
   "examenes": [
+    {
+      "id": "1yi6T0hWsyR7t3sR18kwzfLeZ9YH2qgzw",
+      "title": "2026 2P Teoría de Circuitos 2 I.pdf"
+    },
+    {
+      "id": "1sgCA3qfF0LbONljAUd4sgEiJAHiIGZbE",
+      "title": "2026 1P Teoría de Circuitos 2 I.pdf"
+    },
     {
       "id": "1I__MaRJpnxnZ4nWRAaL7eHyHm12Ql4RD",
       "title": "2023 Final Teoría de Circuitos 2 - Jul II.pdf"
