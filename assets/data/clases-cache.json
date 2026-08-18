@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T01:21:29.465Z",
+  "generatedAt": "2026-08-18T19:01:59.511Z",
   "items": [
     {
       "kind": "elemental",
@@ -405,6 +405,58 @@
         "previewPdf": null,
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=13kwfWGvc4R-ORTC6Av-vLvD2FZPZsVLf"
+      }
+    ],
+    "1pq9kpb8f7jI26WPhppnIc-o_-gfTX47e": [
+      {
+        "id": "1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k",
+        "name": "25.14 - NIC 1C 2026.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1fKV_FITCPxmyR6bbCgQ9c2Ipz_V_Mz4k"
+      },
+      {
+        "id": "1YoB9JXZUciz2EMClKyMlok-dwPgEGQmz",
+        "name": "25.14 TC2 Casos NIC.asc",
+        "mimeType": "text/plain",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1YoB9JXZUciz2EMClKyMlok-dwPgEGQmz/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1YoB9JXZUciz2EMClKyMlok-dwPgEGQmz"
+      },
+      {
+        "id": "12Nux9BxMULAMv4DZwm3nCnclHlBEZxDk",
+        "name": "25.14 TC2 Ecualiz Faze 1 Ord.asc",
+        "mimeType": "text/plain",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/12Nux9BxMULAMv4DZwm3nCnclHlBEZxDk/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=12Nux9BxMULAMv4DZwm3nCnclHlBEZxDk"
+      },
+      {
+        "id": "1Iiey6zBKDL1VUTFzsfSMzRkbUytRg_lv",
+        "name": "25.14 TC2 Howland Current Source.asc",
+        "mimeType": "text/plain",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1Iiey6zBKDL1VUTFzsfSMzRkbUytRg_lv/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Iiey6zBKDL1VUTFzsfSMzRkbUytRg_lv"
+      },
+      {
+        "id": "1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60",
+        "name": "sboa437 Analysis of Improved Howland Current Pump.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1JlnnMX-ValZUQGCKWWyj-ZBsiXRbUR60"
       }
     ]
   },
