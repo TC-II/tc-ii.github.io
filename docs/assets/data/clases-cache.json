@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T16:18:32.383Z",
+  "generatedAt": "2026-08-25T19:04:36.214Z",
   "items": [
     {
       "kind": "elemental",
@@ -489,6 +489,38 @@
         "previewPdf": "https://drive.google.com/file/d/1FSXiPjZhl7dYE1qcv71v4RwA_aFg66Qk/preview",
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1FSXiPjZhl7dYE1qcv71v4RwA_aFg66Qk"
+      }
+    ],
+    "1EJ2WDyvMOdE9_7zZGVFaT6EsLVDeIkjA": [
+      {
+        "id": "1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW",
+        "name": "Analog Devices - mt-202-1.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1OnzEaffj8TWv6ximQyK77XYOCVCOQ9uW"
+      },
+      {
+        "id": "1yKwemCxkTJ6Li_YdfSKTN40Sr6mcATRu",
+        "name": "TC 13 - GIC Uncoupled - Coupled.asc",
+        "mimeType": "text/plain",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1yKwemCxkTJ6Li_YdfSKTN40Sr6mcATRu/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1yKwemCxkTJ6Li_YdfSKTN40Sr6mcATRu"
+      },
+      {
+        "id": "1ZCYz81_QyP-VefivXcLT-loLKmodKhHY",
+        "name": "Uncoupled GIC-1.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1ZCYz81_QyP-VefivXcLT-loLKmodKhHY/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1ZCYz81_QyP-VefivXcLT-loLKmodKhHY/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZCYz81_QyP-VefivXcLT-loLKmodKhHY"
       }
     ]
   },
