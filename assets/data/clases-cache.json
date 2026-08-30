@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-29T01:07:51.543Z",
+  "generatedAt": "2026-08-30T21:33:19.828Z",
   "items": [
     {
       "kind": "elemental",
@@ -148,14 +148,14 @@
     {
       "kind": "clase",
       "number": 7,
-      "title": "Clase 7 – Gc, de fase 2do orden, FDNR, GIC & Gyrator",
+      "title": "Clase 7 – Ec. de fase 2do orden, FDNR, GIC & Gyrator",
       "folder_id": "1EJ2WDyvMOdE9_7zZGVFaT6EsLVDeIkjA",
       "release": "2026-08-25T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 8,
-      "title": "Clase 8 – Megatabla, Practica miller, Sensibilidad",
+      "title": "Clase 8 – Megatabla, Sensibilidad",
       "folder_id": "1kR94wCzJzAU9xVX0UZvR90ipNC1Y7snx",
       "release": "2026-08-28T19:00-03:00"
     },
