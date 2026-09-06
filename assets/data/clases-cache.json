@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T22:36:12.973Z",
+  "generatedAt": "2026-09-06T22:26:14.857Z",
   "items": [
     {
       "kind": "elemental",
@@ -577,7 +577,18 @@
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1ymqX-2ZPhjxELC4oEPsH2euqIJ0vmfRz"
       }
     ],
-    "113vhycgEh-5tN_d1Rd--v_iET2dfLtsn": []
+    "113vhycgEh-5tN_d1Rd--v_iET2dfLtsn": [
+      {
+        "id": "1gqvkpKnfIX7Cx-8Ky2dR06GojXD62hb5",
+        "name": "digi-schmitt_annotated.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1gqvkpKnfIX7Cx-8Ky2dR06GojXD62hb5/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1gqvkpKnfIX7Cx-8Ky2dR06GojXD62hb5/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1gqvkpKnfIX7Cx-8Ky2dR06GojXD62hb5"
+      }
+    ]
   },
   "examenes": [
     {
