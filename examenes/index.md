@@ -2,6 +2,8 @@
 layout: page
 title: Exámenes
 permalink: /examenes/
+extra_css:
+  - /assets/css/examenes.css
 ---
 
 <div class="exams-page">
@@ -34,139 +36,7 @@ permalink: /examenes/
 
 </div>
 
-<style>
-/* ===== Layout general ===== */
-.exams-page .exams-actions{
-  display:flex; gap:.75rem; align-items:center; justify-content:flex-end;
-  margin-top:.5rem; margin-bottom:.25rem; flex-wrap:wrap;
-}
-.exams-page .search{
-  flex:1; min-width:200px; max-width:520px;
-  border:1px solid var(--border,#2a2a2e);
-  border-radius:10px;
-  padding:.6rem .8rem;
-  font-size:.95rem;
-  background:var(--bg,#0b0b0c); color:#fff;
-}
-.exams-page .search::placeholder{ color:#bbb; }
-.exams-page .btn-drive{
-  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
-  padding:.6rem 1rem; border-radius:10px; text-decoration:none;
-  border:1px solid var(--border,#2a2a2e);
-  background: color-mix(in srgb, var(--accent,#0a84ff) 25%, var(--bg,#0b0b0c));
-  color:#fff; font-weight:600; white-space:nowrap;
-  transition: background .2s ease, transform .08s ease;
-}
-.exams-page .btn-drive:hover{
-  background: color-mix(in srgb, var(--accent,#0a84ff) 50%, var(--bg,#0b0b0c));
-}
-.exams-page .btn-drive:active{ transform: translateY(1px); }
-@media (max-width: 600px){
-  .exams-page .exams-actions{ flex-direction:column; align-items:stretch; }
-  .exams-page .search, .exams-page .btn-drive{ width:100%; }
-}
 
-/* ===== Lista única con scroll (5 visibles) ===== */
-.exams-page .exams-list{
-  display:flex; flex-direction:column; gap:.6rem;
-  border:1px solid var(--border,#2a2a2e);
-  border-radius:12px; padding:12px;
-  background: color-mix(in srgb, var(--bg,#fff) 92%, transparent);
-  overflow:auto; padding-right:.25rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border,#5b5b60) transparent;
-  max-height: 900px; /* fallback si JS no corre */
-}
-.exams-page .exams-list::-webkit-scrollbar{ width:10px; }
-.exams-page .exams-list::-webkit-scrollbar-track{ background:transparent; }
-.exams-page .exams-list::-webkit-scrollbar-thumb{
-  background: var(--border,#2a2a2e); border-radius:8px;
-  border:2px solid transparent; background-clip: padding-box;
-}
-.exams-page .exams-list::-webkit-scrollbar-thumb:hover{
-  background: color-mix(in srgb, var(--accent,#0a84ff) 55%, var(--border,#2a2a2e));
-}
-
-/* ===== Ítems (chips) ===== */
-.exams-page .chip{
-  width:100%; min-height:56px;
-  padding:.7rem .85rem;
-  border-radius:10px;
-  border:1px solid color-mix(in srgb, var(--fg,#fff) 12%, var(--border,#2a2a2e));
-  background: color-mix(in srgb, var(--bg,#fff) 86%, transparent);
-  color: var(--fg,#f5f5f7);
-  display:grid; grid-template-columns: 1fr auto; align-items:center; gap:.6rem;
-  cursor:pointer; text-decoration:none !important;
-  transition: outline-color .15s ease, background .15s ease, box-shadow .15s ease, color .15s ease;
-}
-.exams-page .chip .title{
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  text-align:left;
-}
-
-/* Base pill para TIPO (la que ya usabas) */
-.exams-page .chip .pill-type{
-  border:1px solid var(--border,#2a2a2e);
-  border-radius:999px; padding:.2rem .6rem;
-  font-size:.78rem; font-weight:700; color:#fff; opacity:.95;
-}
-
-/* NUEVO: contenedor de 2 pills a la derecha */
-.exams-page .chip .pill-group{            /* NUEVO */
-  display:flex; gap:.35rem; justify-self:end;
-}
-
-/* Colores para TIPO (igual que antes) */
-.pill-1p{ box-shadow: inset 0 0 0 999px rgba(10,132,255,0.16); }
-.pill-2p{ box-shadow: inset 0 0 0 999px rgba(50,215,75,0.18); }
-.pill-final{ box-shadow: inset 0 0 0 999px rgba(255,159,10,0.20); }
-
-/* NUEVO: pill para CALIFICADOR + colores */
-.exams-page .chip .pill-qual{             /* NUEVO */
-  border:1px solid var(--border,#2a2a2e);
-  border-radius:999px; padding:.2rem .6rem;
-  font-size:.78rem; font-weight:700; color:#fff; opacity:.95;
-}
-.pill-simulacro{ background: rgba(79,195,247,0.45); }   /* NUEVO */
-.pill-recu{       background: rgba(239,83,80,0.50); }   /* NUEVO */
-
-.exams-page .chip.active{
-  outline: 2.5px solid color-mix(in srgb, var(--accent,#0a84ff) 80%, transparent);
-  background: color-mix(in srgb, var(--accent,#0a84ff) 12%, var(--bg,#fff));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent,#0a84ff) 12%, transparent);
-}
-
-/* ===== Visor ===== */
-.exams-page .viewer{
-  margin-top:1.25rem;
-  border:1px solid var(--border,#2a2a2e);
-  border-radius:12px;
-  background: color-mix(in srgb, var(--bg,#fff) 92%, transparent);
-  overflow:hidden;
-}
-.exams-page .viewer-header{
-  padding:.6rem .9rem; font-weight:600;
-  border-bottom:1px solid var(--border,#2a2a2e);
-  display:flex; justify-content:space-between; gap:.75rem; align-items:center;
-  background: color-mix(in srgb, var(--bg,#fff) 85%, transparent);
-}
-.exams-page .viewer-left{ display:flex; flex-direction:column; gap:.25rem; min-width:0; }
-.exams-page #v-title{ max-width:70%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.exams-page #v-meta{ opacity:.75; font-size:.9rem; }
-.exams-page .viewer-right{ display:flex; align-items:center; gap:.5rem; }
-.exams-page .btn-open{
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:.45rem .8rem; border-radius:10px;
-  border:1px solid var(--border,#2a2a2e);
-  background: color-mix(in srgb, var(--bg,#fff) 88%, transparent);
-  color: var(--fg,#fff); text-decoration:none; font-weight:600; font-size:.9rem;
-  transition: background .2s ease, transform .08s ease;
-}
-.exams-page .btn-open:hover{ background: color-mix(in srgb, var(--accent,#0a84ff) 18%, var(--bg,#fff)); }
-.exams-page .btn-open:active{ transform: translateY(1px); }
-
-.exams-page .viewer iframe{ width:100%; height:80vh; border:0; }
-</style>
 
 {% assign DC = site.data.drive_config %}
 <script>

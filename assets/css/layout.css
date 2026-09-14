@@ -1,0 +1,395 @@
+/* ============================================================================
+   LAYOUT — contenedor, header/navegación, hero, footer.
+   Reemplaza a main.css y site.css. Depende de tokens.css. Sin :root.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- CONTENEDOR --
+   Antes había DOS .container en main.css (1040px en la línea 37 y 1200px en la
+   188) más un tercero en 404.html que aplastaba navbar y footer a 600px.
+   Ahora hay uno solo.                                                        */
+
+.container {
+  width: 100%;
+  max-width: var(--width-content);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.container--wide  { max-width: var(--width-wide); }
+.container--prose { max-width: var(--width-prose); }
+
+.after-header { margin-top: var(--space-5); }
+
+.content { padding: var(--section-y) 0; }
+
+/* -------------------------------------------------------------------- HEADER -- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+/* La clase la pone nav.js vía IntersectionObserver sobre un centinela. */
+.site-header.is-scrolled { border-bottom-color: var(--border); }
+
+.container.navwrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: 60px;
+  padding-block: var(--space-2);
+}
+
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-tight);
+}
+.site-title:hover { color: var(--fg); }
+
+/* El escudo va en blanco a propósito (decisión de identidad).
+   assets/img/escudo_claro.svg es cyan #61cbe8; el filtro lo lleva a blanco. */
+.logo {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  filter: brightness(0) invert(1);
+}
+
+/* ---------------------------------------------------------------- NAVEGACIÓN --
+   OJO: assets/js/nav.js manipula #mobileMenu con estilos inline (height,
+   overflow) y anima por altura escuchando `transitionend`. El breakpoint del
+   JS es (min-width: 900px) — antes el CSS usaba 820px en main.css y 899.98px
+   en site.css, así que el menú quedaba roto en la banda 820–900px.
+   Todo lo de acá está consolidado en 900px para coincidir con el JS.        */
+
+.nav { margin-left: auto; }
+
+.nav-toggle {
+  appearance: none;
+  cursor: pointer;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  display: inline-grid;
+  place-items: center;
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 20px;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.nav-toggle:hover { border-color: var(--border-strong); background: var(--bg-subtle); }
+
+#mobileMenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: height var(--dur-slow) var(--ease-out);
+}
+.nav #mobileMenu { display: block; width: 100%; }
+
+#mobileMenu > li { list-style: none; }
+
+#mobileMenu > li > a {
+  display: block;
+  text-decoration: none;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  opacity: 0.88;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--dur-fast) var(--ease-out),
+              background var(--dur-fast) var(--ease-out);
+}
+#mobileMenu > li > a:hover { opacity: 1; color: var(--fg); }
+
+/* Indicador de sección activa — antes no había forma de saber dónde estabas. */
+#mobileMenu > li > a[aria-current="page"] {
+  opacity: 1;
+  color: var(--accent);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+  .nav-toggle { display: none; }
+
+  /* Los !important sostienen el estado si el CSS gana antes de que corra el JS. */
+  .nav #mobileMenu,
+  #mobileMenu {
+    display: flex !important;
+    gap: var(--space-4);
+    height: auto !important;
+    overflow: visible !important;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+  #mobileMenu > li > a { padding: var(--space-2) var(--space-3); }
+  #mobileMenu > li > a:hover { background: var(--bg-subtle); }
+}
+
+/* Mobile: colapsado por altura, sin recuadro, solo texto. */
+@media (max-width: 899.98px) {
+  #mobileMenu {
+    overflow: hidden;
+    height: 0;               /* nav.js anima esta propiedad */
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+  #mobileMenu > li > a {
+    min-height: var(--tap-target);
+    display: flex;
+    align-items: center;
+    padding: var(--space-2) 0;
+    border-radius: 0;
+  }
+  #mobileMenu > li > a[aria-current="page"] {
+    box-shadow: inset 2px 0 0 var(--accent);
+    padding-left: var(--space-3);
+  }
+  .container.navwrap { padding-right: var(--gutter); }
+}
+
+/* ---------------------------------------------------------------------- HERO --
+   Antes había TRES heroes compitiendo: .hero (main.css:121), .hero-card
+   (main.css:203) y .hero-azul (index.md:22). Ahora uno solo, con la grilla de
+   graticule del osciloscopio.                                               */
+
+.hero,
+.hero-card,
+.hero-azul {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.75rem, 5vw, 3.5rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-subtle);
+  background-image:
+    /* halo de fósforo */
+    radial-gradient(120% 140% at 12% -10%, var(--accent-soft), transparent 55%),
+    /* graticule: divisiones mayores */
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px),
+    /* graticule: divisiones menores */
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    110px 110px, 110px 110px,
+    22px 22px,   22px 22px;
+  box-shadow: var(--shadow-1);
+}
+
+/* Filo iluminado superior — la "traza" que enciende el instrumento. */
+.hero::before,
+.hero-card::before,
+.hero-azul::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 55%, transparent) 35%,
+    color-mix(in srgb, var(--accent) 55%, transparent) 65%,
+    transparent);
+}
+
+.hero > *,
+.hero-card > *,
+.hero-azul > * { position: relative; }
+
+/* Especificidad deliberada: `.hero p` (0,1,1) le ganaría a `.hero-eyebrow`. */
+.hero .hero-eyebrow,
+.hero-card .hero-eyebrow,
+.hero-azul .hero-eyebrow,
+.hero-eyebrow {
+  display: block;
+  margin-bottom: var(--space-3);
+  max-width: none;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.hero h1, .hero-card h1, .hero-azul h1 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-tight);
+}
+
+.hero p, .hero-card p, .hero-azul p {
+  margin: 0 0 var(--space-5);
+  color: var(--fg-muted);
+  max-width: var(--measure);
+}
+
+.hero .actions,
+.hero-card .actions,
+.hero-azul .actions { margin-top: var(--space-5); }
+
+/* --------------------------------------------------------------------- GRIDS -- */
+
+.grid,
+.home-grid,
+.grid-home {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: var(--space-5);
+}
+
+/* -------------------------------------------------------------------- FOOTER --
+   Antes: .site-footer declarado dos veces (main.css:157 y :253) y DOS grids de
+   footer compitiendo, .footer-wrap y .footer — este último muerto, porque
+   _includes/footer.html solo emite .footer-wrap. Los alias privados
+   --_fg/--_muted/--_bd/--_accent existían solo para tapar tokens inexistentes. */
+
+.site-footer {
+  margin-top: var(--section-y);
+  padding: var(--space-6) 0 var(--space-5);
+  border-top: 1px solid var(--border);
+  color: var(--fg);
+  font-size: var(--fs-sm);
+}
+
+.footer-wrap {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.2fr) 2fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.footer-brand .footer-logo {
+  height: 52px;
+  width: auto;
+  flex: none;
+  object-fit: contain;
+  filter: brightness(0) invert(1);   /* escudo en blanco, decisión de identidad */
+}
+.footer-title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--fg);
+}
+.footer-note,
+.site-footer .disclaimer {
+  margin: 0;
+  max-width: var(--measure);
+  color: var(--fg-subtle);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+}
+
+.footer-links ul { list-style: none; padding: 0; margin: 0; }
+
+.links-mcols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  gap: var(--space-1) var(--space-5);
+}
+.links-mcols li {
+  position: relative;
+  padding-left: 14px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+}
+.links-mcols li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 5px; height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+}
+.footer-links a {
+  color: var(--fg-muted);
+  text-decoration: none;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.footer-links a:hover { color: var(--accent); }
+
+.footer-legal {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  color: var(--fg-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+}
+
+@media (max-width: 1100px) {
+  .links-mcols { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+}
+@media (max-width: 760px) {
+  .footer-wrap { grid-template-columns: 1fr; }
+  .links-mcols { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .links-mcols { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------ PÁGINA DE ERROR --
+   404.html sobreescribía .container globalmente (max-width:600px) y con eso
+   aplastaba también el navbar y el footer. Ahora está acotado a su página.  */
+
+.error-page {
+  max-width: 600px;
+  margin-inline: auto;
+  padding-block: var(--space-8);
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------------ TOC -- */
+
+.toc { margin: var(--space-4) 0; }
+.toc ul { list-style: none; padding: 0; margin: var(--space-2) 0 0; }
+.toc li { margin: var(--space-1) 0; }
+.toc li.h3 { margin-left: var(--space-4); font-size: 0.95em; }
+
+/* -------------------------------------------------------------- BLOG (post) --
+   .post/.meta/.tags se usan en _layouts/post.html y nunca estuvieron definidas. */
+
+.post { max-width: var(--measure); }
+.post > header { margin-bottom: var(--space-6); }

@@ -1,0 +1,161 @@
+/* ============================================================================
+   TOKENS — Teoría de Circuitos II
+   Dirección visual: "Osciloscopio" (instrumento de laboratorio).
+   Negro instrumento, verde fósforo, grilla de graticule, esquinas duras.
+
+   ESTE ES EL ÚNICO BLOQUE :root DEL PROYECTO.
+   No agregar :root en ningún otro archivo ni en <style> de página.
+   No usar la forma var(--x, #hex): un fallback que solo dispara cuando el
+   token falta es un bug silencioso. Si falta el token, se agrega acá.
+   ========================================================================== */
+
+:root {
+
+  /* ---------------------------------------------------------------- TIPO -- */
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+               "Segoe UI", Roboto, Ubuntu, Cantarell, Helvetica, Arial,
+               "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "Cascadia Mono",
+               Consolas, "Liberation Mono", monospace;
+
+  --fs-xs:   0.75rem;    /* 12 — legal, captions */
+  --fs-sm:   0.875rem;   /* 14 — metadata, pills */
+  --fs-base: 1rem;       /* 16 — cuerpo */
+  --fs-md:   1.125rem;   /* 18 — lead */
+  --fs-lg:   clamp(1.25rem,   0.95rem + 0.8vw, 1.5rem);    /* 20→24 títulos de card */
+  --fs-xl:   clamp(1.5rem,    1.10rem + 1.4vw, 2rem);      /* 24→32 h2 */
+  --fs-2xl:  clamp(1.875rem,  1.20rem + 2.6vw, 2.75rem);   /* 30→44 h1 */
+  --fs-3xl:  clamp(2.25rem,   1.30rem + 4.0vw, 3.5rem);    /* 36→56 hero */
+
+  --lh-tight:  1.12;
+  --lh-snug:   1.3;
+  --lh-normal: 1.6;
+  --lh-loose:  1.75;
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* OJO: tracking SOLO en headings y labels, nunca heredable desde body/.prose
+     — KaTeX posiciona glifos con anchos absolutos y el tracking heredado
+     desincroniza barras de fracción, radicales y delimitadores estirables. */
+  --tracking-tight: -0.015em;
+  --tracking-wide:   0.08em;
+
+  --measure: 68ch;
+
+  /* -------------------------------------------------------------- ESPACIO -- */
+  /* Escala base 4px. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --section-y: clamp(2rem, 5vw, 4rem);
+  --gutter:    clamp(1rem, 4vw, 2rem);
+
+  /* ---------------------------------------------------------------- FORMA -- */
+  /* Dirección "Osciloscopio": esquinas duras. Nada blando ni redondeado. */
+  --radius-xs:   2px;
+  --radius-sm:   3px;
+  --radius-md:   4px;
+  --radius-lg:   6px;
+  --radius-xl:   8px;
+  --radius-full: 999px;   /* solo para puntos y chips circulares */
+
+  --width-prose:   72ch;
+  --width-content: 1120px;
+  --width-wide:    1320px;
+
+  --tap-target: 44px;     /* mínimo táctil accesible */
+
+  /* -------------------------------------------------------------- CAPAS -- */
+  --z-base:     0;
+  --z-sticky:   100;
+  --z-dropdown: 200;
+  --z-overlay:  900;
+  --z-modal:    1000;
+  --z-toast:    1100;
+
+  /* ----------------------------------------------------------- MOVIMIENTO -- */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+  --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* ---------------------------------------------------------------- COLOR -- */
+  /* Superficies — negro instrumento con leve sesgo frío. */
+  --bg:        #07090a;
+  --bg-subtle: #0a0e10;
+  --surface:   #0d1113;   /* cards, navbar, footer */
+  --elevated:  #141a1d;   /* modales, hover, popovers */
+  --overlay:   rgba(3, 5, 6, 0.78);
+
+  /* Texto — contrastes verificados contra --bg y --surface (ver tabla abajo). */
+  --fg:           #e6efec;
+  --fg-muted:     #8fa39d;
+  --fg-subtle:    #61736e;
+  --fg-on-accent: #04120c;
+
+  /* Líneas */
+  --border:        #1b2226;
+  --border-strong: #2b3639;
+  --grid-line:     #12181a;   /* graticule del hero y de las cards */
+
+  /* Acento — verde fósforo, la traza del osciloscopio. */
+  --accent:        #7ef2c1;
+  --accent-hover:  #a3f7d5;
+  --accent-active: #5cd9a5;
+  --accent-soft:   color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-ring:   color-mix(in srgb, var(--accent) 45%, transparent);
+
+  /* Señales — entregas vencidas, avisos. */
+  --danger:      #ff6b5e;
+  --danger-soft: color-mix(in srgb, var(--danger) 14%, transparent);
+  --warning:     #ffc14d;
+  --success:     var(--accent);
+
+  /* Sombras */
+  --shadow-1: 0 1px 2px rgba(0,0,0,.50), 0 2px 8px rgba(0,0,0,.32);
+  --shadow-2: 0 4px 12px rgba(0,0,0,.52), 0 12px 32px rgba(0,0,0,.38);
+  --shadow-3: 0 12px 28px rgba(0,0,0,.58), 0 32px 64px rgba(0,0,0,.46);
+  --shadow-focus: 0 0 0 3px var(--accent-ring);
+
+  /* Barrido de instrumento — rampa de intensidad tipo analizador de espectro.
+     Se reparte entre las 6 tarjetas de la home (ver .card-spectrum).
+     Reemplaza al viejo --ai-grad arcoíris, que no convive con el fósforo. */
+  --gradient-spectrum: linear-gradient(90deg,
+    #2ad4ff   0%,    /* cyan  */
+    #4ce0d2  18%,    /* teal  */
+    #7ef2c1  36%,    /* fósforo */
+    #b9f07a  56%,    /* verde-amarillo */
+    #ffd34d  78%,    /* ámbar */
+    #ff9f45 100%     /* naranja */
+  );
+
+  color-scheme: dark;
+}
+
+/* ============================================================================
+   CONTRASTE (WCAG 2.1, calculado)
+
+     --fg          / --bg        17.0:1   AAA
+     --fg          / --surface   16.2:1   AAA
+     --fg-muted    / --bg         7.5:1   AAA
+     --fg-muted    / --surface    7.1:1   AAA
+     --accent      / --bg        14.6:1   AAA
+     --accent      / --surface   13.9:1   AAA
+     --fg-on-accent/ --accent    14.0:1   AAA   (botón lleno)
+     --danger      / --bg         7.1:1   AAA   (como TEXTO, no como relleno)
+
+   --danger nunca se usa como relleno sólido con texto blanco encima: esa
+   combinación es la que hacía fallar AA a .pill-deadline (3.55:1). Se usa
+   como texto --danger sobre --danger-soft con borde --danger.
+   ========================================================================== */

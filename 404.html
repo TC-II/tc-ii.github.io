@@ -1,25 +1,19 @@
 ---
 permalink: /404.html
 layout: page
+title: Página no encontrada
 ---
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <h1>404</h1>
-
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+<div class="container after-header">
+  <div class="error-page">
+    <p class="hero-eyebrow">Error 404</p>
+    <h1>Página no encontrada</h1>
+    <p class="lead" style="margin-inline:auto">
+      La dirección que pediste no existe o el material se movió de lugar.
+    </p>
+    <div class="actions" style="justify-content:center">
+      <a class="btn" href="{{ '/' | relative_url }}">Volver al inicio</a>
+      <a class="btn-outline" href="{{ '/guias/' | relative_url }}">Ir a Guías</a>
+    </div>
+  </div>
 </div>

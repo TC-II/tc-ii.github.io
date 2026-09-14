@@ -1,0 +1,277 @@
+/* ============================================================================
+   HERRAMIENTAS / REPOSITORIOS — extraído del <style> embebido en
+   repositorios/index.md.
+
+   Esta página tenía un :root propio que redefinía --accent (#1690ff), --fg,
+   --muted y --card. Como :root apunta al documento entero, esos valores se
+   filtraban al navbar y al footer: /repositorios/ era la única página del
+   sitio con otro acento y otro fondo de header. Ese bloque se eliminó y todo
+   pasó a los tokens compartidos.
+
+   Renombres aplicados: --stroke → --border, --stroke-2 → --border-strong,
+   --muted → --fg-muted, --radius-xl y --shadow-1/2 ahora vienen de tokens.css.
+   ========================================================================== */
+
+.rec-wrap {
+  max-width: 100%;
+  margin: 0 auto;
+  color: var(--fg);
+  padding-inline: clamp(8px, 3vw, 24px);
+}
+
+.section-title {
+  margin: var(--space-1) 0 var(--space-4);
+  font-size: var(--fs-xl);
+  letter-spacing: var(--tracking-tight);
+}
+
+hr.soft {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--space-5) 0;
+}
+
+/* ----------------------------------------------------------- GRILLA DE REPOS -- */
+
+.repos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+  padding-block: var(--space-5);
+}
+
+@media (max-width: 1100px) { .repos-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 740px)  { .repos-grid { grid-template-columns: 1fr; } }
+
+/* ------------------------------------------------------------------ TARJETAS --
+   Tarjeta con giro 3D: cara frontal (portada) y dorso (README).             */
+
+.repo-card {
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  perspective: 1000px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--dur-base) var(--ease-out);
+  --accent-card: var(--accent);
+}
+
+.repo-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.repo-card.open .repo-inner { transform: rotateY(180deg); }
+
+.repo-front,
+.repo-back {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--surface);
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+.repo-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-4);
+}
+.repo-back { transform: rotateY(180deg); }
+
+.repo-front .cover { position: absolute; inset: 0; z-index: 0; }
+.repo-front .cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: .9;
+}
+.repo-front .cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(7,9,10,.15), rgba(7,9,10,.55) 60%, rgba(7,9,10,.82));
+}
+
+.repo-front .title {
+  position: relative;
+  margin: 0 0 var(--space-1);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+}
+.repo-front .desc {
+  position: relative;
+  margin: 0 0 var(--space-2);
+  color: var(--fg);
+  font-size: var(--fs-sm);
+}
+.repo-front .foot {
+  position: relative;
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* Botón GitHub */
+.repo-front .gh-btn {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 3;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  display: grid;
+  place-items: center;
+  color: var(--fg);
+  background: var(--overlay);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.repo-front .gh-btn:hover {
+  background: var(--accent);
+  color: var(--fg-on-accent);
+  border-color: var(--accent);
+}
+
+/* Marco de acento */
+.repo-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--accent-ring);
+}
+
+/* Dorso */
+.repo-back {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  background: var(--elevated);
+  border: 1px solid var(--border);
+}
+.repo-back .back-head {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+.repo-back .back-title {
+  margin: 0;
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+}
+.repo-back .btn-link {
+  padding: var(--space-2) var(--space-3);
+  color: var(--fg-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+.repo-back .btn-link:hover { color: var(--fg); border-color: var(--border-strong); }
+
+.repo-back .readme {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-3);
+  background: var(--bg-subtle);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+.repo-back .readme::-webkit-scrollbar { width: 10px; }
+.repo-back .readme::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-full);
+}
+.repo-back .readme::-webkit-scrollbar-track { background: transparent; }
+
+/* -------------------------------------------------------------- README (md) -- */
+
+.markdown-body { color: var(--fg); line-height: var(--lh-normal); font-size: var(--fs-sm); }
+.markdown-body h1,
+.markdown-body h2 { padding-bottom: .3em; border-bottom: 1px solid var(--border); }
+.markdown-body h1 { font-size: 1.35em; }
+.markdown-body h2 { font-size: 1.15em; }
+.markdown-body pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  overflow: auto;
+}
+.markdown-body code {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-xs);
+  padding: .15em .35em;
+}
+.markdown-body a { color: var(--accent); text-decoration: none; }
+.markdown-body a:hover { text-decoration: underline; }
+
+/* ---------------------------------------------------------------------- APPS -- */
+
+#appsList { display: flex; flex-direction: column; gap: var(--space-5); }
+
+.app {
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+}
+.app-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+.app-title { margin: 0; font-size: var(--fs-md); font-weight: var(--fw-semibold); }
+.app-actions { display: flex; gap: var(--space-2); align-items: center; }
+.app-slot { display: none; }
+.app-slot.show { display: block; }
+.app-embed { padding: 0 var(--space-4) var(--space-4); background: var(--bg-subtle); }
+.app-frame {
+  width: 100%;
+  height: 680px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* ------------------------------------------------------------ BOTÓN REDONDO --
+   .btn y .btn-ghost ya viven en components.css; acá solo la variante redonda. */
+
+.btn-round {
+  width: var(--tap-target);
+  height: var(--tap-target);
+  display: grid;
+  place-items: center;
+  color: var(--fg-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.btn-round:hover { background: var(--bg-subtle); color: var(--fg); border-color: var(--border-strong); }
+.btn-round:active { transform: translateY(1px); }

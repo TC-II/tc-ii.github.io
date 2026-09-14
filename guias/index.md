@@ -2,6 +2,8 @@
 layout: page
 title: Guías
 permalink: /guias/
+extra_css:
+  - /assets/css/guias.css
 ---
 
 <div class="guias-page">
@@ -24,5 +26,4 @@ permalink: /guias/
   window.DRIVE_CACHE_URL = '{{ "/assets/data/clases-cache.json" | relative_url }}';
 </script>
 
-<link rel="stylesheet" href="{{ '/assets/css/guias.css' | relative_url }}">
 <script src="{{ '/assets/js/guias.js' | relative_url }}" defer></script>

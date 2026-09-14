@@ -1,0 +1,90 @@
+/* ============================================================================
+   HOME — extraído del <style> embebido en index.md (último :root del proyecto).
+
+   Cambios:
+   - --ai-grad (el arcoíris azul→violeta→rosa→naranja) se fue a tokens.css como
+     --gradient-spectrum, ahora como rampa de instrumento cyan→fósforo→ámbar.
+   - Los tramos .s1….s6 con --pos a mano pasaron a nth-child.
+   - Se eliminaron .btn-color/.btn-guias/.btn-examenes/.btn-tps: tres gradientes
+     distintos con !important compitiendo entre sí y con las seis tarjetas de
+     abajo. Ahora hay una sola jerarquía: 1 primario + 2 outline.
+   ========================================================================== */
+
+.home-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: var(--space-5);
+}
+
+/* -------------------------------------------------------- TARJETAS DE SECCIÓN --
+   Las seis comparten un único barrido continuo: cada una toma su tramo.     */
+
+.card-spectrum {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 168px;
+  height: 100%;
+  padding: var(--space-5);
+  overflow: hidden;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+
+/* Franja de color arriba: el tramo del barrido que le toca a esta tarjeta. */
+.card-spectrum::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background-image: var(--gradient-spectrum);
+  background-size: 600% 100%;
+  background-position: var(--pos, 0%) 0;
+}
+
+/* Grilla de graticule tenue de fondo. */
+.card-spectrum::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: .55;
+}
+
+.card-spectrum > * { position: relative; z-index: 1; }
+
+.card-spectrum h2 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+.card-spectrum p {
+  margin: 0;
+  color: var(--fg-muted);
+  font-size: var(--fs-sm);
+}
+
+.card-spectrum:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--border-strong);
+}
+
+/* Reparto del barrido entre las seis tarjetas. */
+.home-grid > .card-link:nth-child(1) .card-spectrum { --pos: 0%; }
+.home-grid > .card-link:nth-child(2) .card-spectrum { --pos: 20%; }
+.home-grid > .card-link:nth-child(3) .card-spectrum { --pos: 40%; }
+.home-grid > .card-link:nth-child(4) .card-spectrum { --pos: 60%; }
+.home-grid > .card-link:nth-child(5) .card-spectrum { --pos: 80%; }
+.home-grid > .card-link:nth-child(6) .card-spectrum { --pos: 100%; }

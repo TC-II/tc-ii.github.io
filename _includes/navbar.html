@@ -2,7 +2,7 @@
   <div class="container navwrap">
     <a class="site-title" href="{{ '/' | relative_url }}">
       <img class="logo" alt="Escudo de la cátedra Teoría de Circuitos II"
-           src="{{ '/assets/img/escudo_claro.svg' | relative_url }}" width="28" height="28">
+           src="{{ '/assets/img/escudo_claro.svg' | relative_url }}" width="34" height="34">
       Teoría de Circuitos II
     </a>
 
@@ -10,15 +10,27 @@
       <button id="navToggle" class="nav-toggle"
               aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false">☰</button>
 
+      {%- comment -%}
+        aria-current marca la sección activa; layout.css lo estila.
+        Para "/" se compara exacto, para el resto alcanza con el prefijo.
+      {%- endcomment -%}
+      {%- assign secciones =
+        "/,Inicio|/guias/,Guías|/examenes/,Exámenes|/material-didactico/,Material didáctico|/repositorios/,Repositorios|/playlists/,Playlists|/tps/,Trabajos Prácticos"
+        | split: "|" -%}
+
       <!-- Importante: sin 'hidden' -->
       <ul id="mobileMenu">
-        <li><a href="{{ '/' | relative_url }}">Inicio</a></li>
-        <li><a href="{{ '/guias/' | relative_url }}">Guías</a></li>
-        <li><a href="{{ '/examenes/' | relative_url }}">Exámenes</a></li>
-        <li><a href="{{ '/material-didactico/' | relative_url }}">Material didáctico</a></li>
-        <li><a href="{{ '/repositorios/' | relative_url }}">Repositorios</a></li>
-        <li><a href="{{ '/playlists/' | relative_url }}">Playlists</a></li>
-        <li><a href="{{ '/tps/' | relative_url }}">Trabajos Prácticos</a></li>
+        {%- for seccion in secciones -%}
+          {%- assign partes = seccion | split: "," -%}
+          {%- assign ruta = partes[0] -%}
+          {%- assign etiqueta = partes[1] -%}
+          {%- if ruta == "/" -%}
+            {%- if page.url == "/" -%}{%- assign activa = true -%}{%- else -%}{%- assign activa = false -%}{%- endif -%}
+          {%- else -%}
+            {%- if page.url contains ruta -%}{%- assign activa = true -%}{%- else -%}{%- assign activa = false -%}{%- endif -%}
+          {%- endif -%}
+          <li><a href="{{ ruta | relative_url }}"{% if activa %} aria-current="page"{% endif %}>{{ etiqueta }}</a></li>
+        {%- endfor -%}
       </ul>
     </nav>
   </div>
