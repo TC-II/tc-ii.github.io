@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T00:07:01.487Z",
+  "generatedAt": "2026-09-21T04:51:28.229Z",
   "items": [
     {
       "kind": "elemental",
@@ -35,7 +35,7 @@
       "kind": "tp",
       "title": "TP1",
       "description": "Amplificador Operacional: Configuraciones elementales y límites físicos",
-      "pdf_id": "1FYHBzeW4-KC6o2gfdNXei6kb9jcE2sWj",
+      "pdf_id": "1D8FSILsXI_rWdxxznDKBLeaKNXKHNhPt",
       "release": "2026-08-04",
       "deadline": "2026-08-16"
     },
@@ -536,6 +536,16 @@
       }
     ],
     "1dt1ULpvrUWuaykhAI3sDwLCju7wCMt-u": [
+      {
+        "id": "1tpfSyU_2KKP45gYP521Zk2IFvjCuef6B",
+        "name": "25.16 - L2 Celdas.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1tpfSyU_2KKP45gYP521Zk2IFvjCuef6B/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1tpfSyU_2KKP45gYP521Zk2IFvjCuef6B/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1tpfSyU_2KKP45gYP521Zk2IFvjCuef6B"
+      },
       {
         "id": "1nLt0UUtr12LFeKFIRogDmR_ltcYgmE6Q",
         "name": "deliyannis1968.pdf",
