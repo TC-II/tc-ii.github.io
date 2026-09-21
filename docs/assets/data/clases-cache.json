@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-18T23:59:35.389Z",
+  "generatedAt": "2026-09-21T00:07:01.487Z",
   "items": [
     {
       "kind": "elemental",
@@ -623,7 +623,28 @@
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1YaLphiRCCDBHrIspdr2MeB-A2YyxCLhM"
       }
     ],
-    "1WAA0lXWtWHak9mKHWbCjBT_fQUU6FzMg": []
+    "1WAA0lXWtWHak9mKHWbCjBT_fQUU6FzMg": [
+      {
+        "id": "1fCUDaTm_n42sxsZW-rYBAGLU5m4sXUr1",
+        "name": "Ocsiladores de relajacion V001.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1fCUDaTm_n42sxsZW-rYBAGLU5m4sXUr1/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1fCUDaTm_n42sxsZW-rYBAGLU5m4sXUr1/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1fCUDaTm_n42sxsZW-rYBAGLU5m4sXUr1"
+      },
+      {
+        "id": "18A53KQ6wHy3ifFosPhxekB_IYDmmd4Kg",
+        "name": "Rejacion basico.zip",
+        "mimeType": "application/x-zip-compressed",
+        "kind": "archive",
+        "webViewLink": "https://drive.google.com/file/d/18A53KQ6wHy3ifFosPhxekB_IYDmmd4Kg/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=18A53KQ6wHy3ifFosPhxekB_IYDmmd4Kg"
+      }
+    ]
   },
   "examenes": [
     {
