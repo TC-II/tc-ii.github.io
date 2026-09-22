@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-21T04:51:28.229Z",
+  "generatedAt": "2026-09-22T20:24:37.422Z",
   "items": [
     {
       "kind": "elemental",
@@ -653,6 +653,28 @@
         "previewPdf": null,
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=18A53KQ6wHy3ifFosPhxekB_IYDmmd4Kg"
+      }
+    ],
+    "11Gw-PCPVUheAtiOXog9M2jdaSdI50BMn": [
+      {
+        "id": "1-xkh-NdcMhUm0tY2fu13wKMJHDHAD_Np",
+        "name": "00 - Síntesis a Carbón.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1-xkh-NdcMhUm0tY2fu13wKMJHDHAD_Np/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1-xkh-NdcMhUm0tY2fu13wKMJHDHAD_Np"
+      },
+      {
+        "id": "1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M",
+        "name": "Bildstein - Plantillas de Filtros (2017_09_28 21_32_55 UTC).pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M"
       }
     ]
   },
