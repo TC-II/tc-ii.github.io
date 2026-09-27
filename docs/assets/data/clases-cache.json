@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T23:37:39.599Z",
+  "generatedAt": "2026-09-27T22:19:49.692Z",
   "items": [
     {
       "kind": "elemental",
@@ -677,7 +677,18 @@
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1sL-5ziEKvCo4b_6IaN22cYN_JZ5yeO7M"
       }
     ],
-    "1BGuIWC4w6OXzqB0p-9UsZiRNqLEjE8Fu": []
+    "1BGuIWC4w6OXzqB0p-9UsZiRNqLEjE8Fu": [
+      {
+        "id": "1qRo2SgFnlwe5xhkzzKYQCHR4MVf-lQuf",
+        "name": "oscilador_relajacion_rc.asc",
+        "mimeType": "application/asc",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1qRo2SgFnlwe5xhkzzKYQCHR4MVf-lQuf/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1qRo2SgFnlwe5xhkzzKYQCHR4MVf-lQuf"
+      }
+    ]
   },
   "examenes": [
     {
