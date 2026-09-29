@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-27T22:19:49.692Z",
+  "generatedAt": "2026-09-29T22:36:09.490Z",
   "items": [
     {
       "kind": "elemental",
@@ -687,6 +687,38 @@
         "previewPdf": null,
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1qRo2SgFnlwe5xhkzzKYQCHR4MVf-lQuf"
+      }
+    ],
+    "1TOOdoOfewRtuQHvEckqiClUxc_BN0RPd": [
+      {
+        "id": "1gp5kZW7lmh3Ctr7jtYE6IripHUBIuLMf",
+        "name": "01 - Butterworth.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1gp5kZW7lmh3Ctr7jtYE6IripHUBIuLMf/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1gp5kZW7lmh3Ctr7jtYE6IripHUBIuLMf"
+      },
+      {
+        "id": "1k32sBLHAcyqwdFNHzc6QueB1QFIU81VJ",
+        "name": "02 - Chebyshev.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1k32sBLHAcyqwdFNHzc6QueB1QFIU81VJ/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1k32sBLHAcyqwdFNHzc6QueB1QFIU81VJ"
+      },
+      {
+        "id": "1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS",
+        "name": "25.14 TC2 Lista de polinomios de Cheby.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS"
       }
     ]
   },
