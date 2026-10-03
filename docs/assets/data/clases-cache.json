@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-29T22:36:09.490Z",
+  "generatedAt": "2026-10-03T01:01:07.609Z",
   "items": [
     {
       "kind": "elemental",
@@ -719,6 +719,18 @@
         "previewPdf": "https://drive.google.com/file/d/1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS/preview",
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1owCw1NqrcJY5r9uyrF8jYdxZhPqtewnS"
+      }
+    ],
+    "1Wbeqonjngh7A7MnxnrpJfJEIcGrpyac3": [
+      {
+        "id": "1ZbrUblLayZW0IKsFIauaDvU8gVN-6co9",
+        "name": "03 - Inverso Chebyshev.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1ZbrUblLayZW0IKsFIauaDvU8gVN-6co9/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ZbrUblLayZW0IKsFIauaDvU8gVN-6co9"
       }
     ]
   },
