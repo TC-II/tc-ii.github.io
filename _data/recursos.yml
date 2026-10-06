@@ -70,6 +70,11 @@ apps:
     embed: true
     height: 680
 
+  - title: FilterTool
+    url: https://tc-ii.github.io/TC2-FilterTool/
+    embed: true
+    height: 680
+
   - title: Calculadora de seno elíptico (Streamlit)
     url: https://tc2-sntool.streamlit.app
     embed: true
