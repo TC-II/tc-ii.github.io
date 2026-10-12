@@ -1,0 +1,41 @@
+- title: Guías
+  category: Práctica
+  desc: Ejercicios organizados por unidad y tema para acompañar el estudio de la materia.
+  url: /guias/
+  icon: guides
+  color: '#99c6ff'
+
+- title: Exámenes
+  category: Evaluación
+  desc: Enunciados de parciales y finales de años anteriores, organizados por fecha y turno.
+  url: /examenes/
+  icon: exams
+  color: '#c4a5ff'
+
+- title: Material didáctico
+  category: Teoría
+  desc: Documentos de clase y archivos complementarios para cada tema de la cursada.
+  url: /material-didactico/
+  icon: material
+  color: '#93dfc1'
+
+- title: Herramientas
+  category: Aplicaciones
+  desc: Aplicaciones online para cálculo, diseño y análisis de circuitos, y repositorios de la cátedra.
+  url: /repositorios/
+  icon: tools
+  color: '#f3a6cc'
+
+- title: Playlists
+  category: Videos
+  desc: Clases y tutoriales en video sobre herramientas y contenidos de la materia.
+  url: /playlists/
+  icon: videos
+  color: '#b2b3ff'
+
+- title: Trabajos Prácticos
+  category: Laboratorio
+  desc: Enunciados y material de apoyo para el desarrollo de los trabajos prácticos.
+  url: /tps/
+  icon: lab
+  color: '#f4cb87'

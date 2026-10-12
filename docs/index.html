@@ -40,6 +40,12 @@
 
     
     
+      
+        <link rel="stylesheet" href="/assets/css/recursos.css">
+      
+        <link rel="stylesheet" href="/assets/css/home.css">
+      
+    
 
     
     
@@ -63,7 +69,7 @@
         <li><a href="/guias/">Guías</a></li>
         <li><a href="/examenes/">Exámenes</a></li>
         <li><a href="/material-didactico/">Material didáctico</a></li>
-        <li><a href="/repositorios/">Repositorios</a></li>
+        <li><a href="/repositorios/">Herramientas</a></li>
         <li><a href="/playlists/">Playlists</a></li>
         <li><a href="/tps/">Trabajos Prácticos</a></li>
       </ul>
@@ -71,172 +77,162 @@
   </div>
 </header>
 
-    <style>
-/* ====== Gradiente "Apple-like" y tarjetas a color ====== */
+    <main class="container after-header home-page">
+  <article class="card">
+    <header class="home-intro">
+      <h1 class="title-lg">Teoría de Circuitos II</h1>
+      <p>Material de estudio, herramientas y recursos de la cátedra, disponibles para la comunidad.</p>
+    </header>
+    <nav class="resources home-resources" aria-label="Recursos de la materia">
+      <div class="resources-grid">
+        
+        <a class="tool-card" href="/guias/" style="--tool-color: #99c6ff" aria-labelledby="home-title-1" aria-describedby="home-desc-1">
+          <div class="tool-art" aria-hidden="true">
+            <svg class="tool-illustration" viewBox="0 0 200 112" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  
+    <rect x="43" y="15" width="94" height="84" rx="7" fill="currentColor" fill-opacity=".05" />
+    <path opacity=".4" d="M59 15v84M38 30h10M38 47h10M38 64h10M38 81h10" />
+    <circle cx="75" cy="35" r="3" /><path d="M86 35h34" />
+    <circle cx="75" cy="55" r="3" /><path d="M86 55h26" />
+    <circle cx="75" cy="75" r="3" /><path d="M86 75h20" />
+    <path fill="#15151a" d="m121 83 30-40 9 7-30 40-15 7z" />
+    <path d="m147 49 9 7m-35 27 9 7" />
+  
+  </g>
+</svg>
 
-/* Gradiente multicolor base (largo para repartirlo entre 6 tarjetas) */
-:root{
-  --ai-grad: linear-gradient(90deg,
-    #0a84ff 0%,
-    #6f6cff 16%,
-    #b86bff 33%,
-    #ff6bd6 50%,
-    #ff7e6e 66%,
-    #ff9f0a 100%
-  );
-}
+            <span class="tool-arrow">&#8594;</span>
+          </div>
+          <div class="tool-copy">
+            <span class="tool-category">Práctica</span>
+            <h2 id="home-title-1">Guías</h2>
+            <p id="home-desc-1">Ejercicios organizados por unidad y tema para acompañar el estudio de la materia.</p>
+          </div>
+        </a>
+        
+        <a class="tool-card" href="/examenes/" style="--tool-color: #c4a5ff" aria-labelledby="home-title-2" aria-describedby="home-desc-2">
+          <div class="tool-art" aria-hidden="true">
+            <svg class="tool-illustration" viewBox="0 0 200 112" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  
+    <path fill="currentColor" fill-opacity=".05" d="M44 16h61l18 18v62H44z" />
+    <path d="M105 16v18h18M58 32h28" />
+    <path d="m58 49 4 4 8-9m-12 25 4 4 8-9M79 49h25M79 69h18M58 85h28" />
+    <circle cx="139" cy="76" r="23" fill="#15151a" />
+    <path d="M139 61v15l10 6" />
+    <path opacity=".4" d="M139 55v3m18 18h3m-21 18v3m-21-21h3" />
+  
+  </g>
+</svg>
 
-/* Hero azul sobrio como el que te gustaba */
-.hero-azul{
-  padding:2rem;
-  background:
-    radial-gradient(120% 160% at 0% 0%, rgba(34,86,180,.40), rgba(22,34,58,.40) 40%, rgba(18,24,38,.65) 100%),
-    linear-gradient(180deg, rgba(18,30,60,.65), rgba(18,18,22,.65));
-  border:1px solid var(--border);
-}
+            <span class="tool-arrow">&#8594;</span>
+          </div>
+          <div class="tool-copy">
+            <span class="tool-category">Evaluación</span>
+            <h2 id="home-title-2">Exámenes</h2>
+            <p id="home-desc-2">Enunciados de parciales y finales de años anteriores, organizados por fecha y turno.</p>
+          </div>
+        </a>
+        
+        <a class="tool-card" href="/material-didactico/" style="--tool-color: #93dfc1" aria-labelledby="home-title-3" aria-describedby="home-desc-3">
+          <div class="tool-art" aria-hidden="true">
+            <svg class="tool-illustration" viewBox="0 0 200 112" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  
+    <path fill="currentColor" fill-opacity=".05" d="M100 32c-21-13-45-12-68-4v59c23-8 47-9 68 4 21-13 45-12 68-4V28c-23-8-47-9-68 4z" />
+    <path d="M100 32v59" />
+    <path opacity=".5" d="M43 40c15-4 29-3 44 3M43 52c15-4 29-3 44 3M43 64c15-4 29-3 44 3M43 76c12-3 22-3 31 0" />
+    <path d="M114 59h8l5-14 10 28 10-23 6 9h5" />
+    <path opacity=".35" d="M27 34v59c27-7 50-6 73 6 23-12 46-13 73-6V34" />
+  
+  </g>
+</svg>
 
-/* Grid responsivo */
-.grid-home{
-  display:grid; gap:1rem;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-}
+            <span class="tool-arrow">&#8594;</span>
+          </div>
+          <div class="tool-copy">
+            <span class="tool-category">Teoría</span>
+            <h2 id="home-title-3">Material didáctico</h2>
+            <p id="home-desc-3">Documentos de clase y archivos complementarios para cada tema de la cursada.</p>
+          </div>
+        </a>
+        
+        <a class="tool-card" href="/repositorios/" style="--tool-color: #f3a6cc" aria-labelledby="home-title-4" aria-describedby="home-desc-4">
+          <div class="tool-art" aria-hidden="true">
+            <svg class="tool-illustration" viewBox="0 0 200 112" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  
+    <rect x="27" y="21" width="146" height="74" rx="8" fill="currentColor" fill-opacity=".05" />
+    <path opacity=".4" d="M27 37h146M118 37v58M40 49h65M40 65h65M40 81h65M53 45v40M76 45v40M99 45v40" />
+    <path d="M40 78c9 0 9-30 18-30s9 34 18 34 10-18 29-18" />
+    <path d="M37 29h1m7 0h1m7 0h1M133 48v33M157 48v33" />
+    <path d="M128 59h10M152 72h10" stroke-width="4" />
+  
+  </g>
+</svg>
 
-/* Tarjetas clickeables */
-.card-link{ text-decoration:none; color:inherit; display:block; height:100%; }
+            <span class="tool-arrow">&#8594;</span>
+          </div>
+          <div class="tool-copy">
+            <span class="tool-category">Aplicaciones</span>
+            <h2 id="home-title-4">Herramientas</h2>
+            <p id="home-desc-4">Aplicaciones online para cálculo, diseño y análisis de circuitos, y repositorios de la cátedra.</p>
+          </div>
+        </a>
+        
+        <a class="tool-card" href="/playlists/" style="--tool-color: #b2b3ff" aria-labelledby="home-title-5" aria-describedby="home-desc-5">
+          <div class="tool-art" aria-hidden="true">
+            <svg class="tool-illustration" viewBox="0 0 200 112" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  
+    <path opacity=".3" d="M47 18h112a6 6 0 0 1 6 6v61" />
+    <path opacity=".55" d="M39 25h112a6 6 0 0 1 6 6v61" />
+    <rect x="31" y="32" width="118" height="67" rx="7" fill="currentColor" fill-opacity=".05" />
+    <path fill="currentColor" fill-opacity=".15" d="m67 47 28 17-28 17z" />
+    <path opacity=".6" d="M111 51h23M111 64h23M111 77h16" />
+    <path opacity=".3" d="M43 89h92" />
+  
+  </g>
+</svg>
 
-/* Tarjeta con color de fondo tomado del gradiente global.
-   Capa 1: velo oscuro para mantener legibilidad
-   Capa 2: el gradiente global (nos quedamos con un tramo distinto por tarjeta)
-*/
-.card-spectrum{
-  position:relative;
-  padding:1.25rem;
-  border-radius: var(--radius, 16px);
-  border:1px solid var(--border);
-  background-image:
-    linear-gradient(180deg, rgba(10,10,12,.62), rgba(10,10,12,.68)),   /* velo */
-    var(--ai-grad);                                                    /* gradiente global */
-  background-size: 100% 100%, 600% 100%;                               /* gradiente largo */
-  background-position: 0 0, var(--pos, 0%) 0;                          /* tramo elegido */
-  box-shadow: var(--shadow);
-  transition: transform .12s ease, filter .15s ease, box-shadow .15s ease;
-}
-.card-spectrum:hover{
-  transform: translateY(-3px);
-  filter: brightness(1.06);
-  box-shadow: 0 14px 40px rgba(0,0,0,.35);
-}
+            <span class="tool-arrow">&#8594;</span>
+          </div>
+          <div class="tool-copy">
+            <span class="tool-category">Videos</span>
+            <h2 id="home-title-5">Playlists</h2>
+            <p id="home-desc-5">Clases y tutoriales en video sobre herramientas y contenidos de la materia.</p>
+          </div>
+        </a>
+        
+        <a class="tool-card" href="/tps/" style="--tool-color: #f4cb87" aria-labelledby="home-title-6" aria-describedby="home-desc-6">
+          <div class="tool-art" aria-hidden="true">
+            <svg class="tool-illustration" viewBox="0 0 200 112" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  
+    <rect x="30" y="21" width="118" height="76" rx="8" fill="currentColor" fill-opacity=".05" />
+    <path opacity=".5" d="M40 33h24v17M40 83h22V70M104 36h32M104 79h23" />
+    <rect x="64" y="43" width="40" height="31" rx="2" />
+    <path d="M72 35v8m12-8v8m12-8v8M72 74v8m12-8v8m12-8v8M56 51h8m-8 14h8M104 51h8m-8 14h8" />
+    <path d="m137 61 25-33 9 7-25 33zM137 61l-8 10m38-39 7-9" fill="#15151a" />
+    <circle cx="40" cy="33" r="2" fill="currentColor" /><circle cx="40" cy="83" r="2" fill="currentColor" />
+  
+  </g>
+</svg>
 
-/* Repartimos el gradiente entre las 6 tarjetas */
-.s1{ --pos: 0%;  }
-.s2{ --pos: 20%; }
-.s3{ --pos: 40%; }
-.s4{ --pos: 60%; }
-.s5{ --pos: 80%; }
-.s6{ --pos: 100%; }
-
-/* Tipografía secundaria sutil */
-.lead-muted{ margin:0 0 1rem 0; opacity:.85; }
-
-/* ====== Botones del HERO con colores coordinados y misma saturación ======
-   Usamos los mismos pares de colores que en las tarjetas: s1, s4 y s6.
-   Agregamos interacción (hover/active) y un leve shadow.
-*/
-.btn.btn-color{
-  color:#fff !important;
-  border-color: rgba(255,255,255,.12) !important;
-  box-shadow: 0 8px 22px rgba(0,0,0,.25);
-  transition: transform .10s ease, filter .15s ease, box-shadow .15s ease;
-}
-.btn.btn-color:hover{
-  transform: translateY(-2px);
-  filter: brightness(1.08) saturate(1.08);
-  box-shadow: 0 14px 36px rgba(0,0,0,.35);
-}
-.btn.btn-color:active{
-  transform: translateY(0);
-  filter: brightness(0.98);
-}
-
-/* Guías: mismo gradiente que s1 */
-.btn-guias{ background: linear-gradient(135deg,#0a84ff,#6f6cff) !important; }
-/* Exámenes: mismo gradiente que s4 */
-.btn-examenes{ background: linear-gradient(135deg,#6f6cff,#b86bff) !important; }
-/* Trabajos Prácticos: mismo gradiente que s6 */
-.btn-tps{ background: linear-gradient(135deg,#ff9f0a,#ff7e6e) !important; }
-</style>
-
-<!-- HERO -->
-<section class="container after-header">
-  <article class="card hero-azul">
-    <h1 class="title-lg" style="margin:0 0 .5rem 0;">Teoría de Circuitos II</h1>
-    <p class="text-dim lead-muted">
-      Repositorio de recursos, creado para el uso de la cátedra y disponible para la comunidad.
-    </p>
-
-    <!-- Botones ahora con misma saturación y con interacción -->
-    <div style="display:flex; gap:.6rem; flex-wrap:wrap;">
-      <a class="btn btn-color btn-guias" href="/guias/">Guías</a>
-      <a class="btn btn-color btn-examenes" href="/examenes/">Exámenes</a>
-      <a class="btn btn-color btn-tps" href="/tps/">Trabajos Prácticos</a>
-    </div>
+            <span class="tool-arrow">&#8594;</span>
+          </div>
+          <div class="tool-copy">
+            <span class="tool-category">Laboratorio</span>
+            <h2 id="home-title-6">Trabajos Prácticos</h2>
+            <p id="home-desc-6">Enunciados y material de apoyo para el desarrollo de los trabajos prácticos.</p>
+          </div>
+        </a>
+        
+      </div>
+    </nav>
   </article>
-</section>
-
-<!-- GRID DE TARJETAS: 6 bloques con color (gradiente continuo en conjunto) -->
-<section class="container" style="margin-top:1rem;">
-  <div class="grid-home">
-
-    <!-- 1: Guías -->
-    <a href="/guias/" class="card-link">
-      <article class="card-spectrum s1">
-        <h2 style="margin:.25rem 0 0 0;">Guías</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Listados por unidad y tema.</p>
-      </article>
-    </a>
-
-    <!-- 2: Exámenes -->
-    <a href="/examenes/" class="card-link">
-      <article class="card-spectrum s2">
-        <h2 style="margin:.25rem 0 0 0;">Exámenes</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Enunciados por año y turno.</p>
-      </article>
-    </a>
-
-    <!-- 3: Material didáctico -->
-    <a href="/material-didactico/" class="card-link">
-      <article class="card-spectrum s3">
-        <h2 style="margin:.25rem 0 0 0;">Material didáctico</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Documentos y archivos complementarios.</p>
-      </article>
-    </a>
-
-    <!-- 4: Repositorios -->
-    <a href="/repositorios/" class="card-link">
-      <article class="card-spectrum s4">
-        <h2 style="margin:.25rem 0 0 0;">Repositorios</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Apps, repos y utilidades (LTspice, Python, etc.).</p>
-      </article>
-    </a>
-
-    <!-- 5: Playlists -->
-    <a href="/playlists/" class="card-link">
-      <article class="card-spectrum s5">
-        <h2 style="margin:.25rem 0 0 0;">Playlists</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Listas de reproducción con tutoriales y clases.</p>
-      </article>
-    </a>
-
-    <!-- 6: Trabajos Prácticos -->
-    <a href="/tps/" class="card-link">
-      <article class="card-spectrum s6">
-        <h2 style="margin:.25rem 0 0 0;">Trabajos Prácticos</h2>
-        <p class="text-dim" style="margin-top:.5rem;">Enunciados y material para los TPs.</p>
-      </article>
-    </a>
-
-  </div>
-</section>
+</main>
 
     <footer class="site-footer">
   <div class="container">
@@ -257,31 +253,18 @@
         </div>
       </section>
 
-      <!-- Columna 2: Secciones (multi‑columna) -->
-      <nav class="footer-links" aria-label="Secciones">
-        <h4 class="footer-title">Secciones</h4>
-        <ul class="links-mcols">
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/guias/">Guías</a></li>
-          <li><a href="/examenes/">Exámenes</a></li>
-          <li><a href="/material-didactico/">Material didáctico</a></li>
-          <li><a href="/repositorios/">Herramientas</a></li>
-          <li><a href="/playlists/">Playlists</a></li>
-          <li><a href="/tps/">Trabajos Prácticos</a></li>
-        </ul>
-      </nav>
-
-    </div>
-
-    <div class="footer-legal">
-      <span>© 2026 Teoría de Circuitos II</span>
-      <span>Hecho por Ramiro Nieto y Javier Petrucci</span>
+      <!-- Columna 2: créditos y copyright -->
+      <section class="footer-credits" aria-labelledby="footer-credits-title">
+        <h4 id="footer-credits-title">Créditos</h4>
+        <p>Hecho por Ramiro Nieto y Javier Petrucci</p>
+        <p class="footer-copyright">© 2026 Teoría de Circuitos II</p>
+      </section>
     </div>
   </div>
 </footer>
 
 
     <!-- Script del menú móvil -->
-    <script src="/assets/js/nav.js?v=1791828931" defer></script>
+    <script src="/assets/js/nav.js?v=1791847559" defer></script>
   </body>
 </html>

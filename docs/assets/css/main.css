@@ -249,7 +249,7 @@ body {
 /* Espacio bajo el header fijo */
 .after-header { margin-top: 12px; }
 
-/* ===== Footer limpio (escudo+titulo arriba, secciones en columnas con bullets alineados) ===== */
+/* ===== Footer: identidad, créditos y copyright ===== */
 .site-footer{
   --_fg: var(--fg, #111);
   --_muted: var(--muted, #6b7280);
@@ -269,7 +269,7 @@ body {
   padding: 0 1rem;
 }
 
-/* Layout general: 3 columnas (marca / secciones / créditos) */
+/* Layout general: marca y créditos */
 .footer-wrap{
   display: grid;
   grid-template-columns: 1.25fr 1fr;
@@ -319,70 +319,18 @@ body {
   color: var(--_muted);
 }
 
-/* === Columna 2: Secciones en columnas con bullets alineados === */
-.footer-links h4{ margin: 0 0 .6rem 0; font-size: 1rem; letter-spacing: .2px; }
-.footer-links ul{ list-style: none; padding: 0; margin: 0; }
-
-.links-mcols{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(150px, 1fr)); /* 3 columnas desktop */
-  gap: .4rem 1.25rem;
-}
-.links-mcols li{
-  position: relative;
-  padding-left: 14px;
-  min-height: 28px;
-  display: flex; align-items: center;
-}
-.links-mcols li::before{
-  content: "";
-  position: absolute;
-  left: 0; top: 50%; transform: translateY(-50%);
-  width: 6px; height: 6px; border-radius: 999px;
-  background: color-mix(in srgb, var(--_accent) 80%, var(--_fg));
-  opacity: .95;
-}
-.footer-links a{
-  color: var(--_fg);
-  text-decoration: none;
-  opacity: .92;
-  transition: color .2s ease, opacity .2s ease, transform .15s ease;
-}
-.footer-links a:hover{
-  color: var(--_accent);
-  opacity: 1;
-  transform: translateX(1px);
-}
-
-/* === Franja legal === */
-.footer-legal{
-  grid-column: 1 / -1;             /* ocupa ancho completo */
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 1.5rem;
-  color: var(--_muted);
-  font-size: .9rem;
-}
+/* === Columna 2: créditos y copyright === */
+.footer-credits h4 { margin: 0 0 .6rem; font-size: 1rem; letter-spacing: .2px; }
+.footer-credits p { margin: 0; line-height: 1.65; color: #b6b6c1; }
+.footer-credits .footer-copyright { margin-top: .7rem; font-size: .9rem; color: var(--_muted); }
 
 /* Responsivo */
-@media (max-width: 1100px){
-  .links-mcols{ grid-template-columns: repeat(2, minmax(160px,1fr)); }
+@media (max-width: 900px) {
+  .footer-brand .footer-logo { height: 52px; }
 }
-@media (max-width: 900px){
-  .footer-wrap{ grid-template-columns: 1fr 1fr; }
-  .footer-credits{ order: 3; }
-  .footer-brand .footer-logo{ height: 52px; }
+@media (max-width: 600px) {
+  .footer-wrap { grid-template-columns: 1fr; }
 }
-@media (max-width: 600px){
-  .footer-wrap{ grid-template-columns: 1fr; }
-  .links-mcols{ grid-template-columns: 1fr; }
-  .footer-legal{ flex-wrap: wrap; gap: .5rem 1rem; }
-}
-
-
-
 /* SOBRE LA CÁTEDRA */
 .sobre-catedra {
   display: grid;

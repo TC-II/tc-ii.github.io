@@ -1,5 +1,6 @@
 featured_repos:
   - name: "ASC-Parser"
+    online: true
     title: "SPICE → PDF"
     desc:  "Herramienta para convertir esquemáticos LTSpice a figuras en PDF."
     color: "#8b5cf6"
@@ -36,17 +37,18 @@ featured_repos:
 
   - name: "TC2Lib--LTSPICE"
     title: "TCLib para LTSpice"
-    desc:  "Librerías listas para simular."
+    desc:  "Librerías de la cátedra para armar y simular circuitos en LTSpice. El repositorio incluye los archivos y las instrucciones de instalación."
     color: "#D42500"
     img:   "/assets/img/repositorios/tc2lib-ltspice.png"
 
   - name: "TC2Lib--KiCad"
     title: "TCLib para KiCad"
-    desc:  "Footprints y símbolos consistentes."
+    desc:  "Símbolos y footprints para diseñar esquemáticos y placas en KiCad con los componentes de la cátedra."
     color: "#22c55e"
     img:   "/assets/img/repositorios/tc2lib-kicad.png"
 
   - name: "TC2-FilterTool"
+    online: true
     title: "FilterTool"
     desc:  "Diseño y comparación de filtros."
     color: "#ec4899"
@@ -54,47 +56,59 @@ featured_repos:
 
   - name: "TC2-PlotTool"
     title: "PlotTool"
-    desc:  "Graficá y compará señales."
+    desc:  "Herramienta de escritorio para graficar y comparar señales, con código e instrucciones de instalación disponibles en el repositorio."
     color: "#f97316"
     img:   "/assets/img/repositorios/tc2-plottool.png"
 
   - name: "L2-Recursos-Python"
     title: "Recursos Python"
-    desc:  "Snippets y utilidades para TC2."
+    desc:  "Colección de ejemplos y utilidades de Python para el procesamiento de mediciones y el análisis de circuitos en las prácticas de laboratorio."
     color: "#38bdf8"
     img:   "/assets/img/repositorios/l2-recursos-python.png"
 
 apps:
-  - title: ASC Parser
+  - title: SPICE → PDF
+    category: Esquemáticos
+    icon: spice-pdf
+    color: '#c4a5ff'
+    desc: Conversor de esquemáticos .asc de LTSpice a figuras vectoriales PDF para informes y documentación.
     url: https://javierpetrucci.github.io/ASC-Parser/
-    embed: true
-    height: 680
-
-  - title: FilterTool
-    url: https://tc-ii.github.io/TC2-FilterTool/
-    embed: true
-    height: 680
-
-  - title: Calculadora de seno elíptico (Streamlit)
-    url: https://tc2-sntool.streamlit.app
-    embed: true
-    height: 680
-
-  - title: Plotter Racional Elíptica 2
-    url: https://tc-ii.github.io/plotter-racional-eliptica-2/
-    embed: true
-    height: 680
 
   - title: Neandertool
+    category: Diseño interactivo
+    icon: neander
+    color: '#f4cb87'
+    desc: Entorno interactivo de diseño de filtros por etapas, con ajuste de respuesta, exploración libre y desafíos de diseño.
     url: https://tc-ii.github.io/neandertool/
-    embed: true
-    height: 680
+
+  - title: Filter Tool
+    category: Análisis de filtros
+    icon: filter
+    color: '#f3a6cc'
+    desc: Herramienta de análisis y comparación de funciones de transferencia, simulaciones y mediciones, con gráficos de respuesta y polos y ceros.
+    url: https://tc-ii.github.io/TC2-FilterTool/
+
+  - title: Plotter racional
+    category: Aproximación elíptica
+    icon: rational
+    color: '#93dfc1'
+    desc: Visualizador de la función racional elíptica y del efecto de sus parámetros sobre la respuesta del filtro.
+    url: https://tc-ii.github.io/plotter-racional-eliptica-2/
+
+  - title: Calculadora elíptica
+    category: Cálculo matemático
+    icon: sine
+    color: '#99c6ff'
+    desc: Calculadora del seno elíptico de Jacobi para el estudio de aproximaciones y filtros elípticos.
+    url: https://tc-ii.github.io/plotter-racional-eliptica-2/#sn
 
   - title: FSK Terminal
+    category: Comunicación serie
+    icon: fsk
+    color: '#b2b3ff'
+    desc: Terminal de transmisión y recepción FSK con demodulador PLL. Requiere hardware conectado.
     url: https://tc-ii.github.io/PLL-Tool/
-    embed: true
-    height: 680
 
 links:
-  - title: Descargar LTSpice to PDF (Windows x64)
+  - title: SPICE → PDF · APP para Windows
     url: https://github.com/javierpetrucci/ASC-Parser/raw/main/dist/LTSpice_to_PDF/LTSpice_to_PDF-win_x64.exe

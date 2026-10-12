@@ -1,0 +1,47 @@
+<svg class="tool-illustration" viewBox="0 0 200 112" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <g stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  {% case include.icon %}
+  {% when 'guides' %}
+    <rect x="43" y="15" width="94" height="84" rx="7" fill="currentColor" fill-opacity=".05"/>
+    <path opacity=".4" d="M59 15v84M38 30h10M38 47h10M38 64h10M38 81h10"/>
+    <circle cx="75" cy="35" r="3"/><path d="M86 35h34"/>
+    <circle cx="75" cy="55" r="3"/><path d="M86 55h26"/>
+    <circle cx="75" cy="75" r="3"/><path d="M86 75h20"/>
+    <path fill="#15151a" d="m121 83 30-40 9 7-30 40-15 7z"/>
+    <path d="m147 49 9 7m-35 27 9 7"/>
+  {% when 'exams' %}
+    <path fill="currentColor" fill-opacity=".05" d="M44 16h61l18 18v62H44z"/>
+    <path d="M105 16v18h18M58 32h28"/>
+    <path d="m58 49 4 4 8-9m-12 25 4 4 8-9M79 49h25M79 69h18M58 85h28"/>
+    <circle cx="139" cy="76" r="23" fill="#15151a"/>
+    <path d="M139 61v15l10 6"/>
+    <path opacity=".4" d="M139 55v3m18 18h3m-21 18v3m-21-21h3"/>
+  {% when 'material' %}
+    <path fill="currentColor" fill-opacity=".05" d="M100 32c-21-13-45-12-68-4v59c23-8 47-9 68 4 21-13 45-12 68-4V28c-23-8-47-9-68 4z"/>
+    <path d="M100 32v59"/>
+    <path opacity=".5" d="M43 40c15-4 29-3 44 3M43 52c15-4 29-3 44 3M43 64c15-4 29-3 44 3M43 76c12-3 22-3 31 0"/>
+    <path d="M114 59h8l5-14 10 28 10-23 6 9h5"/>
+    <path opacity=".35" d="M27 34v59c27-7 50-6 73 6 23-12 46-13 73-6V34"/>
+  {% when 'tools' %}
+    <rect x="27" y="21" width="146" height="74" rx="8" fill="currentColor" fill-opacity=".05"/>
+    <path opacity=".4" d="M27 37h146M118 37v58M40 49h65M40 65h65M40 81h65M53 45v40M76 45v40M99 45v40"/>
+    <path d="M40 78c9 0 9-30 18-30s9 34 18 34 10-18 29-18"/>
+    <path d="M37 29h1m7 0h1m7 0h1M133 48v33M157 48v33"/>
+    <path d="M128 59h10M152 72h10" stroke-width="4"/>
+  {% when 'videos' %}
+    <path opacity=".3" d="M47 18h112a6 6 0 0 1 6 6v61"/>
+    <path opacity=".55" d="M39 25h112a6 6 0 0 1 6 6v61"/>
+    <rect x="31" y="32" width="118" height="67" rx="7" fill="currentColor" fill-opacity=".05"/>
+    <path fill="currentColor" fill-opacity=".15" d="m67 47 28 17-28 17z"/>
+    <path opacity=".6" d="M111 51h23M111 64h23M111 77h16"/>
+    <path opacity=".3" d="M43 89h92"/>
+  {% when 'lab' %}
+    <rect x="30" y="21" width="118" height="76" rx="8" fill="currentColor" fill-opacity=".05"/>
+    <path opacity=".5" d="M40 33h24v17M40 83h22V70M104 36h32M104 79h23"/>
+    <rect x="64" y="43" width="40" height="31" rx="2"/>
+    <path d="M72 35v8m12-8v8m12-8v8M72 74v8m12-8v8m12-8v8M56 51h8m-8 14h8M104 51h8m-8 14h8"/>
+    <path d="m137 61 25-33 9 7-25 33zM137 61l-8 10m38-39 7-9" fill="#15151a"/>
+    <circle cx="40" cy="33" r="2" fill="currentColor"/><circle cx="40" cy="83" r="2" fill="currentColor"/>
+  {% endcase %}
+  </g>
+</svg>
