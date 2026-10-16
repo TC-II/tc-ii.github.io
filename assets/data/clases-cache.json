@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T20:39:39.268Z",
+  "generatedAt": "2026-10-16T23:26:33.143Z",
   "items": [
     {
       "kind": "elemental",
@@ -755,6 +755,28 @@
         "previewPdf": null,
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1A8WV794lZ26torgWqvdtPYWNm4ej_oWR"
+      }
+    ],
+    "1VjQ7XYHpUfp46VoDhwpeohhvAFhuuRy7": [
+      {
+        "id": "1p44FrgsnLYPjXFHO6svKrgdpV3QbxjFL",
+        "name": "06 - Interpretacion Elipticas.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1p44FrgsnLYPjXFHO6svKrgdpV3QbxjFL/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1p44FrgsnLYPjXFHO6svKrgdpV3QbxjFL"
+      },
+      {
+        "id": "1dH27TaC5xxFT_w4XlAEZzwmDwLJfdFoK",
+        "name": "10 - Cálculo de Cauer.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1dH27TaC5xxFT_w4XlAEZzwmDwLJfdFoK/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1dH27TaC5xxFT_w4XlAEZzwmDwLJfdFoK"
       }
     ]
   },
