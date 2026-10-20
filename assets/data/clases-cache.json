@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T23:26:33.143Z",
+  "generatedAt": "2026-10-20T19:13:06.022Z",
   "items": [
     {
       "kind": "elemental",
@@ -777,6 +777,48 @@
         "previewPdf": null,
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1dH27TaC5xxFT_w4XlAEZzwmDwLJfdFoK"
+      }
+    ],
+    "1erAqKTF6WaXaoAgp5NOWlp2cUwI4rDjq": [
+      {
+        "id": "1uSco4i2P6GPyKlM_Q1uS6RVcD9mdXKra",
+        "name": "07-Group Delay Conceptos Elementales.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1uSco4i2P6GPyKlM_Q1uS6RVcD9mdXKra/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1uSco4i2P6GPyKlM_Q1uS6RVcD9mdXKra"
+      },
+      {
+        "id": "187CffQZt9JsAswiKhpCAv_5g4XpcQnEZ",
+        "name": "08-Group Delay.ipynb",
+        "mimeType": "application/octet-stream",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/187CffQZt9JsAswiKhpCAv_5g4XpcQnEZ/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=187CffQZt9JsAswiKhpCAv_5g4XpcQnEZ"
+      },
+      {
+        "id": "1A-Usuf6QtwboWMewCOVKf8gpjzdnxZBb",
+        "name": "09-Locus Band Pass.ipynb",
+        "mimeType": "application/json",
+        "kind": "code",
+        "webViewLink": "https://drive.google.com/file/d/1A-Usuf6QtwboWMewCOVKf8gpjzdnxZBb/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1A-Usuf6QtwboWMewCOVKf8gpjzdnxZBb"
+      },
+      {
+        "id": "1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m",
+        "name": "Papoulis, Athanasios (1958). Optimum Filters with Monotonic Response papoulis1958.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m"
       }
     ]
   },
