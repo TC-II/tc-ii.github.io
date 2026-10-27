@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T23:14:13.894Z",
+  "generatedAt": "2026-10-27T22:02:20.630Z",
   "items": [
     {
       "kind": "elemental",
@@ -821,7 +821,29 @@
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m"
       }
     ],
-    "1Mw9Lp7jpcVhMd3IxiQ_Zw-OeW6EyfQui": []
+    "1Mw9Lp7jpcVhMd3IxiQ_Zw-OeW6EyfQui": [],
+    "1R5Dwmnnj9NJcVrIf5Nefjl6sruJck4Tj": [
+      {
+        "id": "1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f",
+        "name": "25.14 - TC2 Ejercicios de clase Rango Dinámico.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f"
+      },
+      {
+        "id": "1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN",
+        "name": "Bridge Circuits an43f.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN"
+      }
+    ]
   },
   "examenes": [
     {
