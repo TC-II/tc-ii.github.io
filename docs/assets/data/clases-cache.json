@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T22:02:20.630Z",
+  "generatedAt": "2026-10-29T21:00:36.436Z",
   "items": [
     {
       "kind": "elemental",
@@ -93,6 +93,14 @@
       "description": "Aplicación de la teoría de funciones de aproximación para síntesis de filtros.",
       "pdf_id": "1Mn5W9Jy24juZWKmp8ZNPTWhxTPp6Y1zd",
       "release": "2026-09-22",
+      "deadline": "2026-11-02"
+    },
+    {
+      "kind": "guia",
+      "title": "Guía 3 Solucionario - Funciones de Aproximación: Síntesis de Filtros",
+      "description": "Solución a la Guía 3",
+      "pdf_id": "1WF1Tl4lPZKAocO1cnZfUEm-NHgX5Bc0_",
+      "release": "2026-10-29",
       "deadline": "2026-11-02"
     },
     {
@@ -824,14 +832,24 @@
     "1Mw9Lp7jpcVhMd3IxiQ_Zw-OeW6EyfQui": [],
     "1R5Dwmnnj9NJcVrIf5Nefjl6sruJck4Tj": [
       {
-        "id": "1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f",
-        "name": "25.14 - TC2 Ejercicios de clase Rango Dinámico.pdf",
+        "id": "1sZJTcuH9jIg4EGSH8U7rq-XqTr0JRy6H",
+        "name": "25.14 - TC2 Guía 3 Sol.pdf",
         "mimeType": "application/pdf",
         "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f/preview",
+        "webViewLink": "https://drive.google.com/file/d/1sZJTcuH9jIg4EGSH8U7rq-XqTr0JRy6H/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1sZJTcuH9jIg4EGSH8U7rq-XqTr0JRy6H/preview",
         "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1cvAf2uhb2yJia5ARizrcj3z79DO1ON4f"
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1sZJTcuH9jIg4EGSH8U7rq-XqTr0JRy6H"
+      },
+      {
+        "id": "1B9_-OLRWtgDfdUfRqMv5FXPzyMYWfGPA",
+        "name": "25.14 TC2 Ejercicios de clase Rango dinámico 2026 2C.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1B9_-OLRWtgDfdUfRqMv5FXPzyMYWfGPA/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1B9_-OLRWtgDfdUfRqMv5FXPzyMYWfGPA/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1B9_-OLRWtgDfdUfRqMv5FXPzyMYWfGPA"
       },
       {
         "id": "1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN",
