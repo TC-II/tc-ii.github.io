@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-29T21:00:36.436Z",
+  "generatedAt": "2026-10-30T22:47:38.549Z",
   "items": [
     {
       "kind": "elemental",
@@ -99,8 +99,8 @@
       "kind": "guia",
       "title": "Guía 3 Solucionario - Funciones de Aproximación: Síntesis de Filtros",
       "description": "Solución a la Guía 3",
-      "pdf_id": "1WF1Tl4lPZKAocO1cnZfUEm-NHgX5Bc0_",
-      "release": "2026-10-29",
+      "pdf_id": "1TVNxLzEx-cEE23TS4EPkH1JmtQS35ChC",
+      "release": "2026-10-26",
       "deadline": "2026-11-02"
     },
     {
@@ -742,7 +742,18 @@
       }
     ],
     "1PxUXjTTAf6QS43fzbGMktVwhVZnxH60v": [],
-    "1iZATu6LnPtUtrIt8CBpi4_hsG4x2FmHS": [],
+    "1iZATu6LnPtUtrIt8CBpi4_hsG4x2FmHS": [
+      {
+        "id": "1p7agaRm_PZtGRCV26QY5X_OtDeme46Nb",
+        "name": "Osciladores Senoidales 08.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1p7agaRm_PZtGRCV26QY5X_OtDeme46Nb/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1p7agaRm_PZtGRCV26QY5X_OtDeme46Nb/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1p7agaRm_PZtGRCV26QY5X_OtDeme46Nb"
+      }
+    ],
     "1Io8G-upFeGVoBLTeSl6C2WkbD3JQva6X": [
       {
         "id": "1AP-X_HgWnZhlm_sI-YdCNoCqqEL2dU1G",
@@ -829,7 +840,48 @@
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1bwp9-tkqRFduxZ95h4pwYRD9D2ISHH4m"
       }
     ],
-    "1Mw9Lp7jpcVhMd3IxiQ_Zw-OeW6EyfQui": [],
+    "1Mw9Lp7jpcVhMd3IxiQ_Zw-OeW6EyfQui": [
+      {
+        "id": "1puJm0TiJEZdVyAGtpUd8jfPI0yHwyczS",
+        "name": "pll_2020_v1.0.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1puJm0TiJEZdVyAGtpUd8jfPI0yHwyczS/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1puJm0TiJEZdVyAGtpUd8jfPI0yHwyczS/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1puJm0TiJEZdVyAGtpUd8jfPI0yHwyczS"
+      },
+      {
+        "id": "1_kFVTdWFoA5Mx1MS3h98dzwkk9qSCz2w",
+        "name": "pll_fundamentals_an535.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1_kFVTdWFoA5Mx1MS3h98dzwkk9qSCz2w/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1_kFVTdWFoA5Mx1MS3h98dzwkk9qSCz2w/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1_kFVTdWFoA5Mx1MS3h98dzwkk9qSCz2w"
+      },
+      {
+        "id": "19z25IDabDbuSFuwH9_ipLE269LDXGLj4",
+        "name": "Simulacion VCO - Desp de fase (1).zip",
+        "mimeType": "application/x-zip-compressed",
+        "kind": "archive",
+        "webViewLink": "https://drive.google.com/file/d/19z25IDabDbuSFuwH9_ipLE269LDXGLj4/view?usp=drivesdk",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=19z25IDabDbuSFuwH9_ipLE269LDXGLj4"
+      },
+      {
+        "id": "1uySmKjUVvQ8Yxxw1VoFIJlXcBhTnRtF1",
+        "name": "VCO.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1uySmKjUVvQ8Yxxw1VoFIJlXcBhTnRtF1/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1uySmKjUVvQ8Yxxw1VoFIJlXcBhTnRtF1/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1uySmKjUVvQ8Yxxw1VoFIJlXcBhTnRtF1"
+      }
+    ],
     "1R5Dwmnnj9NJcVrIf5Nefjl6sruJck4Tj": [
       {
         "id": "1sZJTcuH9jIg4EGSH8U7rq-XqTr0JRy6H",
@@ -861,7 +913,8 @@
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1Wa0f4dNMcv7DgaA3wwT9gtFuC3RE85xN"
       }
-    ]
+    ],
+    "12h8wXefn55lG21GTmk5uPbPUGR1o1UCP": []
   },
   "examenes": [
     {
