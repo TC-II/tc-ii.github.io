@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T21:59:35.132Z",
+  "generatedAt": "2026-11-06T23:26:21.027Z",
   "items": [
     {
       "kind": "elemental",
@@ -915,7 +915,29 @@
       }
     ],
     "12h8wXefn55lG21GTmk5uPbPUGR1o1UCP": [],
-    "18_QVxEb8Az-pfU6SUeWt25EcVyMyDW7D": []
+    "18_QVxEb8Az-pfU6SUeWt25EcVyMyDW7D": [
+      {
+        "id": "1kEgof52JYMcYOpxnYWLwDmOzt3BM8iiR",
+        "name": "Link al ejemplo didáctico.docx",
+        "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "kind": "other",
+        "webViewLink": "https://docs.google.com/document/d/1kEgof52JYMcYOpxnYWLwDmOzt3BM8iiR/edit?usp=drivesdk&ouid=101150492804216073085&rtpof=true&sd=true",
+        "previewPdf": null,
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1kEgof52JYMcYOpxnYWLwDmOzt3BM8iiR"
+      },
+      {
+        "id": "1KEulLcocPPx3o1A4Ccrjpwu-Se9mynmu",
+        "name": "moschytz1965.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1KEulLcocPPx3o1A4Ccrjpwu-Se9mynmu/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1KEulLcocPPx3o1A4Ccrjpwu-Se9mynmu/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1KEulLcocPPx3o1A4Ccrjpwu-Se9mynmu"
+      }
+    ],
+    "1tVf9xONisIa-kBTcVL1GnJaqGYMxfen8": []
   },
   "examenes": [
     {
