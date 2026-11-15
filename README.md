@@ -122,7 +122,7 @@ Archivo: **`_data/recursos.yml`**
 
 La página muestra primero tarjetas de `apps` (herramientas online), en el orden del YAML. La tarjeta completa abre la aplicación en otra pestaña. Cada app define `desc`, `category`, `icon` y `color`, además de su URL; los íconos SVG están en `_includes/resource-icon.svg`.
 
-Los elementos de `featured_repos` se muestran en cápsulas bajo «Repositorios», con `desc` desplegable y un enlace a GitHub. `online: true` los omite cuando ya tienen una tarjeta en `apps`. Los enlaces de `links` se agregan al final como descargas directas, también con `desc` desplegable.
+Los elementos de `featured_repos` se muestran en cápsulas bajo «Repositorios», con `desc` desplegable y un enlace a GitHub. `online: true` los omite cuando ya tienen una tarjeta en `apps`. `featured_app` define la tarjeta destacada de ancho completo (TurboSpice) que va arriba de las demás.
 
 Para probar localmente sin generar `docs/`: `bundle exec jekyll serve` y abrir `http://127.0.0.1:4000/repositorios/`.
 

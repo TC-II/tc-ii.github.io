@@ -2,9 +2,11 @@ name: Sync Drive data & rebuild site
 
 on:
   schedule:
-    # Cada 10 minutos. GitHub puede demorar la ejecución en horas de alta carga,
-    # pero en la práctica corre cerca de ese intervalo.
-    - cron: '*/10 * * * *'
+    # Cada hora (minuto 17, para no caer en el pico de :00 de GitHub).
+    # Antes corría cada 10 min y, como el build de Jekyll cambia timestamps en
+    # docs/, cada corrida commiteaba y disparaba un deploy de Pages extra,
+    # saturando la cola de Actions de la organización.
+    - cron: '17 * * * *'
   workflow_dispatch: {}
 
 concurrency:
@@ -29,18 +31,34 @@ jobs:
       - name: Fetch latest data from Google Drive
         run: node scripts/sync-drive-data.js
 
+      # El script solo reescribe la cache si el contenido de Drive cambió.
+      # Si no cambió, no se reconstruye ni se commitea nada (evita commits y
+      # deploys de Pages en cada corrida). Un dispatch manual fuerza el build.
+      - name: Detectar cambios en la cache
+        id: changes
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || ! git diff --quiet -- assets/data/clases-cache.json; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Sin cambios en Drive: se omite build y commit."
+          fi
+
       - name: Set up Ruby
+        if: steps.changes.outputs.changed == 'true'
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
           bundler-cache: true
 
       - name: Build Jekyll site (producción)
+        if: steps.changes.outputs.changed == 'true'
         run: |
           bundle exec jekyll clean
           bundle exec jekyll build --config _config.yml,_config_prod.yml -d docs
 
       - name: Commit & push si hay cambios
+        if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

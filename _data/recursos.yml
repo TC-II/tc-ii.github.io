@@ -1,40 +1,4 @@
 featured_repos:
-  - name: "ASC-Parser"
-    online: true
-    title: "SPICE → PDF"
-    desc:  "Herramienta para convertir esquemáticos LTSpice a figuras en PDF."
-    color: "#8b5cf6"
-    img:   "/assets/img/repositorios/spice-a-pdf.png"
-    url:   "https://javierpetrucci.github.io/ASC-Parser/"
-    button_text: "Abrir"
-    readme: |
-      <p><strong><a href="https://javierpetrucci.github.io/ASC-Parser/" target="_blank">Try it online →</a></strong></p>
-      <h1>LTSpice to PDF</h1>
-      <p><strong>High-fidelity vector PDF export for LTSpice schematics</strong></p>
-      <p>Convert <code>.asc</code> schematic files to clean, print-ready vector PDFs — directly in your browser or as a standalone desktop app.</p>
-      <h2>What it does</h2>
-      <p>LTSpice saves schematics as plain-text <code>.asc</code> files with no official export format. This tool parses them and renders a pixel-accurate vector PDF — preserving component symbols, wire routing, text labels, and all orientations.</p>
-      <ul>
-        <li>Drag &amp; drop an <code>.asc</code> file → instant PDF preview in the browser</li>
-        <li>Download the PDF or batch-convert entire folders (desktop app)</li>
-        <li>Switchable skin profiles for different visual styles</li>
-        <li>No server, no upload — everything runs locally</li>
-      </ul>
-      <h2>How it works</h2>
-      <pre><code>.asc file  →  Parser  →  Scene graph  →  PDF Renderer  →  vector PDF
-                ↑
-           .asy files (component symbol definitions, fetched on demand)</code></pre>
-      <p>The engine is pure JavaScript with no build step. It runs identically in the browser and in the Neutralino desktop wrapper.</p>
-      <h2>Running locally (Web)</h2>
-      <pre><code>python -m http.server 8000</code></pre>
-      <p>Then open <code>http://localhost:8000</code>.</p>
-      <h2>Desktop app</h2>
-      <p><strong>Dev mode:</strong></p>
-      <pre><code>npx @neutralinojs/neu run</code></pre>
-      <p><strong>Build standalone .exe:</strong></p>
-      <pre><code>npm run build</code></pre>
-      <p>Output lands in <code>dist/</code>.</p>
-
   - name: "TC2Lib--LTSPICE"
     title: "TCLib para LTSpice"
     desc:  "Librerías de la cátedra para armar y simular circuitos en LTSpice. El repositorio incluye los archivos y las instrucciones de instalación."
@@ -66,14 +30,14 @@ featured_repos:
     color: "#38bdf8"
     img:   "/assets/img/repositorios/l2-recursos-python.png"
 
-apps:
-  - title: SPICE → PDF
-    category: Esquemáticos
-    icon: spice-pdf
-    color: '#c4a5ff'
-    desc: Conversor de esquemáticos .asc de LTSpice a figuras vectoriales PDF para informes y documentación.
-    url: https://javierpetrucci.github.io/ASC-Parser/
+featured_app:
+  title: TurboSpice
+  color: '#7aa2f7'
+  tagline: Simulador de circuitos tipo LTspice que corre 100% en el navegador.
+  desc: Esquemáticos .asc de LTspice, todos los análisis de ngspice y visor de resultados, sin instalar nada.
+  url: https://turbospice.pages.dev/TurboSpice/
 
+apps:
   - title: Neandertool
     category: Diseño interactivo
     icon: neander
@@ -87,6 +51,13 @@ apps:
     color: '#f3a6cc'
     desc: Herramienta de análisis y comparación de funciones de transferencia, simulaciones y mediciones, con gráficos de respuesta y polos y ceros.
     url: https://tc-ii.github.io/TC2-FilterTool/
+
+  - title: LatexFrog
+    category: Editor LaTeX
+    icon: latex
+    color: '#8fd9a8'
+    desc: Editor de LaTeX en el navegador pensado para proyectos grandes, como informes y trabajos prácticos con muchos capítulos.
+    url: https://tc-ii.github.io/LatexFrog/
 
   - title: Plotter racional
     category: Aproximación elíptica
@@ -108,7 +79,3 @@ apps:
     color: '#b2b3ff'
     desc: Terminal de transmisión y recepción FSK con demodulador PLL. Requiere hardware conectado.
     url: https://tc-ii.github.io/PLL-Tool/
-
-links:
-  - title: SPICE → PDF · APP para Windows
-    url: https://github.com/javierpetrucci/ASC-Parser/raw/main/dist/LTSpice_to_PDF/LTSpice_to_PDF-win_x64.exe
