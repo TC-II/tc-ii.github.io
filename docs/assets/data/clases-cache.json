@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T01:47:00.016Z",
+  "generatedAt": "2026-11-15T21:43:52.663Z",
   "items": [
     {
       "kind": "elemental",
@@ -303,28 +303,28 @@
     {
       "kind": "clase",
       "number": 28,
-      "title": "Clase 28 – Alineales",
+      "title": "Clase 28 – Feriado del Papa",
       "folder_id": "1tK--JA2B3OOKvZLeimJkEwz2b0HA5oPR",
       "release": "2026-11-10T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 29,
-      "title": "Clase 29 – Primer simulacro 2do parcial",
+      "title": "Clase 29 – Alineales",
       "folder_id": "16KKkjkw5aKiJfyrtcoih-3DWrqip3wxi",
       "release": "2026-11-13T19:00-03:00"
     },
     {
       "kind": "clase",
       "number": 30,
-      "title": "Clase 30 – Segundo simulacro 2do parcial",
+      "title": "Clase 30 – Primer simulacro 2do parcial",
       "folder_id": "1irE8joB0XKpprE9E1Hrs5zjWgvzpv-w3",
       "release": "2026-11-17T16:00-03:00"
     },
     {
       "kind": "clase",
       "number": 31,
-      "title": "Clase 31 – Diseño PLL para TP",
+      "title": "Clase 31 –Segundo simulacro 2do parcial",
       "folder_id": "1BFRpln_1Xj1H4gXgdx0S56D-BjHBXiJy",
       "release": "2026-11-20T19:00-03:00"
     },
@@ -962,14 +962,14 @@
     "1tK--JA2B3OOKvZLeimJkEwz2b0HA5oPR": [],
     "16KKkjkw5aKiJfyrtcoih-3DWrqip3wxi": [
       {
-        "id": "1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu",
-        "name": "25.14 - TC2 1er Simulacro 2do Parcial 1C 2026.pdf",
-        "mimeType": "application/pdf",
-        "kind": "pdf",
-        "webViewLink": "https://drive.google.com/file/d/1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu/view?usp=drivesdk",
-        "previewPdf": "https://drive.google.com/file/d/1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu/preview",
+        "id": "1DsOyAT2v6xbec1JNATPsc5oM9kxK1bDK",
+        "name": "Simulaciones alineales.txt",
+        "mimeType": "text/plain",
+        "kind": "other",
+        "webViewLink": "https://drive.google.com/file/d/1DsOyAT2v6xbec1JNATPsc5oM9kxK1bDK/view?usp=drivesdk",
+        "previewPdf": null,
         "exportPdf": null,
-        "downloadUrl": "https://drive.google.com/uc?export=download&id=1drrHnlfDJjjWW_nCF_LHVh5DUdLH9ASu"
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1DsOyAT2v6xbec1JNATPsc5oM9kxK1bDK"
       }
     ]
   },
