@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T21:43:52.663Z",
+  "generatedAt": "2026-11-17T22:27:23.431Z",
   "items": [
     {
       "kind": "elemental",
@@ -970,6 +970,48 @@
         "previewPdf": null,
         "exportPdf": null,
         "downloadUrl": "https://drive.google.com/uc?export=download&id=1DsOyAT2v6xbec1JNATPsc5oM9kxK1bDK"
+      }
+    ],
+    "1irE8joB0XKpprE9E1Hrs5zjWgvzpv-w3": [
+      {
+        "id": "19voItjWdIw2UmJfHscfAG9l8j_12csTm",
+        "name": "25.14 TC2 1er Simulacro 2do Parcial 1C 2026.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/19voItjWdIw2UmJfHscfAG9l8j_12csTm/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/19voItjWdIw2UmJfHscfAG9l8j_12csTm/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=19voItjWdIw2UmJfHscfAG9l8j_12csTm"
+      },
+      {
+        "id": "18Dy9kcEsc8mgyTilHkMyN5TKm_I3If2B",
+        "name": "25.16 L2 Instancia de evaluación 2026 2C.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/18Dy9kcEsc8mgyTilHkMyN5TKm_I3If2B/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/18Dy9kcEsc8mgyTilHkMyN5TKm_I3If2B/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=18Dy9kcEsc8mgyTilHkMyN5TKm_I3If2B"
+      },
+      {
+        "id": "1PrRSaFn2xTzBNnPpM4LB-N0aQ95uuBdr",
+        "name": "25.16 L2 PreTP TP6 TC2 2026 2C.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1PrRSaFn2xTzBNnPpM4LB-N0aQ95uuBdr/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1PrRSaFn2xTzBNnPpM4LB-N0aQ95uuBdr/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1PrRSaFn2xTzBNnPpM4LB-N0aQ95uuBdr"
+      },
+      {
+        "id": "1ELl1pzl1dvem_Y1Rv5AKPTc1CEK362Zu",
+        "name": "Datasheet PLL Reducida cd74hct4046a.pdf",
+        "mimeType": "application/pdf",
+        "kind": "pdf",
+        "webViewLink": "https://drive.google.com/file/d/1ELl1pzl1dvem_Y1Rv5AKPTc1CEK362Zu/view?usp=drivesdk",
+        "previewPdf": "https://drive.google.com/file/d/1ELl1pzl1dvem_Y1Rv5AKPTc1CEK362Zu/preview",
+        "exportPdf": null,
+        "downloadUrl": "https://drive.google.com/uc?export=download&id=1ELl1pzl1dvem_Y1Rv5AKPTc1CEK362Zu"
       }
     ]
   },
