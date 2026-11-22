@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T02:22:08.375Z",
+  "generatedAt": "2026-11-22T06:55:58.410Z",
   "items": [
     {
       "kind": "elemental",
@@ -1018,6 +1018,10 @@
   },
   "examenes": [
     {
+      "id": "1qBV8gJ0pt4fhQxMP7q9Qg-beJEeOCIXW",
+      "title": "2025 2P Teoría de Circuitos 2 II.pdf"
+    },
+    {
       "id": "1yi6T0hWsyR7t3sR18kwzfLeZ9YH2qgzw",
       "title": "2026 2P Teoría de Circuitos 2 I.pdf"
     },
@@ -1040,10 +1044,6 @@
     {
       "id": "1HR98O_4ikHlBp-hcfOJ3uNxvXsKkqPhm",
       "title": "2025 2P Teoría de Circuitos 2 I.pdf"
-    },
-    {
-      "id": "1whyEYusZ3fvhrs7rfNsECSUkHTvykx8f",
-      "title": "2025 2P Teoría de Circuitos 2 II.pdf"
     },
     {
       "id": "1Zi_h6epW0Sgow_X3mKpg1x3na_JmhH-m",
